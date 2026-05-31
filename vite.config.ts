@@ -5,4 +5,5 @@ export default defineConfig({
   plugins: [react()],
   server: { port: 3000, open: true },
   build: { outDir: 'dist', sourcemap: false },
+  // base: '/papel-de-pao/',  // Descomente e coloque o nome do repo para GitHub Pages
 });

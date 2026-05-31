@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Bell } from 'lucide-react';
 import Modal from './Modal';
 import type { Note } from '../../types';
@@ -10,8 +10,6 @@ interface AlarmModalProps {
 }
 
 export default function AlarmModal({ isOpen, onClose, note }: AlarmModalProps) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
   useEffect(() => {
     if (isOpen) {
       try {

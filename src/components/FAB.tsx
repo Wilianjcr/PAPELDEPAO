@@ -2,6 +2,8 @@ import React from 'react';
 import { Plus, Mic, Code, PenTool, Image, CheckSquare, Type } from 'lucide-react';
 import { cn } from '../utils/helpers';
 
+type FABAction = 'onAudio' | 'onCode' | 'onDrawing' | 'onImage' | 'onList' | 'onText';
+
 interface FABProps {
   onText: () => void;
   onCode: () => void;
@@ -11,13 +13,13 @@ interface FABProps {
   onList: () => void;
 }
 
-const ACTIONS = [
-  { icon: <Mic className="w-5 h-5" />, label: 'Áudio', onClick: 'onAudio' as const },
-  { icon: <span className="font-bold font-mono text-base">{'>_'}</span>, label: 'Código', onClick: 'onCode' as const },
-  { icon: <PenTool className="w-5 h-5" />, label: 'Desenho', onClick: 'onDrawing' as const },
-  { icon: <Image className="w-5 h-5" />, label: 'Imagem', onClick: 'onImage' as const },
-  { icon: <CheckSquare className="w-5 h-5" />, label: 'Lista', onClick: 'onList' as const },
-  { icon: <Type className="w-5 h-5" />, label: 'Texto', onClick: 'onText' as const },
+const ACTIONS: { icon: React.ReactNode; label: string; onClick: FABAction }[] = [
+  { icon: <Mic className="w-5 h-5" />, label: 'Áudio', onClick: 'onAudio' },
+  { icon: <span className="font-bold font-mono text-base">{'>_'}</span>, label: 'Código', onClick: 'onCode' },
+  { icon: <PenTool className="w-5 h-5" />, label: 'Desenho', onClick: 'onDrawing' },
+  { icon: <Image className="w-5 h-5" />, label: 'Imagem', onClick: 'onImage' },
+  { icon: <CheckSquare className="w-5 h-5" />, label: 'Lista', onClick: 'onList' },
+  { icon: <Type className="w-5 h-5" />, label: 'Texto', onClick: 'onText' },
 ];
 
 export default function FAB({ onText, onCode, onDrawing, onImage, onAudio, onList }: FABProps) {

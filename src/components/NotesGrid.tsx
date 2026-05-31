@@ -2,9 +2,10 @@ import React from 'react';
 import { Pin, ListTodo } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import NoteCard from './NoteCard';
+import type { Note } from '../types';
 
 interface NotesGridProps {
-  onOpenNote: (note: import('../types').Note) => void;
+  onOpenNote: (note: Note) => void;
 }
 
 export default function NotesGrid({ onOpenNote }: NotesGridProps) {

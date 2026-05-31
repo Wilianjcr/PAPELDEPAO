@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useCallback, useState, useRef } from 'react';
-import type { Note, FilterType, ViewLayout, TodoItem, NoteColor } from '../types';
+import React, { createContext, useContext, useCallback, useState } from 'react';
+import type { Note, FilterType, ViewLayout } from '../types';
 import { generateId } from '../utils/helpers';
 import { hashPassword } from '../utils/crypto';
 import { useLocalStorage } from '../hooks/useLocalStorage';
@@ -65,7 +65,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [viewLayout, setViewLayout] = useLocalStorage<ViewLayout>('pdp_layout_v4', 'grid');
   const [searchQuery, setSearchQuery] = useState('');
   const [activeNotesCount, setActiveNotesCount] = useState(0);
-  const syncTimeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const addNote = useCallback(async (partial: Partial<Note>) => {
     let passwordHash: string | null = null;

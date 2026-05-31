@@ -15,11 +15,18 @@ export default function PasswordModal({ isOpen, onClose, onVerify }: PasswordMod
   const handleSubmit = () => {
     if (!password.trim()) return;
     onVerify(password);
+    setError(true);
     setPassword('');
   };
 
+  const handleClose = () => {
+    setPassword('');
+    setError(false);
+    onClose();
+  };
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} maxWidth="max-w-sm">
+    <Modal isOpen={isOpen} onClose={handleClose} maxWidth="max-w-sm">
       <div className="p-6 text-center space-y-4">
         <div className="mx-auto w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/20">
           <Lock className="w-7 h-7 text-white" />
@@ -39,7 +46,7 @@ export default function PasswordModal({ isOpen, onClose, onVerify }: PasswordMod
         />
         {error && <p className="text-xs text-red-500 font-semibold">Senha inválida!</p>}
         <div className="flex gap-2 pt-2">
-          <button onClick={onClose} className="flex-1 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--accent-muted)] rounded-xl text-sm font-semibold text-[var(--text-secondary)] transition-colors">Cancelar</button>
+          <button onClick={handleClose} className="flex-1 py-2.5 bg-[var(--bg-elevated)] hover:bg-[var(--accent-muted)] rounded-xl text-sm font-semibold text-[var(--text-secondary)] transition-colors">Cancelar</button>
           <button onClick={handleSubmit} className="flex-1 py-2.5 bg-gradient-to-r from-sky-500 to-blue-600 text-white rounded-xl text-sm font-semibold shadow-md shadow-sky-500/20 transition-all">Acessar</button>
         </div>
       </div>
