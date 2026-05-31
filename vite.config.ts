@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  server: { port: 3000, open: true },
+  server: { port: 3000 },
   build: { outDir: 'dist', sourcemap: false },
-  // base: '/papel-de-pao/',  // Descomente e coloque o nome do repo para GitHub Pages
+  base: process.env.GH_PAGES ? '/papel-de-pao/' : '/',
 });

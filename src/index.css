@@ -193,53 +193,53 @@
   .note-color-brown   { background-color: #fdf0e6; }
   .note-color-gray    { background-color: #f8fafc; }
 
-  .dark .note-color-default { background-color: var(--bg-surface); }
-  .dark .note-color-red     { background-color: #3b1010; }
-  .dark .note-color-orange  { background-color: #3b2010; }
-  .dark .note-color-yellow  { background-color: #2e2a04; }
-  .dark .note-color-green   { background-color: #0d2b18; }
-  .dark .note-color-teal    { background-color: #0d2b26; }
-  .dark .note-color-blue    { background-color: #0d1a3b; }
-  .dark .note-color-darkblue{ background-color: #060e2e; }
-  .dark .note-color-purple  { background-color: #1e0b3b; }
-  .dark .note-color-pink    { background-color: #2b0d1e; }
-  .dark .note-color-brown   { background-color: #2b1a0d; }
-  .dark .note-color-gray    { background-color: #1a1f2e; }
-
-  .solarized-dark .note-color-red     { background-color: #3b1010; }
-  .solarized-dark .note-color-orange  { background-color: #3b2010; }
-  .solarized-dark .note-color-yellow  { background-color: #2e2a04; }
-  .solarized-dark .note-color-green   { background-color: #0d2b18; }
-  .solarized-dark .note-color-teal    { background-color: #0d2b26; }
-  .solarized-dark .note-color-blue    { background-color: #0d1a3b; }
-  .solarized-dark .note-color-darkblue{ background-color: #060e2e; }
-  .solarized-dark .note-color-purple  { background-color: #1e0b3b; }
-  .solarized-dark .note-color-pink    { background-color: #2b0d1e; }
-  .solarized-dark .note-color-brown   { background-color: #2b1a0d; }
-  .solarized-dark .note-color-gray    { background-color: #1a1f2e; }
-
-  .violet .note-color-red     { background-color: #3b1010; }
-  .violet .note-color-orange  { background-color: #3b2010; }
-  .violet .note-color-yellow  { background-color: #2e2a04; }
-  .violet .note-color-green   { background-color: #0d2b18; }
-  .violet .note-color-teal    { background-color: #0d2b26; }
-  .violet .note-color-blue    { background-color: #0d1a3b; }
-  .violet .note-color-darkblue{ background-color: #060e2e; }
-  .violet .note-color-purple  { background-color: #1e0b3b; }
-  .violet .note-color-pink    { background-color: #2b0d1e; }
-  .violet .note-color-brown   { background-color: #2b1a0d; }
-  .violet .note-color-gray    { background-color: #1a1f2e; }
-
+  .dark .note-color-default,
+  .solarized-dark .note-color-default,
+  .violet .note-color-default,
+  .amber .note-color-default { background-color: var(--bg-surface); }
+  .dark .note-color-red,
+  .solarized-dark .note-color-red,
+  .violet .note-color-red,
   .amber .note-color-red     { background-color: #3b1010; }
+  .dark .note-color-orange,
+  .solarized-dark .note-color-orange,
+  .violet .note-color-orange,
   .amber .note-color-orange  { background-color: #3b2010; }
+  .dark .note-color-yellow,
+  .solarized-dark .note-color-yellow,
+  .violet .note-color-yellow,
   .amber .note-color-yellow  { background-color: #2e2a04; }
+  .dark .note-color-green,
+  .solarized-dark .note-color-green,
+  .violet .note-color-green,
   .amber .note-color-green   { background-color: #0d2b18; }
+  .dark .note-color-teal,
+  .solarized-dark .note-color-teal,
+  .violet .note-color-teal,
   .amber .note-color-teal    { background-color: #0d2b26; }
+  .dark .note-color-blue,
+  .solarized-dark .note-color-blue,
+  .violet .note-color-blue,
   .amber .note-color-blue    { background-color: #0d1a3b; }
+  .dark .note-color-darkblue,
+  .solarized-dark .note-color-darkblue,
+  .violet .note-color-darkblue,
   .amber .note-color-darkblue{ background-color: #060e2e; }
+  .dark .note-color-purple,
+  .solarized-dark .note-color-purple,
+  .violet .note-color-purple,
   .amber .note-color-purple  { background-color: #1e0b3b; }
+  .dark .note-color-pink,
+  .solarized-dark .note-color-pink,
+  .violet .note-color-pink,
   .amber .note-color-pink    { background-color: #2b0d1e; }
+  .dark .note-color-brown,
+  .solarized-dark .note-color-brown,
+  .violet .note-color-brown,
   .amber .note-color-brown   { background-color: #2b1a0d; }
+  .dark .note-color-gray,
+  .solarized-dark .note-color-gray,
+  .violet .note-color-gray,
   .amber .note-color-gray    { background-color: #1a1f2e; }
 
   .glass .note-color-red     { background-color: rgba(254,226,226,0.1); }

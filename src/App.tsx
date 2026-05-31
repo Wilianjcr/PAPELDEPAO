@@ -21,7 +21,7 @@ import type { Note } from './types';
 import { verifyPassword } from './utils/crypto';
 
 export default function App() {
-  const { addNote, notes } = useApp();
+  const { addNote, updateNote, notes } = useApp();
   const { toast, showToast } = useToast();
 
   // Splash
@@ -48,15 +48,18 @@ export default function App() {
   // Alarm
   const [alarmNote, setAlarmNote] = useState<Note | null>(null);
   const alarmIntervalRef = useRef<ReturnType<typeof setInterval>>();
+  const notesRef = useRef(notes);
+  notesRef.current = notes;
 
   // Alarm scheduler
   React.useEffect(() => {
     alarmIntervalRef.current = setInterval(() => {
       const now = new Date();
-      notes.forEach(note => {
+      const currentNotes = notesRef.current;
+      currentNotes.forEach(note => {
         if (!note.isTrashed && !note.isArchived && !note.alarmTriggered && note.dueDate && note.dueTime) {
           if (now >= new Date(`${note.dueDate}T${note.dueTime}`)) {
-            note.alarmTriggered = true;
+            updateNote(note.id, { alarmTriggered: true });
             setAlarmNote(note);
             setAlarmModalOpen(true);
           }
@@ -64,7 +67,7 @@ export default function App() {
       });
     }, 10000);
     return () => clearInterval(alarmIntervalRef.current);
-  }, [notes]);
+  }, [updateNote]);
 
   const handleNoteOpen = useCallback(async (note: Note) => {
     if (note.passwordHash && !note.isTrashed) {

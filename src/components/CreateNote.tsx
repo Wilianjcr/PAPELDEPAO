@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Code, CheckSquare, Palette, Tag, Calendar, Lock, Plus, X, Trash2 } from 'lucide-react';
+import { Code, CheckSquare, Palette, Tag, Calendar, Lock, Plus, X, Trash2, Pin } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { generateId, cn } from '../utils/helpers';
 import type { NoteColor, TodoItem } from '../types';
@@ -123,7 +123,7 @@ export default function CreateNote({ onOpenDrawing, onOpenAudio }: CreateNotePro
           className="w-full bg-transparent font-semibold text-base outline-none placeholder:text-[var(--text-muted)] text-[var(--text-primary)]"
         />
         <button onClick={() => setIsPinned(!isPinned)} className={cn("p-1.5 rounded-full transition-all", isPinned ? "text-amber-400" : "text-[var(--text-muted)] hover:text-amber-400")}>
-          <svg className="w-5 h-5" viewBox="0 0 24 24" fill={isPinned ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2"><path d="M12 2L12 22M17 7L12 2L7 7M7 7L7 17L12 22L17 17L7 7Z"/></svg>
+          <Pin className="w-5 h-5" />
         </button>
       </div>
 

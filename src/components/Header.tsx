@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, Search, X, Cloud, CloudOff, Settings, LayoutGrid, Palette, Layers, Loader2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { useDebounce } from '../hooks/useDebounce';
 import { cn } from '../utils/helpers';
 
 interface HeaderProps {
@@ -12,6 +13,16 @@ interface HeaderProps {
 
 export default function Header({ onToggleSidebar, onOpenThemeModal, onOpenDriveModal, driveStatus }: HeaderProps) {
   const { searchQuery, setSearchQuery, viewLayout, setViewLayout, activeNotesCount } = useApp();
+  const [localSearch, setLocalSearch] = useState(searchQuery);
+  const debouncedSearch = useDebounce(localSearch, 300);
+
+  useEffect(() => {
+    setSearchQuery(debouncedSearch);
+  }, [debouncedSearch, setSearchQuery]);
+
+  useEffect(() => {
+    setLocalSearch(searchQuery);
+  }, [searchQuery]);
 
   const driveStatusConfig: Record<string, { icon: React.ReactNode; color: string; label: string }> = {
     disconnected: { icon: <CloudOff className="w-4 h-4" />, color: 'text-[var(--text-muted)]', label: 'Drive' },
@@ -47,14 +58,14 @@ export default function Header({ onToggleSidebar, onOpenThemeModal, onOpenDriveM
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[var(--text-muted)]" />
           <input
             type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            value={localSearch}
+            onChange={(e) => setLocalSearch(e.target.value)}
             placeholder="Pesquisar notas..."
             className="w-full pl-9 pr-9 py-2 rounded-xl bg-[var(--bg-elevated)] border border-[var(--border)] focus:border-[var(--accent)] outline-none transition-all text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)]"
           />
-          {searchQuery && (
+          {localSearch && (
             <button
-              onClick={() => setSearchQuery('')}
+              onClick={() => setLocalSearch('')}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-[var(--text-muted)] hover:text-[var(--text-primary)]"
             >
               <X className="w-4 h-4" />
