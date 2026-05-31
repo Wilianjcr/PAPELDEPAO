@@ -5,5 +5,5 @@ export default defineConfig({
   plugins: [react()],
   server: { port: 3000 },
   build: { outDir: 'dist', sourcemap: false },
-  base: process.env.GH_PAGES ? '/papel-de-pao/' : '/',
+  base: process.env.VITE_BASE || '/',
 });
