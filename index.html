@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Papel de Pão - Notas, Códigos & Organização</title>
+    
+    <!-- PWA Dynamic Manifest Support -->
+    <link rel="manifest" id="pwa-manifest">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Papel de Pão">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Identity Services -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-app);
+            color: var(--text-primary);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .font-code {
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* SISTEMA DE DESIGN DE TEMAS (CSS VARIABLES) */
+        :root {
+            --bg-app: #f8fafc;
+            --bg-panel: #ffffff;
+            --bg-card-default: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --border-main: #e2e8f0;
+            --accent-primary: #004f9f;
+            --accent-hover: #003d7c;
+            --shadow-intensity: rgba(0, 0, 0, 0.05);
+            --card-glow: rgba(0, 79, 159, 0.02);
+        }
+
+        [data-theme="dark-modern"] {
+            --bg-app: #0b0f19;
+            --bg-panel: #111827;
+            --bg-card-default: #1f2937;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-main: #374151;
+            --accent-primary: #3b82f6;
+            --accent-hover: #2563eb;
+            --shadow-intensity: rgba(0, 0, 0, 0.4);
+            --card-glow: rgba(59, 130, 246, 0.05);
+        }
+
+        [data-theme="solarized-dark"] {
+            --bg-app: #002b36;
+            --bg-panel: #073642;
+            --bg-card-default: #073642;
+            --text-primary: #93a1a1;
+            --text-secondary: #586e75;
+            --border-main: #586e75;
+            --accent-primary: #2aa198;
+            --accent-hover: #268bd2;
+            --shadow-intensity: rgba(0, 0, 0, 0.5);
+            --card-glow: rgba(42, 161, 152, 0.05);
+        }
+
+        [data-theme="solarized-light"] {
+            --bg-app: #fdf6e3;
+            --bg-panel: #eee8d5;
+            --bg-card-default: #fdf6e3;
+            --text-primary: #586e75;
+            --text-secondary: #93a1a1;
+            --border-main: #93a1a1;
+            --accent-primary: #b58900;
+            --accent-hover: #cb4b16;
+            --shadow-intensity: rgba(0, 0, 0, 0.08);
+            --card-glow: rgba(181, 137, 0, 0.02);
+        }
+
+        [data-theme="rosa"] {
+            --bg-app: #fff1f2;
+            --bg-panel: #ffe4e6;
+            --bg-card-default: #ffffff;
+            --text-primary: #4c0519;
+            --text-secondary: #9f1239;
+            --border-main: #fecdd3;
+            --accent-primary: #db2777;
+            --accent-hover: #be185d;
+            --shadow-intensity: rgba(225, 29, 72, 0.06);
+            --card-glow: rgba(219, 39, 119, 0.03);
+        }
+
+        [data-theme="roxo"] {
+            --bg-app: #0a051b;
+            --bg-panel: #12092f;
+            --bg-card-default: #1a0f3e;
+            --text-primary: #f3e8ff;
+            --text-secondary: #c084fc;
+            --border-main: #3b227e;
+            --accent-primary: #a855f7;
+            --accent-hover: #8b5cf6;
+            --shadow-intensity: rgba(0, 0, 0, 0.5);
+            --card-glow: rgba(168, 85, 247, 0.08);
+        }
+
+        [data-theme="marrom"] {
+            --bg-app: #1c120c;
+            --bg-panel: #271a13;
+            --bg-card-default: #35251b;
+            --text-primary: #fed7aa;
+            --text-secondary: #ca8a04;
+            --border-main: #4a3425;
+            --accent-primary: #ea580c;
+            --accent-hover: #c2410c;
+            --shadow-intensity: rgba(0, 0, 0, 0.6);
+            --card-glow: rgba(234, 88, 12, 0.08);
+        }
+
+        [data-theme="black-glass"] {
+            --bg-app: #030712;
+            --bg-panel: rgba(17, 24, 39, 0.75);
+            --bg-card-default: rgba(31, 41, 55, 0.45);
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --border-main: rgba(255, 255, 255, 0.08);
+            --accent-primary: #a855f7;
+            --accent-hover: #c084fc;
+            --shadow-intensity: rgba(0, 0, 0, 0.7);
+            --card-glow: rgba(168, 85, 247, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* CLASSES SEMÂNTICAS DE TEMA */
+        .theme-panel {
+            background-color: var(--bg-panel);
+            border-color: var(--border-main);
+            color: var(--text-primary);
+        }
+        .theme-card {
+            background-color: var(--bg-card-default);
+            border-color: var(--border-main);
+            color: var(--text-primary);
+            box-shadow: 0 4px 15px var(--shadow-intensity);
+        }
+        .theme-card:hover {
+            box-shadow: 0 10px 25px var(--shadow-intensity);
+            background-color: var(--card-glow);
+        }
+        .theme-text-muted {
+            color: var(--text-secondary);
+        }
+        .theme-border {
+            border-color: var(--border-main);
+        }
+        .theme-accent-btn {
+            background-color: var(--accent-primary);
+            color: #ffffff !important;
+        }
+        .theme-accent-btn:hover {
+            background-color: var(--accent-hover);
+        }
+        .theme-accent-text {
+            color: var(--accent-primary);
+        }
+
+        /* CORES DE NOTAS */
+        .note-bg-default { background-color: var(--bg-card-default) !important; }
+        .note-bg-red     { background-color: #fef2f2 !important; } [data-theme="dark-modern"] .note-bg-red, [data-theme="roxo"] .note-bg-red, [data-theme="marrom"] .note-bg-red, [data-theme="black-glass"] .note-bg-red, [data-theme="solarized-dark"] .note-bg-red { background-color: #3b1010 !important; }
+        .note-bg-orange  { background-color: #fff7ed !important; } [data-theme="dark-modern"] .note-bg-orange, [data-theme="roxo"] .note-bg-orange, [data-theme="marrom"] .note-bg-orange, [data-theme="black-glass"] .note-bg-orange, [data-theme="solarized-dark"] .note-bg-orange { background-color: #3b2010 !important; }
+        .note-bg-yellow  { background-color: #fefce8 !important; } [data-theme="dark-modern"] .note-bg-yellow, [data-theme="roxo"] .note-bg-yellow, [data-theme="marrom"] .note-bg-yellow, [data-theme="black-glass"] .note-bg-yellow, [data-theme="solarized-dark"] .note-bg-yellow { background-color: #2e2a04 !important; }
+        .note-bg-green   { background-color: #f0fdf4 !important; } [data-theme="dark-modern"] .note-bg-green, [data-theme="roxo"] .note-bg-green, [data-theme="marrom"] .note-bg-green, [data-theme="black-glass"] .note-bg-green, [data-theme="solarized-dark"] .note-bg-green { background-color: #0d2b18 !important; }
+        .note-bg-teal    { background-color: #f0fdfa !important; } [data-theme="dark-modern"] .note-bg-teal, [data-theme="roxo"] .note-bg-teal, [data-theme="marrom"] .note-bg-teal, [data-theme="black-glass"] .note-bg-teal, [data-theme="solarized-dark"] .note-bg-teal { background-color: #0d2b26 !important; }
+        .note-bg-blue    { background-color: #eff6ff !important; } [data-theme="dark-modern"] .note-bg-blue, [data-theme="roxo"] .note-bg-blue, [data-theme="marrom"] .note-bg-blue, [data-theme="black-glass"] .note-bg-blue, [data-theme="solarized-dark"] .note-bg-blue { background-color: #0d1a3b !important; }
+        .note-bg-darkblue{ background-color: #dbeafe !important; } [data-theme="dark-modern"] .note-bg-darkblue, [data-theme="roxo"] .note-bg-darkblue, [data-theme="marrom"] .note-bg-darkblue, [data-theme="black-glass"] .note-bg-darkblue, [data-theme="solarized-dark"] .note-bg-darkblue { background-color: #060e2e !important; }
+        .note-bg-purple  { background-color: #faf5ff !important; } [data-theme="dark-modern"] .note-bg-purple, [data-theme="roxo"] .note-bg-purple, [data-theme="marrom"] .note-bg-purple, [data-theme="black-glass"] .note-bg-purple, [data-theme="solarized-dark"] .note-bg-purple { background-color: #1e0b3b !important; }
+        .note-bg-pink    { background-color: #fff0f6 !important; } [data-theme="dark-modern"] .note-bg-pink, [data-theme="roxo"] .note-bg-pink, [data-theme="marrom"] .note-bg-pink, [data-theme="black-glass"] .note-bg-pink, [data-theme="solarized-dark"] .note-bg-pink { background-color: #2b0d1e !important; }
+        .note-bg-brown   { background-color: #fdf0e6 !important; } [data-theme="dark-modern"] .note-bg-brown, [data-theme="roxo"] .note-bg-brown, [data-theme="marrom"] .note-bg-brown, [data-theme="black-glass"] .note-bg-brown, [data-theme="solarized-dark"] .note-bg-brown { background-color: #2b1a0d !important; }
+        .note-bg-gray    { background-color: #f8fafc !important; } [data-theme="dark-modern"] .note-bg-gray, [data-theme="roxo"] .note-bg-gray, [data-theme="marrom"] .note-bg-gray, [data-theme="black-glass"] .note-bg-gray, [data-theme="solarized-dark"] .note-bg-gray { background-color: #1a1f2e !important; }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(0,0,0,0.05);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0,0,0,0.2);
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: rgba(0,0,0,0.3);
+        }
+
+        /* ===== MELHORIAS NOVAS ===== */
+        .note-card-enter {
+            animation: noteCardIn 0.25s ease forwards;
+        }
+        @keyframes noteCardIn {
+            from { opacity:0; transform: translateY(8px) scale(0.98); }
+            to   { opacity:1; transform: translateY(0) scale(1); }
+        }
+        .todo-progress-bar {
+            height: 3px;
+            border-radius: 9999px;
+            background: var(--border-main);
+            overflow: hidden;
+        }
+        .todo-progress-fill {
+            height: 100%;
+            background: var(--accent-primary);
+            border-radius: 9999px;
+            transition: width 0.4s ease;
+        }
+        .btn-restore {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600;
+            background: rgba(34,197,94,0.1); color: #16a34a;
+            transition: background 0.15s;
+        }
+        .btn-restore:hover { background: rgba(34,197,94,0.2); }
+
+        .word-count-badge {
+            font-size: 10px; color: var(--text-secondary);
+            padding: 2px 6px; background: rgba(0,0,0,0.04);
+            border-radius: 999px; font-variant-numeric: tabular-nums;
+        }
+
+        .color-swatch {
+            width: 20px; height: 20px; border-radius: 50%; cursor: pointer;
+            border: 2px solid transparent; transition: transform 0.15s, border-color 0.15s;
+        }
+        .color-swatch:hover { transform: scale(1.2); }
+        .color-swatch.active { border-color: var(--accent-primary); transform: scale(1.15); }
+
+        /* Splash screen */
+        @keyframes screenShake {
+            0%, 100% { transform: translateX(0); }
+            15% { transform: translateX(-8px) rotate(-0.5deg); }
+            30% { transform: translateX(6px) rotate(0.4deg); }
+            45% { transform: translateX(-5px) rotate(-0.3deg); }
+            60% { transform: translateX(4px) rotate(0.2deg); }
+            75% { transform: translateX(-2px); }
+        }
+        @keyframes impactFlash {
+            0% { transform: scale(0) rotate(0deg); opacity: 1; }
+            40% { transform: scale(1.8) rotate(30deg); opacity: 0.9; }
+            100% { transform: scale(3) rotate(60deg); opacity: 0; }
+        }
+        .splash-shake { animation: screenShake 0.4s ease-out; }
+        .splash-impact-flash { animation: impactFlash 0.5s ease-out forwards; }
+
+        /* Google Drive setup guide */
+        .gdrive-step {
+            display: flex; gap: 12px; padding: 10px 0;
+            border-bottom: 1px solid var(--border-main);
+        }
+        .gdrive-step:last-child { border-bottom: none; }
+        .gdrive-step-num {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: white; font-size: 13px; font-weight: 800;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .gdrive-step-content { flex: 1; }
+        .gdrive-step-content h4 { font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+        .gdrive-step-content p { font-size: 11px; opacity: 0.7; line-height: 1.5; }
+        .gdrive-step-content a { color: #3b82f6; text-decoration: underline; font-weight: 600; }
+        .gdrive-collapse-btn {
+            width: 100%; padding: 8px 12px; border-radius: 8px;
+            background: rgba(245, 158, 11, 0.08); border: 1px dashed rgba(245, 158, 11, 0.3);
+            font-size: 12px; font-weight: 700; color: #f59e0b;
+            cursor: pointer; transition: background 0.2s;
+        }
+        .gdrive-collapse-btn:hover { background: rgba(245, 158, 11, 0.15); }
+        .gdrive-status-bar {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 14px; border-radius: 10px; font-size: 12px; font-weight: 600;
+        }
+        .gdrive-status-dot {
+            width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col pb-24">
+
+<!-- ===== LOADING ANIMATION SCREEN ===== -->
+<div id="loading-animation-screen" class="fixed inset-0 bg-[#0a051b] z-[9999] flex flex-col items-center justify-center overflow-hidden">
+
+    <!-- Notepad Icon (matches PWA icon - spiral notebook) -->
+    <div id="anim-notepad" class="absolute z-10" style="width:130px;height:130px;opacity:0;">
+        <svg viewBox="0 0 110 115" class="w-full h-full drop-shadow-lg">
+            <rect x="10" y="22" width="90" height="82" rx="10" fill="#d5eaf4" stroke="#333" stroke-width="3.5"/>
+            <path d="M10,32 Q10,22 20,22 L90,22 Q100,22 100,32 L100,42 L10,42 Z" fill="#f2c94c" stroke="#333" stroke-width="3.5"/>
+            <line x1="10" y1="42" x2="100" y2="42" stroke="#333" stroke-width="2"/>
+            <line x1="33" y1="42" x2="33" y2="104" stroke="#333" stroke-width="2.5" opacity="0.5"/>
+            <line x1="15" y1="60" x2="95" y2="60" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+            <line x1="15" y1="76" x2="95" y2="76" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+            <line x1="15" y1="92" x2="95" y2="92" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+            <rect x="24" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+            <rect x="44" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+            <rect x="64" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+            <rect x="84" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+        </svg>
+    </div>
+
+    <!-- Cartoon Fist (punching from the right) -->
+    <div id="anim-fist" class="absolute z-20" style="width:170px;height:130px;opacity:0;">
+        <svg viewBox="0 0 180 130" class="w-full h-full drop-shadow-2xl">
+            <!-- Forearm -->
+            <path d="M108,34 C125,30 155,28 180,28 L180,88 C155,86 125,84 108,80 Z" fill="#ffcc80" stroke="#5d4037" stroke-width="3.5" stroke-linejoin="round"/>
+            <path d="M108,48 Q111,56 108,64" fill="none" stroke="#e6a04c" stroke-width="2" opacity="0.5"/>
+            <!-- Fist body -->
+            <path d="M18,28 C10,28 5,38 5,48 L5,82 C5,94 14,100 26,100 L82,100 C98,100 108,90 108,76 L108,42 C108,30 100,28 88,28 Z" fill="#ffcc80" stroke="#5d4037" stroke-width="3.5"/>
+            <!-- Index finger knuckle -->
+            <path d="M20,28 C20,16 28,11 36,11 C44,11 48,16 48,28" fill="#ffcc80" stroke="#5d4037" stroke-width="3"/>
+            <!-- Middle finger knuckle (tallest) -->
+            <path d="M44,28 C44,12 52,5 60,5 C68,5 74,12 74,28" fill="#ffcc80" stroke="#5d4037" stroke-width="3"/>
+            <!-- Ring finger knuckle -->
+            <path d="M70,28 C70,16 77,11 84,11 C91,11 96,18 96,28" fill="#ffcc80" stroke="#5d4037" stroke-width="3"/>
+            <!-- Thumb -->
+            <path d="M96,70 C110,62 116,48 112,38 C108,30 98,34 96,42 C94,50 95,62 96,70 Z" fill="#ffcc80" stroke="#5d4037" stroke-width="3"/>
+            <path d="M105,42 Q108,40 109,44" fill="none" stroke="#e6a04c" stroke-width="1.5" opacity="0.6"/>
+            <!-- Finger crease lines -->
+            <path d="M10,58 C30,52 55,50 80,54 C92,56 104,62 108,66" fill="none" stroke="#e6a04c" stroke-width="2" opacity="0.4"/>
+            <path d="M8,74 C30,69 58,67 82,70 C96,73 105,78 108,82" fill="none" stroke="#e6a04c" stroke-width="1.5" opacity="0.35"/>
+            <!-- Finger separation lines -->
+            <line x1="44" y1="32" x2="42" y2="95" stroke="#e6a04c" stroke-width="2" opacity="0.4"/>
+            <line x1="68" y1="30" x2="66" y2="96" stroke="#e6a04c" stroke-width="2" opacity="0.4"/>
+            <line x1="90" y1="32" x2="88" y2="94" stroke="#e6a04c" stroke-width="2" opacity="0.4"/>
+            <!-- Knuckle highlights -->
+            <ellipse cx="34" cy="17" rx="7" ry="4" fill="#ffe0a0" opacity="0.45"/>
+            <ellipse cx="58" cy="12" rx="8" ry="4.5" fill="#ffe0a0" opacity="0.45"/>
+            <ellipse cx="83" cy="17" rx="7" ry="4" fill="#ffe0a0" opacity="0.45"/>
+        </svg>
+    </div>
+
+    <!-- Impact flash -->
+    <div id="anim-impact" class="absolute z-15 pointer-events-none" style="opacity:0;">
+        <svg viewBox="0 0 120 120" class="w-32 h-32">
+            <polygon points="60,5 68,42 105,35 75,58 95,95 60,72 25,95 45,58 15,35 52,42" fill="#fbbf24" opacity="0.9"/>
+            <polygon points="60,20 65,48 90,43 72,58 82,82 60,68 38,82 48,58 30,43 55,48" fill="#fff" opacity="0.7"/>
+        </svg>
+    </div>
+
+    <h2 id="anim-text" class="text-2xl font-black text-amber-500 tracking-widest mt-48 transition-opacity duration-500" style="opacity:0;">PAPEL DE PÃO</h2>
+    <p id="anim-subtext" class="text-xs text-indigo-300 mt-2 transition-opacity duration-500" style="opacity:0;">Organizando suas ideias...</p>
+</div>
+
+<!-- ===== OVERLAY SIDEBAR ===== -->
+<div id="sidebar-overlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/60 z-40 transition-opacity duration-300" style="display:none;opacity:0;"></div>
+
+<!-- ===== HEADER ===== -->
+<header class="border-b theme-panel sticky top-0 z-40 px-4 py-2.5 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-full transition-colors">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+        <div class="flex items-center gap-2">
+            <!-- Logotipo do Header Atualizado: Bloco de Notas Amarelo -->
+            <div id="header-logo" class="w-9 h-9 flex items-center justify-center shrink-0">
+                <svg viewBox="0 0 110 115" class="w-full h-full drop-shadow-sm">
+                    <rect x="10" y="22" width="90" height="82" rx="10" fill="#d5eaf4" stroke="#333" stroke-width="3.5"/>
+                    <path d="M10,32 Q10,22 20,22 L90,22 Q100,22 100,32 L100,42 L10,42 Z" fill="#f2c94c" stroke="#333" stroke-width="3.5"/>
+                    <line x1="10" y1="42" x2="100" y2="42" stroke="#333" stroke-width="2"/>
+                    <line x1="33" y1="42" x2="33" y2="104" stroke="#333" stroke-width="2.5" opacity="0.5"/>
+                    <line x1="15" y1="60" x2="95" y2="60" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+                    <line x1="15" y1="76" x2="95" y2="76" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+                    <line x1="15" y1="92" x2="95" y2="92" stroke="#333" stroke-width="2.5" opacity="0.45"/>
+                    <rect x="24" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+                    <rect x="44" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+                    <rect x="64" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+                    <rect x="84" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/>
+                </svg>
+            </div>
+            <span class="font-extrabold text-lg tracking-tight hidden sm:inline-block theme-accent-text">Papel de Pão</span>
+        </div>
+    </div>
+
+    <div class="flex-1 max-w-xl relative">
+        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <i data-lucide="search" class="w-4 h-4"></i>
+        </div>
+        <input type="text" id="search-input" placeholder="Pesquisar notas, códigos, tarefas..." 
+               class="w-full pl-9 pr-9 py-2 rounded-lg bg-black/5 dark:bg-white/5 border border-transparent focus:border-amber-500 outline-none transition-all text-sm">
+        <button id="clear-search" class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 hidden">
+            <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+    </div>
+
+    <div class="flex items-center gap-1 sm:gap-2">
+        <span id="notes-count-badge" class="hidden sm:flex items-center gap-1 px-2.5 py-1 rounded-lg bg-black/5 text-xs font-semibold theme-text-muted">
+            <i data-lucide="layers" class="w-3.5 h-3.5"></i>
+            <span id="notes-count-text">0</span>
+        </span>
+        <button id="btn-gdrive-status" onclick="handleDriveActionButton()" class="flex items-center gap-2 px-3 py-1.5 rounded-lg border theme-border bg-black/5 hover:bg-black/10 transition-all text-xs font-semibold">
+            <i data-lucide="cloud-off" class="w-4 h-4" id="gdrive-icon"></i>
+            <span id="gdrive-text" class="hidden md:inline">Drive</span>
+        </button>
+        <button onclick="openCloudConfigModal()" title="Configurar Google Drive" class="p-2 hover:bg-black/5 rounded-full transition-colors text-slate-400 hover:text-amber-500">
+            <i data-lucide="settings" class="w-5 h-5"></i>
+        </button>
+        <div class="h-6 w-[1px] theme-border mx-1"></div>
+        <button id="btn-toggle-layout" title="Alternar visualização" class="p-2 hover:bg-black/5 rounded-full">
+            <i data-lucide="layout-grid" class="w-5 h-5" id="layout-icon"></i>
+        </button>
+        <button onclick="openThemeModal()" title="Selecione o Tema" class="p-2 hover:bg-black/5 rounded-full text-amber-500">
+            <i data-lucide="palette" class="w-5 h-5"></i>
+        </button>
+    </div>
+</header>
+
+<!-- ===== SIDEBAR ===== -->
+<aside id="sidebar" class="fixed top-[61px] left-0 w-64 border-r theme-panel flex flex-col justify-between transition-transform duration-300 h-[calc(100vh-61px)] z-50 -translate-x-full">
+    <div class="p-3 space-y-1 overflow-y-auto flex-1 custom-scrollbar">
+        <button onclick="changeFilter('all')" id="menu-all" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors bg-amber-500/10 text-amber-500 font-bold">
+            <i data-lucide="lightbulb" class="w-5 h-5"></i><span>Notas</span>
+        </button>
+        <button onclick="changeFilter('todo')" id="menu-todo" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
+            <i data-lucide="check-square" class="w-5 h-5"></i><span>Tarefas</span>
+        </button>
+        <button onclick="changeFilter('pinned')" id="menu-pinned" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
+            <i data-lucide="pin" class="w-5 h-5"></i><span>Fixadas</span>
+        </button>
+        <button onclick="changeFilter('archive')" id="menu-archive" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
+            <i data-lucide="archive" class="w-5 h-5"></i><span>Arquivo</span>
+        </button>
+        <button onclick="changeFilter('trash')" id="menu-trash" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
+            <i data-lucide="trash-2" class="w-5 h-5"></i><span>Lixeira</span>
+        </button>
+
+        <div class="border-t theme-border my-4 pt-4">
+            <div class="px-4 flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <span>Marcadores</span>
+                <button onclick="openManageLabelsModal()" class="hover:text-amber-500 transition-colors">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="sidebar-labels-list" class="space-y-1"></div>
+        </div>
+
+        <div class="border-t theme-border my-4 pt-4">
+            <button onclick="openVersionHistoryModal()" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-amber-500 hover:bg-black/5 transition-all">
+                <i data-lucide="history" class="w-4 h-4 text-amber-500"></i>
+                <span>Histórico de Atualizações</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="p-4 border-t theme-border bg-black/5 text-xs theme-text-muted">
+        <div class="flex items-center justify-between font-semibold mb-1">
+            <span>Papel de Pão</span>
+            <span class="bg-amber-500/10 text-amber-500 px-1.5 py-0.5 rounded text-[10px]">v3.5.0</span>
+        </div>
+        <p>Notas limpas, códigos executáveis, PWA e Temas premium.</p>
+        <div class="mt-2.5 flex items-center justify-between">
+            <button onclick="exportNotes()" class="text-slate-400 hover:text-amber-500 font-medium hover:underline flex items-center gap-1">
+                <i data-lucide="download" class="w-3 h-3"></i> Exportar JSON
+            </button>
+            <button onclick="document.getElementById('import-json-input').click()" class="text-slate-400 hover:text-amber-500 font-medium hover:underline flex items-center gap-1">
+                <i data-lucide="upload" class="w-3 h-3"></i> Importar
+            </button>
+            <button id="pwa-install-btn" class="hidden px-2.5 py-1 bg-amber-500 text-white font-bold rounded-lg hover:bg-amber-600 text-[10px]">Instalar</button>
+        </div>
+    </div>
+</aside>
+
+<!-- ===== MAIN ===== -->
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+    <div class="max-w-2xl mx-auto mb-8">
+        <div id="create-note-box" class="theme-card rounded-xl shadow-md border transition-all duration-300">
+            <div id="note-collapsed" class="p-4 flex items-center justify-between cursor-pointer" onclick="expandCreateNote()">
+                <span class="theme-text-muted text-sm font-medium">Escreva uma nota...</span>
+                <div class="flex items-center gap-2 text-slate-400">
+                    <button title="Código" class="p-1.5 hover:bg-black/5 rounded" onclick="event.stopPropagation(); expandCreateNote(true)">
+                        <i data-lucide="code" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="note-expanded" class="hidden flex-col">
+                <div class="flex items-center justify-between px-4 pt-3">
+                    <input type="text" id="new-note-title" placeholder="Título" class="w-full bg-transparent font-semibold text-base outline-none placeholder-slate-400">
+                    <button id="btn-pin-new" onclick="togglePinNew()" class="p-1.5 text-slate-400 hover:text-slate-200 rounded-full hover:bg-black/5 transition-all">
+                        <i data-lucide="pin" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <div id="new-note-attachments" class="px-4 py-2 flex flex-col gap-2 hidden border-b theme-border">
+                    <div id="preview-image-container" class="relative max-h-48 rounded-lg overflow-hidden border theme-border hidden">
+                        <img id="preview-image" src="" class="w-full h-full object-contain bg-black/5">
+                        <button onclick="removeAttachedImage()" class="absolute top-2 right-2 p-1.5 bg-black/60 text-white rounded-full hover:bg-black/80">
+                            <i data-lucide="x" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                    <div id="preview-audio-container" class="p-2 bg-amber-500/10 rounded-lg flex items-center justify-between gap-3 border border-amber-500/20 hidden">
+                        <div class="flex items-center gap-2 text-amber-600">
+                            <i data-lucide="mic" class="w-4 h-4"></i>
+                            <span class="text-xs font-semibold">Mensagem de Voz</span>
+                        </div>
+                        <audio id="preview-audio" src="" controls class="max-w-xs h-8"></audio>
+                        <button onclick="removeAttachedAudio()" class="p-1 text-slate-400 hover:text-red-500">
+                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="px-4 py-2" id="new-note-textarea-container">
+                    <textarea id="new-note-content" placeholder="Escreva seu texto..." rows="4" 
+                              oninput="updateWordCount()"
+                              class="w-full bg-transparent text-sm outline-none resize-y min-h-[120px] max-h-[500px] custom-scrollbar"></textarea>
+                    <div class="flex justify-end mt-1">
+                        <span id="word-count-display" class="word-count-badge">0 palavras</span>
+                    </div>
+                </div>
+
+                <div class="px-4 py-2 hidden space-y-2" id="new-note-todo-container">
+                    <div id="new-note-todo-list" class="space-y-1.5 max-h-[300px] overflow-y-auto custom-scrollbar"></div>
+                    <div class="flex items-center gap-2 mt-2 border-t theme-border pt-2">
+                        <input type="text" id="new-todo-item-input" placeholder="Adicionar tarefa..." class="flex-1 bg-transparent text-sm outline-none" onkeydown="handleNewTodoKeydown(event)">
+                        <button onclick="addTodoItemToNewNote()" class="p-1 text-amber-500">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="new-note-labels" class="flex flex-wrap gap-1 px-4 mb-2"></div>
+
+                <div id="new-note-reminder-panel" class="hidden mx-4 my-2 p-3 bg-black/5 border theme-border rounded-lg flex-wrap items-center gap-3">
+                    <span class="text-xs font-semibold">Lembrete:</span>
+                    <input type="date" id="new-note-date" class="bg-transparent border theme-border rounded px-2 py-1 text-xs outline-none">
+                    <input type="time" id="new-note-time" class="bg-transparent border theme-border rounded px-2 py-1 text-xs outline-none">
+                    <button onclick="clearNewNoteReminder()" class="text-xs text-red-500 hover:underline">Limpar</button>
+                </div>
+
+                <div id="new-note-password-panel" class="hidden mx-4 my-2 p-3 bg-black/5 border theme-border rounded-lg items-center gap-3">
+                    <span class="text-xs font-semibold">Cadeado:</span>
+                    <input type="password" id="new-note-password" placeholder="Definir senha..." class="bg-transparent border theme-border rounded px-2 py-1 text-xs outline-none flex-1">
+                    <button onclick="clearNewNotePassword()" class="text-xs text-red-500 hover:underline ml-2">Limpar</button>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 border-t theme-border bg-black/5 rounded-b-xl">
+                    <div class="flex items-center gap-1 sm:gap-2">
+                        <!-- Paleta de cores -->
+                        <div class="relative group">
+                            <button class="p-1.5 text-slate-500 hover:text-slate-200 hover:bg-black/5 rounded" title="Mudar cor">
+                                <i data-lucide="palette" class="w-4 h-4"></i>
+                            </button>
+                            <div class="absolute bottom-full left-0 mb-2 hidden group-hover:flex items-center gap-1 p-2 bg-white dark:bg-zinc-800 border theme-border rounded-lg shadow-xl z-50 flex-wrap max-w-[180px]">
+                                <div onclick="setNewNoteColor('default')" class="color-swatch border border-slate-300 bg-white" title="Padrão"></div>
+                                <div onclick="setNewNoteColor('red')" class="color-swatch bg-red-300" title="Vermelho"></div>
+                                <div onclick="setNewNoteColor('orange')" class="color-swatch bg-orange-300" title="Laranja"></div>
+                                <div onclick="setNewNoteColor('yellow')" class="color-swatch bg-yellow-300" title="Amarelo"></div>
+                                <div onclick="setNewNoteColor('green')" class="color-swatch bg-green-300" title="Verde"></div>
+                                <div onclick="setNewNoteColor('teal')" class="color-swatch bg-teal-300" title="Teal"></div>
+                                <div onclick="setNewNoteColor('blue')" class="color-swatch bg-blue-300" title="Azul"></div>
+                                <div onclick="setNewNoteColor('darkblue')" class="color-swatch bg-blue-500" title="Azul Escuro"></div>
+                                <div onclick="setNewNoteColor('purple')" class="color-swatch bg-purple-300" title="Roxo"></div>
+                                <div onclick="setNewNoteColor('pink')" class="color-swatch bg-pink-300" title="Rosa"></div>
+                                <div onclick="setNewNoteColor('brown')" class="color-swatch bg-amber-700" title="Marrom"></div>
+                                <div onclick="setNewNoteColor('gray')" class="color-swatch bg-slate-300" title="Cinza"></div>
+                            </div>
+                        </div>
+                        <button id="btn-todo-new" onclick="toggleTodoNew()" class="p-1.5 text-slate-500 hover:bg-black/5 rounded" title="Checklist">
+                            <i data-lucide="check-square" class="w-4 h-4" id="btn-todo-new-icon"></i>
+                        </button>
+                        <button id="btn-mono-new" onclick="toggleMonoNew()" class="p-1.5 text-slate-500 hover:bg-black/5 rounded" title="Monospace">
+                            <i data-lucide="code" class="w-4 h-4"></i>
+                        </button>
+                        <button id="btn-reminder-new" onclick="toggleReminderNewPanel()" class="p-1.5 text-slate-500 hover:bg-black/5 rounded" title="Lembrete">
+                            <i data-lucide="calendar" class="w-4 h-4"></i>
+                        </button>
+                        <button id="btn-password-new" onclick="togglePasswordNewPanel()" class="p-1.5 text-slate-500 hover:bg-black/5 rounded" title="Cadeado">
+                            <i data-lucide="lock" class="w-4 h-4"></i>
+                        </button>
+                        <div class="relative group">
+                            <button class="p-1.5 text-slate-500 hover:bg-black/5 rounded" title="Marcadores">
+                                <i data-lucide="tag" class="w-4 h-4"></i>
+                            </button>
+                            <div class="absolute bottom-full left-0 mb-2 hidden group-hover:block w-48 p-2 bg-white dark:bg-zinc-800 border theme-border rounded-lg shadow-xl z-50">
+                                <p class="text-xs font-semibold text-slate-400 mb-1 px-1">Marcadores</p>
+                                <div id="new-note-label-options" class="max-h-32 overflow-y-auto space-y-1 custom-scrollbar"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="collapseCreateNote()" class="px-3 py-1.5 text-xs font-semibold text-slate-400 hover:text-slate-200 rounded">Cancelar</button>
+                        <button onclick="saveNewNote()" class="px-4 py-1.5 text-xs font-semibold theme-accent-btn rounded-lg shadow-sm">Salvar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="filter-indicator" class="mt-4 hidden items-center justify-between bg-black/5 px-4 py-2 rounded-lg">
+            <span class="text-sm font-medium" id="filter-text">Exibindo todas as notas</span>
+            <button onclick="changeFilter('all')" class="text-xs text-amber-500 font-semibold hover:underline">Limpar</button>
+        </div>
+    </div>
+
+    <!-- ===== GRID DE NOTAS ===== -->
+    <div class="max-w-7xl mx-auto space-y-8">
+        <div id="section-pinned" class="hidden">
+            <h2 class="text-xs font-bold uppercase tracking-wider mb-3 theme-text-muted flex items-center gap-2">
+                <i data-lucide="pin" class="w-3.5 h-3.5"></i> Fixadas
+            </h2>
+            <div id="grid-pinned" class="grid gap-4"></div>
+        </div>
+        <div id="section-others">
+            <h2 id="section-others-title" class="text-xs font-bold uppercase tracking-wider mb-3 theme-text-muted">Notas</h2>
+            <div id="grid-others" class="grid gap-4"></div>
+        </div>
+        <div id="empty-state" class="hidden flex-col items-center justify-center text-center py-20 px-4">
+            <div class="w-20 h-20 bg-black/5 text-slate-400 rounded-full flex items-center justify-center mb-4">
+                <i data-lucide="sticky-note" class="w-10 h-10"></i>
+            </div>
+            <h3 class="text-lg font-bold" id="empty-title">Nenhuma nota por aqui</h3>
+            <p class="text-sm theme-text-muted max-w-sm mt-1" id="empty-desc">Use o botão "+" para criar notas, áudios, desenhos ou checklists.</p>
+        </div>
+    </div>
+</main>
+
+<!-- ===== FAB ===== -->
+<div id="fab-overlay" onclick="toggleFabMenu()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden"></div>
+<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+    <div id="fab-menu" class="hidden flex-col items-end gap-3 mb-3 transition-all duration-300 transform translate-y-8 opacity-0">
+        <button onclick="triggerAudioOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <i data-lucide="mic" class="w-5 h-5"></i><span class="text-sm font-semibold">Áudio</span>
+        </button>
+        <button onclick="triggerCodeOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <span class="font-bold font-mono text-base pr-1">&gt;_</span><span class="text-sm font-semibold">Código</span>
+        </button>
+        <button onclick="triggerDrawingOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <i data-lucide="pen-tool" class="w-5 h-5"></i><span class="text-sm font-semibold">Desenho</span>
+        </button>
+        <button onclick="triggerImageOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <i data-lucide="image" class="w-5 h-5"></i><span class="text-sm font-semibold">Imagem</span>
+        </button>
+        <button onclick="triggerListOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <i data-lucide="check-square" class="w-5 h-5"></i><span class="text-sm font-semibold">Lista</span>
+        </button>
+        <button onclick="triggerTextOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
+            <i data-lucide="type" class="w-5 h-5"></i><span class="text-sm font-semibold">Texto</span>
+        </button>
+    </div>
+    <button id="fab-main" onclick="toggleFabMenu()" class="w-14 h-14 rounded-2xl bg-[#004f9f] text-white shadow-xl flex items-center justify-center transition-all duration-300">
+        <i data-lucide="plus" class="w-7 h-7" id="fab-icon"></i>
+    </button>
+</div>
+
+<!-- Inputs ocultos -->
+<input type="file" id="image-file-input" class="hidden" accept="image/*" onchange="handleImageUpload(event)">
+<input type="file" id="import-json-input" class="hidden" accept=".json" onchange="importNotes(event)">
+
+<!-- ===== MODAL TEMAS ===== -->
+<div id="theme-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-[#140f26] text-white rounded-3xl shadow-2xl flex flex-col max-h-[85vh] border border-violet-500/30 overflow-hidden">
+        <div class="p-6 text-center border-b border-violet-500/10">
+            <h3 class="font-extrabold text-xl tracking-wider text-violet-100 uppercase">Selecionar Tema</h3>
+            <p class="text-xs text-violet-300 mt-1">Escolha a aparência do seu Papel de Pão</p>
+        </div>
+        <div class="p-6 overflow-y-auto grid grid-cols-2 gap-4 custom-scrollbar bg-[#0d091a]">
+            <button onclick="applySystemTheme('dark-modern')" id="theme-card-dark-modern" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#111827] border border-slate-700 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-blue-500 rounded"></div><div class="h-1 w-5/6 bg-slate-700 rounded"></div><div class="h-1 w-4/6 bg-slate-700 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Dark Modern</span>
+            </button>
+            <button onclick="applySystemTheme('light-modern')" id="theme-card-light-modern" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-white border border-slate-200 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-blue-600 rounded"></div><div class="h-1 w-5/6 bg-slate-300 rounded"></div><div class="h-1 w-4/6 bg-slate-300 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Light Modern</span>
+            </button>
+            <button onclick="applySystemTheme('solarized-dark')" id="theme-card-solarized-dark" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#002b36] border border-teal-800 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-teal-500 rounded"></div><div class="h-1 w-5/6 bg-slate-600 rounded"></div><div class="h-1 w-4/6 bg-slate-600 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Solarized Dark</span>
+            </button>
+            <button onclick="applySystemTheme('solarized-light')" id="theme-card-solarized-light" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#fdf6e3] border border-orange-200 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-orange-500 rounded"></div><div class="h-1 w-5/6 bg-orange-200 rounded"></div><div class="h-1 w-4/6 bg-orange-200 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Solarized Light</span>
+            </button>
+            <button onclick="applySystemTheme('rosa')" id="theme-card-rosa" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-rose-50 border border-rose-200 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-rose-500 rounded"></div><div class="h-1 w-5/6 bg-rose-200 rounded"></div><div class="h-1 w-4/6 bg-rose-200 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Rosa</span>
+            </button>
+            <button onclick="applySystemTheme('roxo')" id="theme-card-roxo" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#0f0a1c] border border-purple-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-purple-500 rounded"></div><div class="h-1 w-5/6 bg-purple-950 rounded"></div><div class="h-1 w-4/6 bg-purple-950 rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Roxo</span>
+            </button>
+            <button onclick="applySystemTheme('marrom')" id="theme-card-marrom" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#1c120c] border border-[#4a3425] p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-orange-600 rounded"></div><div class="h-1 w-5/6 bg-[#4a3425] rounded"></div><div class="h-1 w-4/6 bg-[#4a3425] rounded"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Marrom</span>
+            </button>
+            <button onclick="applySystemTheme('black-glass')" id="theme-card-black-glass" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#030712] border border-zinc-800 p-2 flex flex-col gap-1.5 relative"><div class="absolute inset-0 bg-white/5 rounded-xl"></div><div class="h-1.5 w-1/3 bg-purple-500 rounded z-10"></div><div class="h-1 w-5/6 bg-zinc-700 rounded z-10"></div><div class="h-1 w-4/6 bg-zinc-700 rounded z-10"></div></div>
+                <span class="text-xs font-bold text-slate-300 mt-2.5">Black Glass</span>
+            </button>
+        </div>
+        <div class="p-4 border-t border-violet-500/10 flex justify-center bg-[#0d091a]">
+            <button onclick="closeThemeModal()" class="px-8 py-3 w-full bg-[#1b1235] hover:bg-[#251a49] text-violet-100 font-extrabold text-xs tracking-wider rounded-xl border border-violet-500/20 uppercase">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL CÓDIGO: DECIDIR ===== -->
+<div id="code-decision-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[55] hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl p-6 border border-slate-200 dark:border-zinc-800 text-center space-y-4">
+        <div class="mx-auto w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center">
+            <span class="font-bold font-mono text-lg">&gt;_</span>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg" id="decision-note-title">O que deseja fazer?</h3>
+            <p class="text-xs text-slate-400 mt-1">Esta nota possui um bloco de código.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3 pt-2">
+            <button onclick="executeCodeFromDecision()" class="py-3 px-4 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-sm font-bold flex flex-col items-center gap-1.5 shadow">
+                <i data-lucide="play" class="w-5 h-5"></i><span>Executar</span>
+            </button>
+            <button onclick="editCodeFromDecision()" class="py-3 px-4 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-sm font-bold flex flex-col items-center gap-1.5 shadow">
+                <i data-lucide="edit" class="w-5 h-5"></i><span>Editar</span>
+            </button>
+        </div>
+        <button onclick="closeCodeDecisionModal()" class="w-full py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 rounded-xl text-xs font-semibold">Cancelar</button>
+    </div>
+</div>
+
+<!-- ===== MODAL EXECUTAR CÓDIGO ===== -->
+<div id="code-runner-modal" class="fixed inset-0 bg-black/75 backdrop-blur-sm z-50 hidden flex-col p-4">
+    <div class="w-full max-w-5xl mx-auto bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl flex flex-col h-[90vh] overflow-hidden border border-slate-200 dark:border-zinc-800">
+        <div class="p-4 border-b border-slate-200 dark:border-zinc-800 flex justify-between items-center bg-slate-50 dark:bg-zinc-900/50">
+            <div class="flex items-center gap-2 text-emerald-500">
+                <i data-lucide="terminal" class="w-5 h-5"></i>
+                <h3 class="font-bold text-sm sm:text-base" id="runner-title">Playground</h3>
+            </div>
+            <div class="flex items-center gap-2">
+                <button onclick="reloadRunnerCode()" class="p-2 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-500 rounded-lg" title="Reiniciar">
+                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                </button>
+                <button onclick="closeCodeRunner()" class="p-2 hover:bg-slate-200 dark:hover:bg-zinc-800 text-slate-500 rounded-lg">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex-1 bg-white relative">
+            <iframe id="sandbox-iframe" sandbox="allow-scripts" class="w-full h-full border-none"></iframe>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL HISTÓRICO DE VERSÕES ===== -->
+<div id="version-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl flex flex-col max-h-[80vh] border border-slate-200 dark:border-zinc-800 overflow-hidden">
+        <div class="p-4 border-b border-slate-100 dark:border-zinc-800 flex justify-between items-center bg-slate-50 dark:bg-zinc-900/50">
+            <div class="flex items-center gap-2 text-amber-600">
+                <i data-lucide="history" class="w-5 h-5"></i>
+                <h3 class="font-bold text-base">Histórico de Versões</h3>
+            </div>
+            <button onclick="closeVersionHistoryModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="p-6 overflow-y-auto space-y-6 custom-scrollbar text-sm leading-relaxed text-slate-800 dark:text-slate-300">
+            <div class="relative pl-6 border-l-2 border-amber-500">
+                <div class="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-amber-500"></div>
+                <span class="text-xs font-black text-amber-500 uppercase tracking-widest block">v3.5.0 (Atual)</span>
+                <h4 class="font-bold text-slate-800 dark:text-slate-100 mt-1">Splash Screen com Soco & Google Drive Aprimorado</h4>
+                <ul class="list-disc list-inside mt-2 space-y-1.5 text-xs">
+                    <li><strong>Nova Animação de Splash:</strong> O bloco de notas desliza suavemente da esquerda até o centro, desacelera e para. Um punho aparece e dá um soco, lançando o ícone para cima até o logo do sistema!</li>
+                    <li><strong>Efeito de Impacto:</strong> Flash de estrela, screen shake e transição fluida do ícone até o cabeçalho.</li>
+                    <li><strong>Google Drive Gratuito:</strong> Nova interface de configuração com guia passo-a-passo completo, validação de Client ID, sincronização manual, status em tempo real e timestamp da última sincronização.</li>
+                    <li><strong>Reconexão Inteligente:</strong> Detecção automática de sessão expirada com mensagem clara ao usuário.</li>
+                </ul>
+            </div>
+            <div class="relative pl-6 border-l-2 border-slate-300 dark:border-zinc-700">
+                <div class="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-slate-300 dark:bg-zinc-700"></div>
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest block">v3.4.0</span>
+                <h4 class="font-bold mt-1">Splash Screen Cinematográfica & Sidebar</h4>
+                <ul class="list-disc list-inside mt-2 space-y-1.5 text-xs text-slate-500">
+                    <li>Animação de splash com amassamento, sidebar drawer e novo logo oficial.</li>
+                </ul>
+            </div>
+            <div class="relative pl-6 border-l-2 border-slate-300 dark:border-zinc-700">
+                <div class="absolute -left-[7px] top-1.5 w-3 h-3 rounded-full bg-slate-300 dark:bg-zinc-700"></div>
+                <span class="text-xs font-black text-slate-400 uppercase tracking-widest block">v3.3.0</span>
+                <h4 class="font-bold mt-1">Correção de Bugs Críticos</h4>
+                <ul class="list-disc list-inside mt-2 space-y-1.5 text-xs text-slate-500">
+                    <li>Contador de palavras, correção de cores, opções de restauração na lixeira e importação de JSON implementados.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="p-4 border-t theme-border bg-slate-50 dark:bg-zinc-900/50 flex justify-end">
+            <button onclick="closeVersionHistoryModal()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-xl shadow">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL DESENHO ===== -->
+<div id="drawing-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl overflow-hidden flex flex-col border border-slate-200 dark:border-zinc-800">
+        <div class="p-4 border-b border-slate-100 dark:border-zinc-800 flex justify-between items-center">
+            <div class="flex items-center gap-2 text-amber-500">
+                <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                <h3 class="font-bold text-base">Prancheta de Desenho</h3>
+            </div>
+            <button onclick="closeDrawingModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="bg-slate-50 dark:bg-zinc-950 p-2 flex justify-center">
+            <canvas id="paint-canvas" class="bg-white dark:bg-zinc-900 border border-slate-300 dark:border-zinc-700 rounded-lg max-w-full cursor-crosshair touch-none"></canvas>
+        </div>
+        <div class="p-4 bg-slate-100/50 dark:bg-zinc-900/50 border-t border-slate-100 dark:border-zinc-800 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-1">
+                <button onclick="setBrushColor('#000000')" class="w-6 h-6 rounded-full bg-black border-2 border-white"></button>
+                <button onclick="setBrushColor('#ff2a2a')" class="w-6 h-6 rounded-full bg-red-500 border-2 border-white"></button>
+                <button onclick="setBrushColor('#3b82f6')" class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white"></button>
+                <button onclick="setBrushColor('#10b981')" class="w-6 h-6 rounded-full bg-emerald-500 border-2 border-white"></button>
+                <button onclick="setBrushColor('#f59e0b')" class="w-6 h-6 rounded-full bg-amber-500 border-2 border-white"></button>
+                <button onclick="toggleEraser()" id="btn-eraser" class="p-1.5 bg-white dark:bg-zinc-800 border border-slate-300 rounded hover:bg-slate-100 text-slate-500">
+                    <i data-lucide="eraser" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-xs text-slate-400">Pincel:</span>
+                <input type="range" id="brush-size" min="2" max="30" value="6" onchange="setBrushSize(this.value)" class="w-24 accent-amber-500">
+            </div>
+            <div class="flex gap-2">
+                <button onclick="clearCanvas()" class="px-3 py-1.5 bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 text-xs font-semibold rounded">Limpar</button>
+                <button onclick="saveCanvasToAttachment()" class="px-4 py-1.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-semibold rounded-lg shadow">Anexar Desenho</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL GRAVADOR DE ÁUDIO ===== -->
+<div id="audio-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white dark:bg-[#1e1e1e] rounded-2xl shadow-2xl p-6 border border-slate-200 dark:border-zinc-800 text-center space-y-6">
+        <div class="mx-auto w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center" id="audio-status-icon-container">
+            <i data-lucide="mic" class="w-8 h-8" id="audio-modal-icon"></i>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg" id="audio-modal-status">Gravador de Voz</h3>
+            <p class="text-xs text-slate-400 mt-1" id="audio-modal-timer">Clique abaixo para começar.</p>
+        </div>
+        <div class="flex flex-col gap-2">
+            <button id="btn-audio-record" onclick="toggleAudioRecording()" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-md flex items-center justify-center gap-2">
+                <i data-lucide="circle" class="w-4 h-4 fill-white animate-pulse"></i>
+                <span id="record-btn-text">Iniciar Gravação</span>
+            </button>
+            <button onclick="closeAudioModal()" class="w-full py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 rounded-xl text-sm font-semibold">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL CLOUD CONFIG ===== -->
+<div id="cloud-config-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-lg bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl flex flex-col max-h-[90vh] border border-slate-200 dark:border-zinc-800 overflow-hidden">
+        <div class="p-4 border-b border-slate-100 dark:border-zinc-800 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-amber-500">
+                <i data-lucide="cloud" class="w-5 h-5"></i>
+                <h3 class="font-bold text-lg">Google Drive</h3>
+            </div>
+            <button onclick="closeCloudConfigModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="p-5 space-y-4 text-sm text-slate-800 dark:text-slate-300 overflow-y-auto custom-scrollbar flex-1">
+
+            <!-- Connection status bar -->
+            <div id="gdrive-modal-status" class="gdrive-status-bar bg-slate-100 dark:bg-zinc-800/60">
+                <div class="gdrive-status-dot bg-slate-400"></div>
+                <span>Desconectado</span>
+            </div>
+
+            <!-- Last sync info -->
+            <div id="gdrive-last-sync" class="hidden text-[11px] text-center theme-text-muted">
+                <span id="gdrive-last-sync-text"></span>
+            </div>
+
+            <!-- Client ID input -->
+            <div class="space-y-1.5">
+                <label class="block font-bold text-xs uppercase tracking-wider text-slate-500">Client ID do Google</label>
+                <input type="text" id="gdrive-client-id" placeholder="Ex: 123456789-abc.apps.googleusercontent.com"
+                       class="w-full px-3 py-2.5 rounded-lg border border-slate-300 dark:border-zinc-700 bg-transparent text-xs outline-none focus:border-amber-500 transition-colors font-mono">
+                <p class="text-[10px] theme-text-muted">Cole aqui o Client ID OAuth 2.0 do seu projeto Google Cloud.</p>
+            </div>
+
+            <!-- Action buttons -->
+            <div class="flex gap-2">
+                <button onclick="saveCloudConfig()" class="flex-1 py-2.5 bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-2">
+                    <i data-lucide="link" class="w-3.5 h-3.5"></i> Conectar ao Drive
+                </button>
+                <button onclick="forceManualSync()" id="btn-manual-sync" class="hidden py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-lg shadow-sm flex items-center justify-center gap-2">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Sincronizar
+                </button>
+            </div>
+
+            <!-- Setup guide (collapsible) -->
+            <div>
+                <button onclick="toggleDriveGuide()" class="gdrive-collapse-btn flex items-center justify-center gap-2">
+                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                    <span id="gdrive-guide-toggle-text">Como obter o Client ID (gratuito)</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4" id="gdrive-guide-chevron"></i>
+                </button>
+                <div id="gdrive-guide-content" class="hidden mt-3 space-y-0">
+                    <div class="gdrive-step">
+                        <div class="gdrive-step-num">1</div>
+                        <div class="gdrive-step-content">
+                            <h4>Acesse o Google Cloud Console</h4>
+                            <p>Abra <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">console.cloud.google.com</a> e faça login com sua conta Google. Se nunca usou, aceite os termos.</p>
+                        </div>
+                    </div>
+                    <div class="gdrive-step">
+                        <div class="gdrive-step-num">2</div>
+                        <div class="gdrive-step-content">
+                            <h4>Crie um Projeto</h4>
+                            <p>Clique em <strong>"Selecionar projeto"</strong> no topo e depois <strong>"Novo Projeto"</strong>. Dê um nome (ex: "Papel de Pao") e crie.</p>
+                        </div>
+                    </div>
+                    <div class="gdrive-step">
+                        <div class="gdrive-step-num">3</div>
+                        <div class="gdrive-step-content">
+                            <h4>Ative a Google Drive API</h4>
+                            <p>Vá em <a href="https://console.cloud.google.com/apis/library/drive.googleapis.com" target="_blank" rel="noopener">APIs &amp; Serviços &gt; Biblioteca</a>, pesquise <strong>"Google Drive API"</strong> e clique <strong>"Ativar"</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="gdrive-step">
+                        <div class="gdrive-step-num">4</div>
+                        <div class="gdrive-step-content">
+                            <h4>Configure a Tela de Consentimento</h4>
+                            <p>Vá em <a href="https://console.cloud.google.com/apis/credentials/consent" target="_blank" rel="noopener">Tela de consentimento OAuth</a>. Escolha <strong>"Externo"</strong>, preencha nome do app e email. Adicione o escopo <strong>drive.file</strong>. Adicione seu email como <strong>usuário de teste</strong>.</p>
+                        </div>
+                    </div>
+                    <div class="gdrive-step">
+                        <div class="gdrive-step-num">5</div>
+                        <div class="gdrive-step-content">
+                            <h4>Crie as Credenciais OAuth</h4>
+                            <p>Vá em <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Credenciais</a> &gt; <strong>"Criar credenciais"</strong> &gt; <strong>"ID do cliente OAuth"</strong>. Tipo: <strong>"Aplicativo da Web"</strong>. Em "Origens JS autorizadas", adicione a URL onde o app roda (ex: <code>http://localhost:3000</code>). Copie o <strong>Client ID</strong> gerado.</p>
+                        </div>
+                    </div>
+                    <div class="gdrive-step" style="border-bottom:none;">
+                        <div class="gdrive-step-num" style="background:linear-gradient(135deg,#10b981,#059669);">&#10003;</div>
+                        <div class="gdrive-step-content">
+                            <h4>Pronto!</h4>
+                            <p>Cole o Client ID no campo acima e clique <strong>"Conectar ao Drive"</strong>. O Google vai pedir permissão uma vez. Depois disso, suas notas sincronizam automaticamente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Info box -->
+            <div class="p-3 bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900/40 rounded-lg text-[11px] text-blue-700 dark:text-blue-300 leading-relaxed">
+                <strong>100% Gratuito:</strong> A Google Drive API oferece 15GB de armazenamento e cota generosa de requisições sem custo. Suas notas ocupam poucos KB. Nenhum servidor intermediário: seus dados vão direto da sua tela para o seu Drive.
+            </div>
+        </div>
+        <div class="p-4 border-t border-slate-100 dark:border-zinc-800 flex justify-between items-center bg-slate-50 dark:bg-zinc-900/50">
+            <button onclick="resetCloudConfig()" id="btn-gdrive-disconnect" class="hidden text-xs text-red-500 hover:underline font-semibold flex items-center gap-1">
+                <i data-lucide="unplug" class="w-3 h-3"></i> Desconectar
+            </button>
+            <div></div>
+            <button onclick="closeCloudConfigModal()" class="px-5 py-2 bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 text-xs font-semibold rounded-lg">Fechar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL VERIFICAÇÃO DE SENHA ===== -->
+<div id="password-verify-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[60] hidden items-center justify-center p-4">
+    <div class="w-full max-w-sm bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl p-6 border border-slate-200 dark:border-zinc-800 text-center space-y-4">
+        <div class="mx-auto w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center">
+            <i data-lucide="lock" class="w-6 h-6"></i>
+        </div>
+        <div>
+            <h3 class="font-bold text-lg">Nota Bloqueada</h3>
+            <p class="text-xs text-slate-400 mt-1">Insira a senha para visualizar esta nota.</p>
+        </div>
+        <input type="password" id="verify-password-input" placeholder="Digite a senha..." 
+               class="w-full bg-transparent border border-slate-300 dark:border-zinc-700 rounded-lg px-3 py-2 text-sm text-center outline-none"
+               onkeydown="if(event.key==='Enter') submitVerifyPassword()">
+        <div id="verify-password-error" class="text-xs text-red-500 hidden font-semibold">Senha inválida!</div>
+        <div class="flex gap-2 pt-2">
+            <button onclick="closeVerifyPasswordModal()" class="flex-1 py-2 bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 rounded-lg text-sm font-semibold">Cancelar</button>
+            <button onclick="submitVerifyPassword()" class="flex-1 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-sm font-semibold shadow">Acessar</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL EDIÇÃO ===== -->
+<div id="edit-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div id="modal-content-card" class="w-full max-w-4xl bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl flex flex-col max-h-[90vh] border border-slate-200 dark:border-zinc-800 overflow-hidden">
+        <!-- Header -->
+        <div class="p-4 flex items-center justify-between border-b border-slate-100 dark:border-zinc-800">
+            <div class="flex items-center gap-2">
+                <button id="modal-pin" onclick="togglePinModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800">
+                    <i data-lucide="pin" class="w-5 h-5"></i>
+                </button>
+                <button id="modal-mono" onclick="toggleMonoModal()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800" title="Monospace">
+                    <i data-lucide="code" class="w-5 h-5"></i>
+                </button>
+                <button id="modal-copy" onclick="copyModalContent()" class="p-2 text-slate-400 hover:text-emerald-500 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800" title="Copiar">
+                    <i data-lucide="copy" class="w-5 h-5"></i>
+                </button>
+                <button id="modal-type-toggle" onclick="toggleModalNoteType()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800" title="Alternar Lista">
+                    <i data-lucide="check-square" class="w-5 h-5" id="modal-type-icon"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-2">
+                <div class="relative group">
+                    <button class="p-2 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full">
+                        <i data-lucide="palette" class="w-5 h-5"></i>
+                    </button>
+                    <div class="absolute right-0 top-full mt-1 hidden group-hover:flex items-center gap-1 p-2 bg-white dark:bg-zinc-800 border border-slate-200 dark:border-zinc-700 rounded-lg shadow-xl z-50 flex-wrap max-w-[180px]">
+                        <div onclick="setModalNoteColor('default')" class="color-swatch border border-slate-300 bg-white" title="Padrão"></div>
+                        <div onclick="setModalNoteColor('red')" class="color-swatch bg-red-300"></div>
+                        <div onclick="setModalNoteColor('orange')" class="color-swatch bg-orange-300"></div>
+                        <div onclick="setModalNoteColor('yellow')" class="color-swatch bg-yellow-300"></div>
+                        <div onclick="setModalNoteColor('green')" class="color-swatch bg-green-300"></div>
+                        <div onclick="setModalNoteColor('teal')" class="color-swatch bg-teal-300"></div>
+                        <div onclick="setModalNoteColor('blue')" class="color-swatch bg-blue-300"></div>
+                        <div onclick="setModalNoteColor('darkblue')" class="color-swatch bg-blue-500"></div>
+                        <div onclick="setModalNoteColor('purple')" class="color-swatch bg-purple-300"></div>
+                        <div onclick="setModalNoteColor('pink')" class="color-swatch bg-pink-300"></div>
+                        <div onclick="setModalNoteColor('brown')" class="color-swatch bg-amber-700"></div>
+                        <div onclick="setModalNoteColor('gray')" class="color-swatch bg-slate-300"></div>
+                    </div>
+                </div>
+                <button onclick="saveModalChanges()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-full hover:bg-slate-100 dark:hover:bg-zinc-800">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Corpo -->
+        <div class="p-6 flex-1 overflow-y-auto flex flex-col gap-4 custom-scrollbar">
+            <input type="text" id="modal-title" placeholder="Sem título" class="w-full bg-transparent font-bold text-2xl outline-none">
+            <div class="flex flex-wrap gap-1.5" id="modal-labels-container"></div>
+            <div id="modal-image-preview-container" class="max-h-72 rounded-lg overflow-hidden border border-slate-200 dark:border-zinc-700 hidden">
+                <img id="modal-image-preview" src="" class="w-full h-full object-contain bg-slate-50 dark:bg-zinc-900">
+            </div>
+            <div id="modal-audio-preview-container" class="p-3 bg-amber-500/10 rounded-lg flex items-center justify-between border border-amber-500/20 hidden">
+                <div class="flex items-center gap-2 text-amber-600 text-sm font-semibold">
+                    <i data-lucide="mic" class="w-5 h-5"></i><span>Voz Gravada</span>
+                </div>
+                <audio id="modal-audio-player" src="" controls></audio>
+            </div>
+            <textarea id="modal-textarea" placeholder="Comece a digitar aqui..." class="w-full bg-transparent text-sm outline-none resize-none flex-1 min-h-[250px] custom-scrollbar"></textarea>
+            <div id="modal-todo-container" class="hidden flex-1 flex flex-col gap-3 min-h-[250px]">
+                <div id="modal-todo-list" class="space-y-2 flex-1 overflow-y-auto custom-scrollbar"></div>
+                <div class="flex items-center gap-2 border-t border-slate-100 dark:border-zinc-800 pt-3">
+                    <input type="text" id="modal-todo-input" placeholder="Adicionar tarefa..." class="flex-1 bg-transparent text-sm outline-none" onkeydown="handleModalTodoKeydown(event)">
+                    <button onclick="addTodoItemToModal()" class="p-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-slate-100 dark:border-zinc-800 pt-4">
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">📅 Alarme</label>
+                    <div class="flex items-center gap-2">
+                        <input type="date" id="modal-date" class="bg-transparent border border-slate-200 dark:border-zinc-700 rounded px-2 py-1 text-xs outline-none">
+                        <input type="time" id="modal-time" class="bg-transparent border border-slate-200 dark:border-zinc-700 rounded px-2 py-1 text-xs outline-none">
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-400">🔒 Senha</label>
+                    <input type="password" id="modal-password" placeholder="Definir senha..." class="w-full bg-transparent border border-slate-200 dark:border-zinc-700 rounded px-2 py-1 text-xs outline-none">
+                </div>
+            </div>
+            <!-- Marcadores no modal -->
+            <div class="border-t border-slate-100 dark:border-zinc-800 pt-3">
+                <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">🏷️ Marcadores</p>
+                <div id="modal-label-options" class="flex flex-wrap gap-2"></div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="p-4 border-t border-slate-100 dark:border-zinc-800 flex items-center justify-between bg-slate-50 dark:bg-zinc-900/50">
+            <div class="text-xs text-slate-400" id="modal-timestamp">Modificado recentemente</div>
+            <div class="flex items-center gap-2">
+                <button onclick="deleteModalNote()" class="p-2 text-red-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-950/20 rounded-lg" title="Excluir">
+                    <i data-lucide="trash-2" class="w-5 h-5"></i>
+                </button>
+                <button onclick="archiveModalNote()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-lg" title="Arquivar">
+                    <i data-lucide="archive" class="w-5 h-5"></i>
+                </button>
+                <button onclick="saveModalChanges()" class="px-6 py-2 bg-amber-500 hover:bg-amber-600 text-white font-semibold text-sm rounded-lg shadow-md">Concluir</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ===== MODAL ALARME ===== -->
+<div id="alarm-modal" class="fixed inset-0 bg-red-950/60 backdrop-blur-md z-[70] hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white dark:bg-[#1a1313] rounded-2xl shadow-2xl p-6 border border-red-500/30 text-center space-y-5">
+        <div class="mx-auto w-16 h-16 rounded-full bg-red-100 dark:bg-red-950/50 text-red-500 flex items-center justify-center animate-pulse">
+            <i data-lucide="bell-ring" class="w-8 h-8"></i>
+        </div>
+        <div>
+            <h3 class="font-black text-xl text-red-600 dark:text-red-400">🔔 LEMBRETE ATIVO!</h3>
+            <p class="text-sm font-bold text-slate-700 dark:text-slate-300 mt-2" id="alarm-note-title">Título</p>
+            <div class="bg-slate-50 dark:bg-zinc-900/40 p-3 rounded-lg text-xs text-slate-500 dark:text-slate-400 mt-2 max-h-32 overflow-y-auto custom-scrollbar" id="alarm-note-desc"></div>
+        </div>
+        <button onclick="dismissAlarm()" class="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-lg">Parar Alarme</button>
+    </div>
+</div>
+
+<!-- ===== MODAL MARCADORES ===== -->
+<div id="labels-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="w-full max-w-md bg-white dark:bg-[#1e1e1e] rounded-xl shadow-2xl flex flex-col max-h-[80vh] border border-slate-200 dark:border-zinc-800">
+        <div class="p-4 border-b border-slate-100 dark:border-zinc-800 flex items-center justify-between">
+            <h3 class="font-bold text-lg">Editar Marcadores</h3>
+            <button onclick="closeManageLabelsModal()" class="p-1 hover:bg-slate-100 dark:hover:bg-zinc-800 rounded-full">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </div>
+        <div class="p-4 flex-1 overflow-y-auto space-y-4 custom-scrollbar">
+            <div class="flex items-center gap-2">
+                <i data-lucide="plus" class="w-5 h-5 text-slate-400"></i>
+                <input type="text" id="new-label-input" placeholder="Criar marcador..." class="w-full bg-transparent text-sm outline-none border-b border-slate-200 dark:border-zinc-800 focus:border-amber-500 py-1" onkeydown="if(event.key==='Enter') addNewLabel()">
+                <button onclick="addNewLabel()" class="p-1.5 bg-amber-500 hover:bg-amber-600 text-white rounded-lg">
+                    <i data-lucide="check" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div class="space-y-2 mt-2" id="manage-labels-list"></div>
+        </div>
+        <div class="p-4 border-t border-slate-100 dark:border-zinc-800 flex justify-end">
+            <button onclick="closeManageLabelsModal()" class="px-4 py-2 bg-slate-100 dark:bg-zinc-800 text-sm font-semibold rounded-lg">Pronto</button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== TOAST ===== -->
+<div id="toast" class="fixed top-6 right-6 transform translate-y-[-20px] opacity-0 bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 z-[100] transition-all duration-300 pointer-events-none">
+    <span id="toast-text" class="text-sm font-medium">OK!</span>
+</div>
+
+<script>
+// ===== LUCIDE LOADER =====
+function loadLucide(callback) {
+    if (window.lucide) { callback(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js';
+    s.onload = () => { if (window.lucide) callback(); };
+    s.onerror = () => {
+        const s2 = document.createElement('script');
+        s2.src = 'https://cdn.jsdelivr.net/npm/lucide@0.383.0/dist/umd/lucide.min.js';
+        s2.onload = callback;
+        document.head.appendChild(s2);
+    };
+    document.head.appendChild(s);
+}
+
+// Helper seguro para recriar ícones
+function safeIcons() { if (window.lucide) lucide.createIcons(); }
+
+// ===== ESTADO GLOBAL =====
+let notes = [];
+let labels = ["Trabalho", "Códigos", "Pessoal", "Ideias"];
+let activeFilter = 'all';
+let viewLayout = 'grid';
+let activeTheme = 'dark-modern';
+
+let googleClientId = "";
+let tokenClient = null;
+let accessToken = null;
+let gdriveFileId = null;
+let syncTimeout = null;
+let deferredPrompt = null;
+
+// Criação de nota
+let isNewPinned = false;
+let isNewMono = false;
+let newNoteColor = 'default';
+let newNoteLabels = [];
+let isNewTodo = false;
+let newNoteTodoItems = [];
+let newAttachedImage = null;
+let newAttachedAudio = null;
+
+// Modal de edição
+let editingNoteId = null;
+let isModalPinned = false;
+let isModalMono = false;
+let modalNoteColor = 'default';
+let isModalTodo = false;
+let modalTodoItems = [];
+
+// Outros
+let checkPasswordNoteId = null;
+let activeAlarmNote = null;
+let alarmAudioInterval = null;
+let codeNoteDecisionId = null;
+
+// Canvas
+let isDrawing = false, lastX = 0, lastY = 0;
+let brushColor = '#000000', brushSize = 6, isEraserActive = false;
+let paintCanvas, paintCtx;
+
+// Áudio
+let mediaRecorder = null, audioChunks = [];
+let isRecordingAudio = false;
+let audioStartTime = 0, audioTimerInterval = null;
+
+// Elementos DOM
+const searchInput  = document.getElementById('search-input');
+const clearSearchBtn = document.getElementById('clear-search');
+const gridPinned   = document.getElementById('grid-pinned');
+const gridOthers   = document.getElementById('grid-others');
+const sectionPinned= document.getElementById('section-pinned');
+const sectionOthers= document.getElementById('section-others');
+const sectionOthersTitle = document.getElementById('section-others-title');
+const emptyState   = document.getElementById('empty-state');
+
+// ===== INIT =====
+window.addEventListener('DOMContentLoaded', () => {
+    loadLocalData();
+    loadLucide(() => {
+        initApp();
+        tryRestoreDriveSession();
+        startAlarmScheduler();
+        initDrawingBoard();
+        setupPWA();
+        playLoadingAnimation();
+    });
+});
+
+// ===== LOADING ANIMATION (SOCO) =====
+function playLoadingAnimation(callback) {
+    const screen = document.getElementById('loading-animation-screen');
+    if (!screen) return;
+
+    const notepad = document.getElementById('anim-notepad');
+    const fist = document.getElementById('anim-fist');
+    const impact = document.getElementById('anim-impact');
+    const text = document.getElementById('anim-text');
+    const subtext = document.getElementById('anim-subtext');
+
+    const cx = window.innerWidth / 2;
+    const cy = window.innerHeight / 2;
+
+    screen.style.cssText = 'position:fixed;inset:0;background:#0a051b;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;opacity:1;';
+
+    notepad.style.cssText = `width:120px;height:120px;position:absolute;top:${cy - 60}px;left:-150px;opacity:1;transition:none;z-index:10;`;
+    fist.style.cssText = `width:160px;height:120px;position:absolute;top:${cy - 60}px;left:${window.innerWidth + 50}px;opacity:0;transition:none;z-index:20;`;
+    impact.style.cssText = `position:absolute;top:${cy - 64}px;left:${cx - 64}px;opacity:0;z-index:15;pointer-events:none;`;
+    text.style.opacity = '0';
+    subtext.style.opacity = '0';
+
+    void screen.offsetWidth;
+
+    // Step 1: Show title text
+    setTimeout(() => {
+        text.style.opacity = '1';
+        subtext.style.opacity = '1';
+    }, 100);
+
+    // Step 2: Notepad slides in from the left, decelerates to center
+    setTimeout(() => {
+        notepad.style.transition = 'left 0.9s cubic-bezier(0.0, 0.0, 0.2, 1)';
+        notepad.style.left = (cx - 60) + 'px';
+    }, 300);
+
+    // Step 3: Fist enters from the right rapidly
+    setTimeout(() => {
+        fist.style.opacity = '1';
+        fist.style.transition = 'left 0.35s cubic-bezier(0.4, 0, 1, 1)';
+        fist.style.left = (cx - 30) + 'px';
+    }, 1500);
+
+    // Step 4: IMPACT!
+    setTimeout(() => {
+        screen.classList.add('splash-shake');
+        impact.style.opacity = '1';
+        impact.classList.add('splash-impact-flash');
+
+        // Fist recoils slightly
+        fist.style.transition = 'left 0.15s ease-out, opacity 0.3s ease 0.15s';
+        fist.style.left = (cx + 40) + 'px';
+        fist.style.opacity = '0';
+
+        // Notepad gets punched UPWARD
+        const logo = document.getElementById('header-logo');
+        let targetX = cx - 60;
+        let targetY = 10;
+
+        if (logo) {
+            const r = logo.getBoundingClientRect();
+            targetX = r.left + r.width / 2 - 60;
+            targetY = r.top + r.height / 2 - 60;
+        }
+
+        notepad.style.transition = 'left 0.7s cubic-bezier(0.22, 1, 0.36, 1), top 0.7s cubic-bezier(0.22, 1, 0.36, 1), width 0.7s ease, height 0.7s ease';
+        notepad.style.top = targetY + 'px';
+        notepad.style.left = targetX + 'px';
+        notepad.style.width = '36px';
+        notepad.style.height = '36px';
+    }, 1850);
+
+    // Step 5: Clean up - fade text and screen
+    setTimeout(() => {
+        text.style.opacity = '0';
+        subtext.style.opacity = '0';
+    }, 2400);
+
+    setTimeout(() => {
+        screen.style.transition = 'opacity 0.45s ease';
+        screen.style.opacity = '0';
+        setTimeout(() => {
+            screen.style.display = 'none';
+            screen.remove();
+            if (callback) callback();
+        }, 450);
+    }, 2600);
+}
+
+// ===== PERSISTÊNCIA LOCAL =====
+function saveToLocalStorage() {
+    localStorage.setItem('notas_pessoais_v3_notes', JSON.stringify(notes));
+    localStorage.setItem('notas_pessoais_v3_labels', JSON.stringify(labels));
+    updateNotesCountBadge();
+    triggerCloudSync();
+}
+
+function loadLocalData() {
+    const savedNotes  = localStorage.getItem('notas_pessoais_v3_notes');
+    const savedLabels = localStorage.getItem('notas_pessoais_v3_labels');
+    const savedClientId = localStorage.getItem('notas_pessoais_v3_client_id');
+    const savedTheme  = localStorage.getItem('notas_pessoais_v3_theme');
+
+    notes = savedNotes ? JSON.parse(savedNotes) : [
+        { id: '1', title: 'Seja bem-vindo ao Papel de Pão! 🥖', content: 'Seu bloco de notas inteligente.\n\nExperimente criar notas, checklists, desenhos, códigos executáveis e gravações de voz. Tudo salvo localmente e no Google Drive!', color: 'default', isPinned: true, isArchived: false, isTrashed: false, isMonospace: false, type: 'text', todoItems: [], labels: [], updatedAt: Date.now() },
+        { id: 'demo-code', title: 'Exemplo de Código HTML Executável ⚡', content: '<!DOCTYPE html>\n<html>\n<head>\n  <style>\n    body { font-family: sans-serif; text-align: center; padding: 40px; background: #fff8e7; }\n    h1 { color: #d97706; }\n    button { background: #d97706; border: none; color: white; padding: 12px 24px; border-radius: 8px; font-size: 16px; cursor: pointer; transition: 0.2s; }\n    button:hover { background: #b45309; transform: scale(1.05); }\n  </style>\n</head>\n<body>\n  <h1>🍞 Papel de Pão</h1>\n  <p>Este código está rodando em sandbox segura.</p>\n  <button onclick="alert(\'Script funcionando!\')">Testar Script</button>\n</body>\n</html>', color: 'orange', isPinned: false, isArchived: false, isTrashed: false, isMonospace: true, type: 'text', todoItems: [], labels: ['Códigos'], updatedAt: Date.now() - 1000 }
+    ];
+
+    labels = savedLabels ? JSON.parse(savedLabels) : ["Trabalho", "Códigos", "Pessoal", "Ideias"];
+    if (savedClientId) { googleClientId = savedClientId; document.getElementById('gdrive-client-id').value = googleClientId; }
+    if (savedTheme) activeTheme = savedTheme;
+}
+
+function initApp() {
+    safeIcons();
+    applySystemTheme(activeTheme);
+    renderLabels();
+    renderNotes();
+    setupEvents();
+    updateNotesCountBadge();
+}
+
+function setupEvents() {
+    searchInput.addEventListener('input', e => {
+        clearSearchBtn.classList.toggle('hidden', !e.target.value.trim());
+        renderNotes();
+    });
+    clearSearchBtn.addEventListener('click', () => {
+        searchInput.value = '';
+        clearSearchBtn.classList.add('hidden');
+        renderNotes();
+    });
+    document.getElementById('btn-toggle-layout').addEventListener('click', () => {
+        viewLayout = viewLayout === 'grid' ? 'list' : 'grid';
+        document.getElementById('layout-icon').setAttribute('data-lucide', viewLayout === 'grid' ? 'layout-grid' : 'layout-list');
+        safeIcons();
+        renderNotes();
+    });
+}
+
+// ===== CONTADOR DE NOTAS =====
+function updateNotesCountBadge() {
+    const active = notes.filter(n => !n.isTrashed && !n.isArchived).length;
+    const badge = document.getElementById('notes-count-text');
+    if (badge) badge.textContent = active + ' nota' + (active !== 1 ? 's' : '');
+}
+
+// ===== CONTADOR DE PALAVRAS =====
+function updateWordCount() {
+    const text = document.getElementById('new-note-content').value.trim();
+    const words = text ? text.split(/\s+/).length : 0;
+    const display = document.getElementById('word-count-display');
+    if (display) display.textContent = words + (words === 1 ? ' palavra' : ' palavras');
+}
+
+// ===== IMPORTAR JSON =====
+function importNotes(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const data = JSON.parse(e.target.result);
+            let imported = 0;
+            if (data.notes && Array.isArray(data.notes)) {
+                data.notes.forEach(n => {
+                    if (!notes.find(existing => existing.id === n.id)) {
+                        notes.push(n);
+                        imported++;
+                    }
+                });
+            }
+            if (data.labels && Array.isArray(data.labels)) {
+                data.labels.forEach(l => { if (!labels.includes(l)) labels.push(l); });
+            }
+            saveToLocalStorage();
+            renderLabels();
+            renderNotes();
+            showToast(`${imported} nota(s) importada(s) com sucesso!`);
+        } catch (err) {
+            showToast('Erro ao importar JSON inválido.');
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+// ===== SIDEBAR GAVETA (Sempre oculta/Deslizante) =====
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const isOpen  = !sidebar.classList.contains('-translate-x-full');
+
+    if (isOpen) {
+        // FECHAR
+        sidebar.classList.add('-translate-x-full');
+        overlay.style.opacity = '0';
+        setTimeout(() => {
+            overlay.style.display = 'none';
+            overlay.style.opacity = '';
+        }, 300);
+    } else {
+        // ABRIR
+        overlay.style.display = 'block';
+        overlay.style.opacity = '0';
+        sidebar.classList.remove('-translate-x-full');
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                overlay.style.transition = 'opacity 0.3s';
+                overlay.style.opacity = '1';
+            });
+        });
+    }
+}
+
+// ===== PWA =====
+function setupPWA() {
+    const logoSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 115"><rect x="10" y="22" width="90" height="82" rx="10" fill="#d5eaf4" stroke="#333" stroke-width="3.5"/><path d="M10,32 Q10,22 20,22 L90,22 Q100,22 100,32 L100,42 L10,42 Z" fill="#f2c94c" stroke="#333" stroke-width="3.5"/><line x1="10" y1="42" x2="100" y2="42" stroke="#333" stroke-width="2"/><line x1="33" y1="42" x2="33" y2="104" stroke="#333" stroke-width="2.5" opacity="0.5"/><line x1="15" y1="60" x2="95" y2="60" stroke="#333" stroke-width="2.5" opacity="0.45"/><line x1="15" y1="76" x2="95" y2="76" stroke="#333" stroke-width="2.5" opacity="0.45"/><line x1="15" y1="92" x2="95" y2="92" stroke="#333" stroke-width="2.5" opacity="0.45"/><rect x="24" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/><rect x="44" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/><rect x="64" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/><rect x="84" y="11" width="12" height="19" rx="6" fill="#557a82" stroke="#333" stroke-width="2.5"/></svg>`;
+    const manifest = { name:"Papel de Pão", short_name:"PapelDePao", start_url: window.location.href, display:"standalone", background_color:"#030712", theme_color:"#004f9f", icons:[{src:"data:image/svg+xml;utf8,"+encodeURIComponent(logoSvg), sizes:"192x192 512x512", type:"image/svg+xml"}] };
+    const manifestURL = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type:'application/json'}));
+    document.getElementById('pwa-manifest').setAttribute('href', manifestURL);
+
+    window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('pwa-install-btn').classList.remove('hidden');
+    });
+    document.getElementById('pwa-install-btn').onclick = () => {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+        }
+    };
+}
+
+// ===== TEMAS =====
+function openThemeModal() {
+    document.getElementById('theme-modal').classList.remove('hidden');
+    document.getElementById('theme-modal').classList.add('flex');
+    highlightActiveThemeInModal();
+}
+function closeThemeModal() {
+    document.getElementById('theme-modal').classList.add('hidden');
+    document.getElementById('theme-modal').classList.remove('flex');
+}
+function applySystemTheme(themeName) {
+    activeTheme = themeName;
+    document.body.setAttribute('data-theme', themeName);
+    localStorage.setItem('notas_pessoais_v3_theme', themeName);
+    const lightThemes = ['light-modern','solarized-light','rosa'];
+    if (lightThemes.includes(themeName)) document.documentElement.classList.remove('dark');
+    else document.documentElement.classList.add('dark');
+    highlightActiveThemeInModal();
+}
+function highlightActiveThemeInModal() {
+    const themes = ['dark-modern','light-modern','solarized-dark','solarized-light','rosa','roxo','marrom','black-glass'];
+    themes.forEach(t => {
+        const card = document.getElementById(`theme-card-${t}`);
+        if (card) card.className = "group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all";
+    });
+    const activeCard = document.getElementById(`theme-card-${activeTheme}`);
+    if (activeCard) activeCard.className = "group flex flex-col items-center p-3 rounded-2xl border-2 border-purple-500 bg-[#17122e] transition-all shadow-lg shadow-purple-500/20";
+}
+
+// ===== FAB =====
+function toggleFabMenu() {
+    const menu = document.getElementById('fab-menu');
+    const overlay = document.getElementById('fab-overlay');
+    const mainBtn = document.getElementById('fab-main');
+    const icon = document.getElementById('fab-icon');
+    if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden'); menu.classList.add('flex');
+        overlay.classList.remove('hidden');
+        setTimeout(() => { menu.classList.remove('translate-y-8','opacity-0'); menu.classList.add('translate-y-0','opacity-100'); }, 10);
+        mainBtn.classList.add('rotate-45');
+        icon.setAttribute('data-lucide','x');
+    } else {
+        menu.classList.remove('translate-y-0','opacity-100');
+        menu.classList.add('translate-y-8','opacity-0');
+        overlay.classList.add('hidden');
+        setTimeout(() => { menu.classList.remove('flex'); menu.classList.add('hidden'); }, 300);
+        mainBtn.classList.remove('rotate-45');
+        icon.setAttribute('data-lucide','plus');
+    }
+    safeIcons();
+}
+function triggerAudioOption()   { toggleFabMenu(); openAudioModal(); }
+function triggerCodeOption()    { toggleFabMenu(); expandCreateNote(true); }
+function triggerDrawingOption() { toggleFabMenu(); openDrawingModal(); }
+function triggerImageOption()   { toggleFabMenu(); document.getElementById('image-file-input').click(); }
+function triggerListOption()    { toggleFabMenu(); expandCreateNote(false, true); }
+function triggerTextOption()    { toggleFabMenu(); expandCreateNote(); }
+
+// ===== ABRIR NOTA (COM SENHA) =====
+function handleNoteClick(id) {
+    const note = notes.find(n => n.id === id);
+    if (!note) return;
+    if (note.password && note.password.trim() !== '') {
+        checkPasswordNoteId = id;
+        document.getElementById('verify-password-input').value = '';
+        document.getElementById('verify-password-error').classList.add('hidden');
+        document.getElementById('password-verify-modal').classList.remove('hidden');
+        document.getElementById('password-verify-modal').classList.add('flex');
+        setTimeout(() => document.getElementById('verify-password-input').focus(), 100);
+        return;
+    }
+    if (note.isMonospace && !note.isTrashed) {
+        codeNoteDecisionId = id;
+        document.getElementById('decision-note-title').textContent = `Como abrir "${note.title}"?`;
+        document.getElementById('code-decision-modal').classList.remove('hidden');
+        document.getElementById('code-decision-modal').classList.add('flex');
+    } else {
+        openEditModal(id);
+    }
+}
+
+// ===== VERIFICAÇÃO DE SENHA =====
+function closeVerifyPasswordModal() {
+    document.getElementById('password-verify-modal').classList.add('hidden');
+    document.getElementById('password-verify-modal').classList.remove('flex');
+    checkPasswordNoteId = null;
+}
+function submitVerifyPassword() {
+    const note = notes.find(n => n.id === checkPasswordNoteId);
+    if (!note) return;
+    const input = document.getElementById('verify-password-input').value;
+    if (input === note.password) {
+        closeVerifyPasswordModal();
+        if (note.isMonospace && !note.isTrashed) {
+            codeNoteDecisionId = note.id;
+            document.getElementById('decision-note-title').textContent = `Como abrir "${note.title}"?`;
+            document.getElementById('code-decision-modal').classList.remove('hidden');
+            document.getElementById('code-decision-modal').classList.add('flex');
+        } else {
+            openEditModal(note.id);
+        }
+    } else {
+        document.getElementById('verify-password-error').classList.remove('hidden');
+        document.getElementById('verify-password-input').value = '';
+        document.getElementById('verify-password-input').focus();
+        const inputEl = document.getElementById('verify-password-input');
+        inputEl.style.animation = 'none';
+        inputEl.offsetHeight;
+        inputEl.style.borderColor = '#ef4444';
+        setTimeout(() => { inputEl.style.borderColor = ''; }, 1500);
+    }
+}
+
+// ===== DECISÃO CÓDIGO =====
+function closeCodeDecisionModal() {
+    document.getElementById('code-decision-modal').classList.add('hidden');
+    document.getElementById('code-decision-modal').classList.remove('flex');
+    codeNoteDecisionId = null;
+}
+function editCodeFromDecision()    { const id = codeNoteDecisionId; closeCodeDecisionModal(); openEditModal(id); }
+function executeCodeFromDecision() { const id = codeNoteDecisionId; closeCodeDecisionModal(); runCode(id); }
+function runCode(id) {
+    const note = notes.find(n => n.id === id);
+    if (!note) return;
+    document.getElementById('runner-title').textContent = `Executando: ${note.title}`;
+    document.getElementById('code-runner-modal').classList.remove('hidden');
+    document.getElementById('code-runner-modal').classList.add('flex');
+    document.getElementById('sandbox-iframe').srcdoc = note.content;
+}
+function reloadRunnerCode() {
+    const iframe = document.getElementById('sandbox-iframe');
+    const src = iframe.srcdoc;
+    iframe.srcdoc = '';
+    setTimeout(() => { iframe.srcdoc = src; }, 50);
+}
+function closeCodeRunner() {
+    document.getElementById('code-runner-modal').classList.add('hidden');
+    document.getElementById('code-runner-modal').classList.remove('flex');
+    document.getElementById('sandbox-iframe').srcdoc = '';
+}
+
+// ===== MODAL EDIÇÃO =====
+function openEditModal(id) {
+    const note = notes.find(n => n.id === id);
+    if (!note) return;
+    editingNoteId = id;
+
+    document.getElementById('modal-title').value = note.title || '';
+    document.getElementById('modal-textarea').value = note.content || '';
+    document.getElementById('modal-date').value = note.dueDate || '';
+    document.getElementById('modal-time').value = note.dueTime || '';
+    document.getElementById('modal-password').value = note.password || '';
+
+    isModalPinned = note.isPinned || false;
+    isModalMono   = note.isMonospace || false;
+    isModalTodo   = note.type === 'todo';
+    modalNoteColor = note.color || 'default';
+    modalTodoItems = note.todoItems ? [...note.todoItems] : [];
+
+    const pinBtn  = document.getElementById('modal-pin');
+    const monoBtn = document.getElementById('modal-mono');
+    pinBtn.classList.toggle('text-amber-500', isModalPinned);
+    monoBtn.classList.toggle('text-amber-500', isModalMono);
+    document.getElementById('modal-textarea').classList.toggle('font-code', isModalMono);
+
+    updateModalColorUI();
+    updateModalNoteTypeUI();
+    renderModalLabels(note);
+
+    const imgContainer = document.getElementById('modal-image-preview-container');
+    const imgEl = document.getElementById('modal-image-preview');
+    if (note.imageData) { imgEl.src = note.imageData; imgContainer.classList.remove('hidden'); }
+    else imgContainer.classList.add('hidden');
+
+    const audContainer = document.getElementById('modal-audio-preview-container');
+    const audEl = document.getElementById('modal-audio-player');
+    if (note.audioData) { audEl.src = note.audioData; audContainer.classList.remove('hidden'); }
+    else audContainer.classList.add('hidden');
+
+    const ts = note.updatedAt ? new Date(note.updatedAt).toLocaleString('pt-BR') : '';
+    document.getElementById('modal-timestamp').textContent = ts ? `Modificado em ${ts}` : '';
+
+    document.getElementById('edit-modal').classList.remove('hidden');
+    document.getElementById('edit-modal').classList.add('flex');
+    setTimeout(() => document.getElementById('modal-title').focus(), 100);
+}
+
+function renderModalLabels(note) {
+    const container = document.getElementById('modal-labels-container');
+    const optionsContainer = document.getElementById('modal-label-options');
+    if (!note) { if (container) container.innerHTML = ''; if (optionsContainer) optionsContainer.innerHTML = ''; return; }
+    const noteLabs = note.labels || [];
+
+    if (container) {
+        container.innerHTML = noteLabs.map(l =>
+            `<span class="px-2.5 py-0.5 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-full text-xs font-semibold">${escapeHTML(l)}</span>`
+        ).join('');
+    }
+
+    if (optionsContainer) {
+        optionsContainer.innerHTML = labels.map(label => {
+            const checked = noteLabs.includes(label);
+            return `<label class="flex items-center gap-2 px-2 py-1 hover:bg-black/5 rounded cursor-pointer text-sm">
+                <input type="checkbox" class="accent-amber-500" ${checked ? 'checked' : ''} onchange="toggleLabelOnModal('${label}')">
+                <span>${escapeHTML(label)}</span>
+            </label>`;
+        }).join('');
+    }
+    safeIcons();
+}
+
+function toggleLabelOnModal(labelName) {
+    const note = notes.find(n => n.id === editingNoteId);
+    if (!note) return;
+    if (!note.labels) note.labels = [];
+    const idx = note.labels.indexOf(labelName);
+    if (idx > -1) note.labels.splice(idx, 1);
+    else note.labels.push(labelName);
+    renderModalLabels(note);
+}
+
+function saveModalChanges() {
+    const note = notes.find(n => n.id === editingNoteId);
+    if (note) {
+        const oldDate = note.dueDate;
+        const oldTime = note.dueTime;
+        note.title    = document.getElementById('modal-title').value.trim() || 'Sem Título';
+        note.dueDate  = document.getElementById('modal-date').value || null;
+        note.dueTime  = document.getElementById('modal-time').value || null;
+        note.password = document.getElementById('modal-password').value.trim() || null;
+        note.type     = isModalTodo ? 'todo' : 'text';
+        if (isModalTodo) { note.todoItems = [...modalTodoItems]; note.content = ''; }
+        else { note.content = document.getElementById('modal-textarea').value; note.todoItems = []; }
+        if (note.dueDate !== oldDate || note.dueTime !== oldTime) note.alarmTriggered = false;
+        note.isPinned    = isModalPinned;
+        note.isMonospace = isModalMono;
+        note.color       = modalNoteColor;
+        note.updatedAt   = Date.now();
+        saveToLocalStorage();
+        renderNotes();
+    }
+    closeEditModal();
+}
+
+function closeEditModal() {
+    document.getElementById('edit-modal').classList.add('hidden');
+    document.getElementById('edit-modal').classList.remove('flex');
+    editingNoteId = null;
+}
+
+function updateModalColorUI() {
+    document.getElementById('modal-content-card').className =
+        `w-full max-w-4xl rounded-xl shadow-2xl flex flex-col max-h-[90vh] border overflow-hidden note-bg-${modalNoteColor}`;
+}
+
+function setModalNoteColor(color) { modalNoteColor = color; updateModalColorUI(); }
+function togglePinModal()  { isModalPinned = !isModalPinned; document.getElementById('modal-pin').classList.toggle('text-amber-500', isModalPinned); }
+function toggleMonoModal() { isModalMono   = !isModalMono;   document.getElementById('modal-mono').classList.toggle('text-amber-500', isModalMono); document.getElementById('modal-textarea').classList.toggle('font-code', isModalMono); }
+function copyModalContent() {
+    const text = isModalTodo ? modalTodoItems.map(i => `[${i.completed?'x':' '}] ${i.text}`).join('\n') : document.getElementById('modal-textarea').value;
+    copyToClipboard(text);
+    showToast('Conteúdo copiado!');
+}
+function deleteModalNote()  { moveToTrash(editingNoteId); closeEditModal(); }
+function archiveModalNote() { toggleArchive(editingNoteId); closeEditModal(); }
+
+// ===== TODO MODAL =====
+function toggleModalNoteType() { isModalTodo = !isModalTodo; updateModalNoteTypeUI(); }
+function updateModalNoteTypeUI() {
+    const icon = document.getElementById('modal-type-icon');
+    const textarea = document.getElementById('modal-textarea');
+    const todoContainer = document.getElementById('modal-todo-container');
+    if (isModalTodo) {
+        icon.classList.add('text-amber-500');
+        textarea.classList.add('hidden');
+        todoContainer.classList.remove('hidden');
+        renderModalTodoItems();
+    } else {
+        icon.classList.remove('text-amber-500');
+        textarea.classList.remove('hidden');
+        todoContainer.classList.add('hidden');
+    }
+}
+function handleModalTodoKeydown(e) { if (e.key === 'Enter') { e.preventDefault(); addTodoItemToModal(); } }
+function addTodoItemToModal() {
+    const input = document.getElementById('modal-todo-input');
+    const text = input.value.trim();
+    if (text) {
+        modalTodoItems.push({ id: Date.now().toString() + Math.random().toString(36).substr(2,5), text, completed: false });
+        input.value = '';
+        renderModalTodoItems();
+        input.focus();
+    }
+}
+function removeTodoItemFromModal(itemId) {
+    modalTodoItems = modalTodoItems.filter(i => i.id !== itemId);
+    renderModalTodoItems();
+}
+function renderModalTodoItems() {
+    document.getElementById('modal-todo-list').innerHTML = modalTodoItems.map(item => `
+        <div class="flex items-center justify-between gap-2 p-1.5 hover:bg-black/5 rounded-lg">
+            <div class="flex items-center gap-2">
+                <input type="checkbox" ${item.completed ? 'checked' : ''} onchange="toggleModalTodoItemStatus('${item.id}')" class="accent-amber-500 w-4 h-4">
+                <span class="text-sm ${item.completed ? 'line-through text-slate-400' : ''}">${escapeHTML(item.text)}</span>
+            </div>
+            <button onclick="removeTodoItemFromModal('${item.id}')" class="text-slate-400 hover:text-red-500 p-1">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+    `).join('');
+    safeIcons();
+}
+function toggleModalTodoItemStatus(itemId) {
+    const item = modalTodoItems.find(i => i.id === itemId);
+    if (item) { item.completed = !item.completed; renderModalTodoItems(); }
+}
+
+// ===== HISTÓRICO VERSÕES =====
+function openVersionHistoryModal() { toggleSidebar(); document.getElementById('version-modal').classList.remove('hidden'); document.getElementById('version-modal').classList.add('flex'); }
+function closeVersionHistoryModal() { document.getElementById('version-modal').classList.add('hidden'); document.getElementById('version-modal').classList.remove('flex'); }
+
+// ===== CANVAS / DESENHO =====
+function initDrawingBoard() {
+    paintCanvas = document.getElementById('paint-canvas');
+    paintCtx = paintCanvas.getContext('2d');
+    paintCanvas.width  = Math.min(600, window.innerWidth - 40);
+    paintCanvas.height = 350;
+    paintCtx.lineCap = 'round'; paintCtx.lineJoin = 'round';
+    paintCtx.lineWidth = brushSize; paintCtx.strokeStyle = brushColor;
+
+    paintCanvas.addEventListener('mousedown', startPaint);
+    paintCanvas.addEventListener('mousemove', drawPaint);
+    paintCanvas.addEventListener('mouseup', stopPaint);
+    paintCanvas.addEventListener('mouseout', stopPaint);
+    paintCanvas.addEventListener('touchstart', e => { e.preventDefault(); const t = e.touches[0]; paintCanvas.dispatchEvent(new MouseEvent('mousedown', {clientX:t.clientX, clientY:t.clientY})); }, {passive:false});
+    paintCanvas.addEventListener('touchmove',  e => { e.preventDefault(); const t = e.touches[0]; paintCanvas.dispatchEvent(new MouseEvent('mousemove', {clientX:t.clientX, clientY:t.clientY})); }, {passive:false});
+    paintCanvas.addEventListener('touchend',   e => { e.preventDefault(); paintCanvas.dispatchEvent(new MouseEvent('mouseup', {})); }, {passive:false});
+}
+function startPaint(e) { isDrawing=true; const r=paintCanvas.getBoundingClientRect(); lastX=e.clientX-r.left; lastY=e.clientY-r.top; }
+function drawPaint(e)  { if(!isDrawing) return; const r=paintCanvas.getBoundingClientRect(); const x=e.clientX-r.left, y=e.clientY-r.top; paintCtx.beginPath(); paintCtx.moveTo(lastX,lastY); paintCtx.lineTo(x,y); paintCtx.stroke(); lastX=x; lastY=y; }
+function stopPaint()   { isDrawing=false; }
+function setBrushColor(color) { isEraserActive=false; document.getElementById('btn-eraser').classList.remove('bg-amber-100','text-amber-600'); brushColor=color; paintCtx.strokeStyle=color; }
+function setBrushSize(size)   { brushSize=size; paintCtx.lineWidth=size; }
+function toggleEraser() {
+    isEraserActive = !isEraserActive;
+    const btn = document.getElementById('btn-eraser');
+    if (isEraserActive) { btn.classList.add('bg-amber-100','text-amber-600'); paintCtx.strokeStyle = document.documentElement.classList.contains('dark') ? '#111827' : '#ffffff'; }
+    else { btn.classList.remove('bg-amber-100','text-amber-600'); paintCtx.strokeStyle = brushColor; }
+}
+function clearCanvas() { paintCtx.clearRect(0,0,paintCanvas.width,paintCanvas.height); }
+function openDrawingModal()  { document.getElementById('drawing-modal').classList.remove('hidden'); document.getElementById('drawing-modal').classList.add('flex'); clearCanvas(); }
+function closeDrawingModal() { document.getElementById('drawing-modal').classList.add('hidden'); document.getElementById('drawing-modal').classList.remove('flex'); }
+function saveCanvasToAttachment() {
+    const dataUrl = paintCanvas.toDataURL('image/jpeg', 0.8);
+    newAttachedImage = dataUrl;
+    document.getElementById('new-note-attachments').classList.remove('hidden');
+    document.getElementById('preview-image-container').classList.remove('hidden');
+    document.getElementById('preview-image').src = dataUrl;
+    closeDrawingModal();
+    expandCreateNote();
+}
+
+// ===== IMAGEM =====
+function handleImageUpload(e) {
+    const file = e.target.files[0]; if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            let w = img.width, h = img.height;
+            const max = 800;
+            if (w > h) { if (w>max) { h*=max/w; w=max; } } else { if (h>max) { w*=max/h; h=max; } }
+            canvas.width=w; canvas.height=h;
+            canvas.getContext('2d').drawImage(img,0,0,w,h);
+            const b64 = canvas.toDataURL('image/jpeg', 0.7);
+            newAttachedImage = b64;
+            document.getElementById('new-note-attachments').classList.remove('hidden');
+            document.getElementById('preview-image-container').classList.remove('hidden');
+            document.getElementById('preview-image').src = b64;
+            expandCreateNote();
+        };
+        img.src = ev.target.result;
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+}
+function removeAttachedImage() {
+    newAttachedImage = null;
+    document.getElementById('preview-image-container').classList.add('hidden');
+    document.getElementById('preview-image').src = '';
+    checkAttachmentsVisibility();
+}
+
+// ===== ÁUDIO =====
+function openAudioModal() {
+    document.getElementById('audio-modal').classList.remove('hidden');
+    document.getElementById('audio-modal').classList.add('flex');
+    isRecordingAudio = false; audioChunks = [];
+    document.getElementById('record-btn-text').textContent = 'Iniciar Gravação';
+    document.getElementById('audio-modal-status').textContent = 'Gravador de Voz';
+    document.getElementById('audio-modal-timer').textContent = 'Clique abaixo para começar.';
+    document.getElementById('audio-status-icon-container').className = "mx-auto w-16 h-16 rounded-full bg-amber-100 dark:bg-amber-950/40 text-amber-600 flex items-center justify-center";
+}
+function closeAudioModal() {
+    if (isRecordingAudio) stopAudioRecording(false);
+    document.getElementById('audio-modal').classList.add('hidden');
+    document.getElementById('audio-modal').classList.remove('flex');
+}
+async function toggleAudioRecording() {
+    if (!isRecordingAudio) {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+            mediaRecorder = new MediaRecorder(stream);
+            audioChunks = [];
+            mediaRecorder.addEventListener('dataavailable', e => audioChunks.push(e.data));
+            mediaRecorder.addEventListener('stop', () => {
+                const blob = new Blob(audioChunks, {type:'audio/webm'});
+                const reader = new FileReader();
+                reader.onloadend = function() {
+                    newAttachedAudio = reader.result;
+                    document.getElementById('new-note-attachments').classList.remove('hidden');
+                    document.getElementById('preview-audio-container').classList.remove('hidden');
+                    document.getElementById('preview-audio').src = newAttachedAudio;
+                    closeAudioModal();
+                    expandCreateNote();
+                };
+                reader.readAsDataURL(blob);
+            });
+            mediaRecorder.start();
+            isRecordingAudio = true;
+            audioStartTime = Date.now();
+            document.getElementById('record-btn-text').textContent = 'Finalizar Gravação';
+            document.getElementById('audio-modal-status').textContent = 'Gravando...';
+            document.getElementById('audio-status-icon-container').className = "mx-auto w-16 h-16 rounded-full bg-red-100 dark:bg-red-950/40 text-red-500 flex items-center justify-center animate-pulse";
+            audioTimerInterval = setInterval(() => {
+                const secs = Math.floor((Date.now()-audioStartTime)/1000);
+                document.getElementById('audio-modal-timer').textContent = `${Math.floor(secs/60)}:${(secs%60).toString().padStart(2,'0')}`;
+            }, 500);
+        } catch(err) {
+            showToast('Microfone bloqueado ou indisponível.');
+        }
+    } else {
+        stopAudioRecording(true);
+    }
+}
+function stopAudioRecording(save=true) {
+    if (mediaRecorder && isRecordingAudio) {
+        if (!save) mediaRecorder.ondataavailable = null;
+        mediaRecorder.stop();
+        mediaRecorder.stream.getTracks().forEach(t => t.stop());
+    }
+    isRecordingAudio = false;
+    clearInterval(audioTimerInterval);
+}
+function removeAttachedAudio() {
+    newAttachedAudio = null;
+    document.getElementById('preview-audio-container').classList.add('hidden');
+    document.getElementById('preview-audio').src = '';
+    checkAttachmentsVisibility();
+}
+function checkAttachmentsVisibility() {
+    if (!newAttachedImage && !newAttachedAudio) document.getElementById('new-note-attachments').classList.add('hidden');
+}
+
+// ===== RENDERIZAR NOTAS =====
+function renderNotes() {
+    const query = searchInput.value.toLowerCase();
+    let filtered = notes.filter(note => {
+        if (activeFilter === 'trash')   return note.isTrashed;
+        if (note.isTrashed) return false;
+        if (activeFilter === 'archive') return note.isArchived;
+        if (note.isArchived) return false;
+        if (activeFilter === 'pinned')  return note.isPinned;
+        if (activeFilter === 'todo')    return note.type === 'todo';
+        if (labels.includes(activeFilter)) return note.labels && note.labels.includes(activeFilter);
+        return true;
+    });
+    if (query) filtered = filtered.filter(n =>
+        (n.title||'').toLowerCase().includes(query) ||
+        (n.content||'').toLowerCase().includes(query) ||
+        (n.labels||[]).some(l => l.toLowerCase().includes(query))
+    );
+
+    const pinned = filtered.filter(n => n.isPinned);
+    const others  = filtered.filter(n => !n.isPinned);
+
+    gridPinned.innerHTML = '';
+    gridOthers.innerHTML = '';
+
+    const containerCls = viewLayout === 'list'
+        ? "flex flex-col gap-4 max-w-3xl mx-auto w-full"
+        : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 w-full";
+    gridPinned.className = containerCls;
+    gridOthers.className = containerCls;
+
+    const showPinned = pinned.length > 0 && !['pinned','trash','archive'].includes(activeFilter);
+    sectionPinned.classList.toggle('hidden', !showPinned);
+    if (showPinned) pinned.forEach((n,i) => { const card = createNoteCard(n); card.style.animationDelay = (i*0.04)+'s'; gridPinned.appendChild(card); });
+
+    const toRender = ['pinned','trash','archive','todo'].includes(activeFilter) ? filtered : others;
+    if (toRender.length > 0 || pinned.length > 0) {
+        emptyState.classList.add('hidden');
+        sectionOthers.classList.remove('hidden');
+        sectionOthersTitle.textContent = activeFilter === 'archive' ? 'Arquivadas' : activeFilter === 'trash' ? 'Lixeira' : activeFilter === 'todo' ? 'Listas de Tarefas' : activeFilter === 'pinned' ? 'Todas Fixadas' : labels.includes(activeFilter) ? `Marcador: ${activeFilter}` : pinned.length > 0 ? 'Outras Notas' : 'Notas';
+        toRender.forEach((n,i) => { const card = createNoteCard(n); card.style.animationDelay = (i*0.04)+'s'; gridOthers.appendChild(card); });
+    } else {
+        sectionOthers.classList.add('hidden');
+        showEmptyState();
+    }
+
+    safeIcons();
+    updateNotesCountBadge();
+}
+
+function createNoteCard(note) {
+    const card = document.createElement('div');
+    card.className = `theme-card border rounded-xl p-4 flex flex-col justify-between hover:shadow-lg transition-all duration-200 group relative cursor-pointer min-h-[160px] max-h-[460px] overflow-hidden note-card-enter note-bg-${note.color || 'default'}`;
+
+    if (note.password && note.password.trim() !== '') {
+        card.setAttribute('onclick', `handleNoteClick('${note.id}')`);
+        card.innerHTML = `<div class="flex flex-col items-center justify-center py-10 text-center text-slate-400">
+            <i data-lucide="lock" class="w-10 h-10 mb-2 text-amber-500"></i>
+            <h4 class="font-bold text-sm">Nota Protegida</h4>
+            <p class="text-[11px] mt-1">Toque para inserir a senha</p>
+        </div>`;
+        return card;
+    }
+
+    card.setAttribute('onclick', `handleNoteClick('${note.id}')`);
+
+    let imgHTML = '';
+    if (note.imageData) imgHTML = `<div class="w-full h-32 mb-3 rounded-lg overflow-hidden border theme-border"><img src="${note.imageData}" class="w-full h-full object-cover"></div>`;
+
+    let audHTML = '';
+    if (note.audioData) audHTML = `<div class="mt-2 p-2 bg-amber-500/10 rounded-lg flex items-center gap-2 text-amber-600 text-xs font-semibold" onclick="event.stopPropagation()"><i data-lucide="mic" class="w-4 h-4"></i><audio src="${note.audioData}" controls class="w-full h-6 max-w-full"></audio></div>`;
+
+    let contentHTML = '';
+    if (note.type === 'todo') {
+        const checked = (note.todoItems||[]).filter(i=>i.completed).length;
+        const total   = (note.todoItems||[]).length;
+        const pct     = total > 0 ? (checked/total*100).toFixed(0) : 0;
+        const items   = (note.todoItems||[]).slice(0,4).map(item => `
+            <div class="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-300">
+                <input type="checkbox" ${item.completed?'checked':''} onclick="event.stopPropagation(); toggleTodoItemStatus('${note.id}','${item.id}')" class="accent-amber-500 cursor-pointer w-3.5 h-3.5 rounded">
+                <span class="${item.completed?'line-through text-slate-400':''} truncate">${escapeHTML(item.text)}</span>
+            </div>`).join('');
+        const more = (note.todoItems||[]).length > 4 ? `<span class="text-[10px] theme-text-muted">+${(note.todoItems||[]).length-4} mais</span>` : '';
+        contentHTML = `<div class="space-y-1.5 mt-2">
+            <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 mb-1"><span>Progresso</span><span>${checked}/${total}</span></div>
+            <div class="todo-progress-bar mb-2"><div class="todo-progress-fill" style="width:${pct}%"></div></div>
+            ${items}${more}
+            ${total===0?'<span class="text-xs theme-text-muted italic">Lista vazia</span>':''}
+        </div>`;
+    } else {
+        const preview = (note.content||'').substring(0, 350) + ((note.content||'').length > 350 ? '...' : '');
+        contentHTML = note.isMonospace
+            ? `<pre class="font-code text-xs whitespace-pre-wrap break-all mt-2 text-slate-700 dark:text-slate-300 opacity-90 overflow-hidden max-h-[140px]">${escapeHTML(preview)}</pre>`
+            : `<p class="text-sm mt-2 text-slate-600 dark:text-slate-300 whitespace-pre-wrap break-words leading-relaxed max-h-[140px] overflow-hidden">${escapeHTML(preview)}</p>`;
+    }
+
+    let labelsHTML = '';
+    if (note.labels && note.labels.length > 0) {
+        labelsHTML = `<div class="flex flex-wrap gap-1 mt-3">${note.labels.map(l=>`<span class="px-2 py-0.5 bg-black/5 dark:bg-white/10 rounded-full text-[10px] font-medium">${escapeHTML(l)}</span>`).join('')}</div>`;
+    }
+
+    let reminderBadge = '';
+    if (note.dueDate && note.dueTime) {
+        const isPast = new Date(`${note.dueDate}T${note.dueTime}`) < new Date();
+        const cls = isPast ? 'bg-red-500/10 text-red-500 border-red-500/20' : 'bg-amber-500/10 text-amber-500 border-amber-500/20';
+        reminderBadge = `<div class="mt-2.5 inline-flex items-center gap-1 text-[10px] font-semibold border px-2 py-0.5 rounded-full ${cls}"><i data-lucide="bell" class="w-3 h-3"></i><span>${note.dueDate.split('-').reverse().join('/')} ${note.dueTime}</span></div>`;
+    }
+
+    const iconHTML = note.isMonospace
+        ? `<span class="font-bold font-mono text-[#004f9f] dark:text-amber-400 text-sm leading-none bg-slate-100 dark:bg-zinc-800 px-1.5 py-0.5 rounded border border-slate-200 dark:border-zinc-700 select-none">&gt;_</span>`
+        : `<i data-lucide="sticky-note" class="w-4 h-4 text-slate-400"></i>`;
+
+    const pinCls = note.isPinned ? 'text-amber-500 fill-amber-500 opacity-100' : 'opacity-0 group-hover:opacity-100';
+
+    const trashOrRestore = note.isTrashed
+        ? `<button onclick="event.stopPropagation(); restoreFromTrash('${note.id}')" class="btn-restore" title="Restaurar"><i data-lucide="undo-2" class="w-3 h-3"></i>Restaurar</button>
+           <button onclick="event.stopPropagation(); moveToTrash('${note.id}')" class="p-1.5 rounded-lg hover:bg-black/5 text-red-400 hover:text-red-600 transition-colors text-xs font-semibold" title="Excluir permanentemente"><i data-lucide="trash-2" class="w-3.5 h-3.5"></i></button>`
+        : `<button onclick="event.stopPropagation(); toggleArchive('${note.id}')" class="p-1.5 rounded-lg hover:bg-black/5 text-slate-500 transition-colors" title="${note.isArchived?'Desarquivar':'Arquivar'}">
+                <i data-lucide="${note.isArchived?'package-open':'archive'}" class="w-3.5 h-3.5"></i>
+           </button>
+           <button onclick="event.stopPropagation(); moveToTrash('${note.id}')" class="p-1.5 rounded-lg hover:bg-black/5 text-slate-500 hover:text-red-500 transition-colors" title="Excluir">
+               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+           </button>`;
+
+    card.innerHTML = `
+        <div>
+            ${imgHTML}
+            <div class="flex items-start justify-between gap-2">
+                <div class="flex items-center gap-2 min-w-0">
+                    ${iconHTML}
+                    <h3 class="font-semibold text-sm sm:text-base leading-tight truncate">${escapeHTML(note.title||'Sem Título')}</h3>
+                </div>
+                <button onclick="event.stopPropagation(); togglePin('${note.id}')" class="p-1 rounded-full hover:bg-black/5 transition-all shrink-0 ${pinCls}">
+                    <i data-lucide="pin" class="w-4 h-4"></i>
+                </button>
+            </div>
+            ${contentHTML}
+            ${audHTML}
+            ${reminderBadge}
+            ${labelsHTML}
+        </div>
+        <div class="flex items-center justify-between gap-1.5 mt-4 opacity-0 group-hover:opacity-100 transition-all duration-200">
+            <div class="flex items-center gap-1">
+                ${note.isMonospace && !note.isTrashed ? `<button onclick="event.stopPropagation(); runCode('${note.id}')" class="p-1.5 rounded-lg hover:bg-black/5 text-emerald-600 dark:text-emerald-400" title="Executar"><i data-lucide="play" class="w-3.5 h-3.5"></i></button>` : ''}
+                <button onclick="event.stopPropagation(); copyNoteText('${note.id}')" class="p-1.5 rounded-lg hover:bg-black/5 text-slate-500 hover:text-emerald-500" title="Copiar">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i>
+                </button>
+            </div>
+            <div class="flex items-center gap-1">${trashOrRestore}</div>
+        </div>
+    `;
+    return card;
+}
+
+function showEmptyState() {
+    emptyState.classList.remove('hidden');
+    emptyState.classList.add('flex');
+    const title = document.getElementById('empty-title');
+    const desc  = document.getElementById('empty-desc');
+    if (activeFilter === 'archive') { title.textContent = 'Sem notas arquivadas'; desc.textContent = 'Arquive notas para organizar o painel.'; }
+    else if (activeFilter === 'trash') { title.textContent = 'Lixeira vazia'; desc.textContent = 'Nenhum rascunho amassado por aqui.'; }
+    else if (activeFilter === 'todo') { title.textContent = 'Nenhuma lista'; desc.textContent = 'Crie uma checklist pelo menu "+"!'; }
+    else if (activeFilter === 'pinned') { title.textContent = 'Nenhuma nota fixada'; desc.textContent = 'Fixe notas importantes para acesso rápido.'; }
+    else { title.textContent = 'Suas anotações começam aqui!'; desc.textContent = 'Use o "+" para criar notas, códigos, áudios ou desenhos.'; }
+}
+
+// ===== CRIAR NOTA =====
+function expandCreateNote(withMono=false, withTodo=false) {
+    document.getElementById('note-collapsed').classList.add('hidden');
+    document.getElementById('note-expanded').classList.remove('hidden');
+    isNewTodo = withTodo;
+    updateNewNoteFormTypeUI();
+    if (withMono) { isNewMono=true; document.getElementById('new-note-content').classList.add('font-code'); document.getElementById('btn-mono-new').classList.add('text-amber-500'); }
+    if (isNewTodo) document.getElementById('new-todo-item-input').focus();
+    else document.getElementById('new-note-content').focus();
+    renderNewNoteLabelOptions();
+    updateWordCount();
+}
+
+function toggleTodoNew() { isNewTodo = !isNewTodo; updateNewNoteFormTypeUI(); }
+function updateNewNoteFormTypeUI() {
+    const btnIcon = document.getElementById('btn-todo-new-icon');
+    const textareaCont = document.getElementById('new-note-textarea-container');
+    const todoCont = document.getElementById('new-note-todo-container');
+    if (isNewTodo) { btnIcon.classList.add('text-amber-500'); textareaCont.classList.add('hidden'); todoCont.classList.remove('hidden'); renderNewNoteTodoItems(); }
+    else { btnIcon.classList.remove('text-amber-500'); textareaCont.classList.remove('hidden'); todoCont.classList.add('hidden'); }
+}
+function handleNewTodoKeydown(e) { if (e.key==='Enter') { e.preventDefault(); addTodoItemToNewNote(); } }
+function addTodoItemToNewNote() {
+    const input = document.getElementById('new-todo-item-input');
+    const text = input.value.trim();
+    if (text) {
+        newNoteTodoItems.push({ id: Date.now().toString()+Math.random().toString(36).substr(2,5), text, completed:false });
+        input.value = '';
+        renderNewNoteTodoItems();
+        input.focus();
+    }
+}
+function removeTodoItemFromNewNote(itemId) { newNoteTodoItems = newNoteTodoItems.filter(i=>i.id!==itemId); renderNewNoteTodoItems(); }
+function renderNewNoteTodoItems() {
+    document.getElementById('new-note-todo-list').innerHTML = newNoteTodoItems.map(item => `
+        <div class="flex items-center justify-between gap-2 p-1.5 hover:bg-black/5 rounded-lg">
+            <div class="flex items-center gap-2">
+                <input type="checkbox" ${item.completed?'checked':''} onchange="toggleNewTodoItemStatus('${item.id}')" class="accent-amber-500 w-4 h-4">
+                <span class="text-sm ${item.completed?'line-through text-slate-400':''}">${escapeHTML(item.text)}</span>
+            </div>
+            <button onclick="removeTodoItemFromNewNote('${item.id}')" class="text-slate-400 hover:text-red-500 p-1">
+                <i data-lucide="x" class="w-4 h-4"></i>
+            </button>
+        </div>
+    `).join('');
+    safeIcons();
+}
+function toggleNewTodoItemStatus(itemId) { const item = newNoteTodoItems.find(i=>i.id===itemId); if(item) { item.completed=!item.completed; renderNewNoteTodoItems(); } }
+function toggleReminderNewPanel()  { document.getElementById('new-note-reminder-panel').classList.toggle('hidden'); }
+function clearNewNoteReminder()    { document.getElementById('new-note-date').value=''; document.getElementById('new-note-time').value=''; toggleReminderNewPanel(); }
+function togglePasswordNewPanel()  { const p=document.getElementById('new-note-password-panel'); p.classList.toggle('hidden'); if(!p.classList.contains('hidden')) document.getElementById('new-note-password').focus(); }
+function clearNewNotePassword()    { document.getElementById('new-note-password').value=''; togglePasswordNewPanel(); }
+
+function collapseCreateNote() {
+    document.getElementById('note-collapsed').classList.remove('hidden');
+    document.getElementById('note-expanded').classList.add('hidden');
+    document.getElementById('new-note-title').value='';
+    document.getElementById('new-note-content').value='';
+    document.getElementById('new-note-date').value='';
+    document.getElementById('new-note-time').value='';
+    document.getElementById('new-note-password').value='';
+    isNewPinned=false; isNewMono=false; isNewTodo=false; newNoteColor='default'; newNoteLabels=[]; newNoteTodoItems=[];
+    removeAttachedImage(); removeAttachedAudio();
+    document.getElementById('btn-pin-new').classList.remove('text-amber-500');
+    document.getElementById('btn-mono-new').classList.remove('text-amber-500');
+    document.getElementById('new-note-content').classList.remove('font-code');
+    document.getElementById('new-note-reminder-panel').classList.add('hidden');
+    document.getElementById('new-note-password-panel').classList.add('hidden');
+    document.getElementById('create-note-box').className = "theme-card rounded-xl shadow-md border transition-all duration-300";
+    document.getElementById('new-note-labels').innerHTML='';
+    updateWordCount();
+}
+
+function togglePinNew()  { isNewPinned=!isNewPinned; document.getElementById('btn-pin-new').classList.toggle('text-amber-500', isNewPinned); }
+function toggleMonoNew() { isNewMono=!isNewMono; document.getElementById('btn-mono-new').classList.toggle('text-amber-500', isNewMono); document.getElementById('new-note-content').classList.toggle('font-code', isNewMono); }
+function setNewNoteColor(color) { newNoteColor=color; document.getElementById('create-note-box').className=`theme-card rounded-xl shadow-md border note-bg-${color}`; }
+
+function toggleLabelOnNewNote(labelName) {
+    const i = newNoteLabels.indexOf(labelName);
+    if (i>-1) newNoteLabels.splice(i,1); else newNoteLabels.push(labelName);
+    renderNewNoteLabels(); renderNewNoteLabelOptions();
+}
+function renderNewNoteLabels() {
+    document.getElementById('new-note-labels').innerHTML = newNoteLabels.map(l => `
+        <span class="flex items-center gap-1 px-2.5 py-0.5 bg-black/5 dark:bg-white/10 rounded-full text-xs font-semibold">
+            ${escapeHTML(l)}<button onclick="toggleLabelOnNewNote('${l}')" class="hover:text-red-500"><i data-lucide="x" class="w-3 h-3"></i></button>
+        </span>`).join('');
+    safeIcons();
+}
+function renderNewNoteLabelOptions() {
+    document.getElementById('new-note-label-options').innerHTML = labels.map(label => `
+        <label class="flex items-center gap-2 p-1 px-2 hover:bg-black/5 rounded text-xs cursor-pointer">
+            <input type="checkbox" class="accent-amber-500" ${newNoteLabels.includes(label)?'checked':''} onchange="toggleLabelOnNewNote('${label}')">
+            <span>${escapeHTML(label)}</span>
+        </label>`).join('');
+}
+
+function saveNewNote() {
+    const title   = document.getElementById('new-note-title').value.trim();
+    const content = document.getElementById('new-note-content').value.trim();
+    const dueDate = document.getElementById('new-note-date').value;
+    const dueTime = document.getElementById('new-note-time').value;
+    const password= document.getElementById('new-note-password').value.trim();
+    if (!title && !content && newNoteTodoItems.length===0 && !newAttachedImage && !newAttachedAudio) { collapseCreateNote(); return; }
+    const note = {
+        id: Date.now().toString(),
+        title: title || 'Sem Título',
+        content: isNewTodo ? '' : content,
+        type: isNewTodo ? 'todo' : 'text',
+        todoItems: isNewTodo ? [...newNoteTodoItems] : [],
+        color: newNoteColor,
+        isPinned: isNewPinned,
+        isArchived: false,
+        isTrashed: false,
+        isMonospace: isNewMono,
+        labels: [...newNoteLabels],
+        dueDate: dueDate || null,
+        dueTime: dueTime || null,
+        password: password || null,
+        imageData: newAttachedImage || null,
+        audioData: newAttachedAudio || null,
+        alarmTriggered: false,
+        updatedAt: Date.now()
+    };
+    notes.unshift(note);
+    collapseCreateNote();
+    saveToLocalStorage();
+    renderNotes();
+    showToast('Nota salva!');
+}
+
+// ===== ALARME =====
+function startAlarmScheduler() {
+    setInterval(() => {
+        const now = new Date();
+        notes.forEach(note => {
+            if (!note.isTrashed && !note.isArchived && !note.alarmTriggered && note.dueDate && note.dueTime) {
+                if (now >= new Date(`${note.dueDate}T${note.dueTime}`)) {
+                    note.alarmTriggered = true;
+                    triggerAlarm(note);
+                    saveToLocalStorage();
+                    renderNotes();
+                }
+            }
+        });
+    }, 10000);
+}
+function triggerAlarm(note) {
+    activeAlarmNote = note;
+    document.getElementById('alarm-note-title').textContent = note.title || 'Lembrete';
+    document.getElementById('alarm-note-desc').textContent = note.type === 'todo'
+        ? (note.todoItems||[]).filter(i=>!i.completed).map(i=>`• ${i.text}`).join('\n') || 'Sem tarefas pendentes'
+        : (note.content || 'Lembrete programado.');
+    document.getElementById('alarm-modal').classList.remove('hidden');
+    document.getElementById('alarm-modal').classList.add('flex');
+    playAlarmSoundLoop();
+}
+function playAlarmSoundLoop() {
+    stopAlarmSoundLoop();
+    const beep = () => {
+        try {
+            const ctx = new (window.AudioContext||window.webkitAudioContext)();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine'; osc.frequency.setValueAtTime(880, ctx.currentTime);
+            gain.gain.setValueAtTime(0.2, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime+0.5);
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.start(); osc.stop(ctx.currentTime+0.5);
+        } catch(e) {}
+    };
+    beep();
+    alarmAudioInterval = setInterval(beep, 1200);
+}
+function stopAlarmSoundLoop() { if (alarmAudioInterval) { clearInterval(alarmAudioInterval); alarmAudioInterval=null; } }
+function dismissAlarm() { stopAlarmSoundLoop(); document.getElementById('alarm-modal').classList.add('hidden'); document.getElementById('alarm-modal').classList.remove('flex'); activeAlarmNote=null; showToast('Alarme desligado.'); }
+
+// ===== MARCADORES =====
+function renderLabels() {
+    document.getElementById('sidebar-labels-list').innerHTML = labels.map(label => {
+        const cls = activeFilter===label ? 'bg-amber-500/10 text-amber-500 font-bold' : 'text-slate-400 hover:bg-black/5';
+        const count = notes.filter(n=>!n.isTrashed&&!n.isArchived&&n.labels&&n.labels.includes(label)).length;
+        return `<button onclick="changeFilter('${escapeHTML(label)}')" class="w-full flex items-center justify-between px-4 py-2.5 rounded-r-full text-sm transition-colors ${cls}">
+            <div class="flex items-center gap-3"><i data-lucide="tag" class="w-4 h-4"></i><span class="truncate max-w-[120px]">${escapeHTML(label)}</span></div>
+            <span class="text-xs bg-black/5 dark:bg-white/10 px-1.5 py-0.5 rounded-full text-slate-400">${count}</span>
+        </button>`;
+    }).join('');
+    safeIcons();
+}
+function changeFilter(filter) {
+    activeFilter = filter;
+    document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        btn.className = "sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5";
+    });
+    const activeBtn = document.getElementById(`menu-${filter}`);
+    if (activeBtn) activeBtn.className = "sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors bg-amber-500/10 text-amber-500 font-bold";
+    const indicator = document.getElementById('filter-indicator');
+    const indicatorText = document.getElementById('filter-text');
+    if (filter !== 'all') {
+        indicator.classList.remove('hidden'); indicator.classList.add('flex');
+        const labels_map = {pinned:'Fixadas', archive:'Arquivo', trash:'Lixeira', todo:'Tarefas'};
+        indicatorText.textContent = `Filtro: ${labels_map[filter] || filter}`;
+    } else {
+        indicator.classList.add('hidden');
+    }
+    renderLabels(); renderNotes();
+    // Fechar sidebar no mobile se estiver aberta
+    const _sb = document.getElementById('sidebar');
+    if (window.innerWidth < 768 && _sb && !_sb.classList.contains('-translate-x-full')) {
+        toggleSidebar();
+    }
+}
+function openManageLabelsModal()  { document.getElementById('labels-modal').classList.remove('hidden'); document.getElementById('labels-modal').classList.add('flex'); renderManageLabelsList(); }
+function closeManageLabelsModal() { document.getElementById('labels-modal').classList.add('hidden'); document.getElementById('labels-modal').classList.remove('flex'); renderLabels(); renderNotes(); }
+function renderManageLabelsList() {
+    document.getElementById('manage-labels-list').innerHTML = labels.map(label => `
+        <div class="flex items-center justify-between gap-2 p-1.5 hover:bg-slate-50 dark:hover:bg-zinc-800 rounded-lg">
+            <div class="flex items-center gap-2"><i data-lucide="tag" class="w-4 h-4 text-slate-400"></i><span class="text-sm font-medium">${escapeHTML(label)}</span></div>
+            <button onclick="removeLabel('${escapeHTML(label)}')" class="p-1 hover:text-red-500 rounded hover:bg-red-50 dark:hover:bg-red-950/20">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+            </button>
+        </div>`).join('');
+    safeIcons();
+}
+function addNewLabel() {
+    const input = document.getElementById('new-label-input');
+    const value = input.value.trim();
+    if (value && !labels.includes(value)) { labels.push(value); input.value=''; renderManageLabelsList(); renderLabels(); saveToLocalStorage(); }
+}
+function removeLabel(labelName) {
+    labels = labels.filter(l=>l!==labelName);
+    notes.forEach(n => { if(n.labels) n.labels=n.labels.filter(l=>l!==labelName); });
+    if (activeFilter === labelName) activeFilter = 'all';
+    renderManageLabelsList(); renderLabels(); saveToLocalStorage();
+}
+
+// ===== CLOUD / GOOGLE DRIVE =====
+let lastSyncTimestamp = null;
+
+function openCloudConfigModal() {
+    document.getElementById('cloud-config-modal').classList.remove('hidden');
+    document.getElementById('cloud-config-modal').classList.add('flex');
+    updateModalDriveUI();
+}
+function closeCloudConfigModal() {
+    document.getElementById('cloud-config-modal').classList.add('hidden');
+    document.getElementById('cloud-config-modal').classList.remove('flex');
+}
+function toggleDriveGuide() {
+    const content = document.getElementById('gdrive-guide-content');
+    const chevron = document.getElementById('gdrive-guide-chevron');
+    const isHidden = content.classList.contains('hidden');
+    content.classList.toggle('hidden');
+    chevron.style.transform = isHidden ? 'rotate(180deg)' : '';
+}
+function updateModalDriveUI() {
+    const statusBar = document.getElementById('gdrive-modal-status');
+    const disconnectBtn = document.getElementById('btn-gdrive-disconnect');
+    const syncBtn = document.getElementById('btn-manual-sync');
+    const lastSyncEl = document.getElementById('gdrive-last-sync');
+
+    if (accessToken) {
+        statusBar.innerHTML = '<div class="gdrive-status-dot bg-emerald-500"></div><span>Conectado ao Google Drive</span>';
+        statusBar.className = 'gdrive-status-bar bg-emerald-50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-400';
+        disconnectBtn.classList.remove('hidden');
+        syncBtn.classList.remove('hidden');
+        syncBtn.classList.add('flex');
+    } else if (googleClientId) {
+        statusBar.innerHTML = '<div class="gdrive-status-dot bg-amber-500"></div><span>Client ID configurado &mdash; clique Conectar</span>';
+        statusBar.className = 'gdrive-status-bar bg-amber-50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-400';
+        disconnectBtn.classList.remove('hidden');
+        syncBtn.classList.add('hidden');
+    } else {
+        statusBar.innerHTML = '<div class="gdrive-status-dot bg-slate-400"></div><span>Desconectado</span>';
+        statusBar.className = 'gdrive-status-bar bg-slate-100 dark:bg-zinc-800/60';
+        disconnectBtn.classList.add('hidden');
+        syncBtn.classList.add('hidden');
+    }
+
+    if (lastSyncTimestamp) {
+        lastSyncEl.classList.remove('hidden');
+        document.getElementById('gdrive-last-sync-text').textContent = 'Ultima sincronizacao: ' + new Date(lastSyncTimestamp).toLocaleString('pt-BR');
+    } else {
+        lastSyncEl.classList.add('hidden');
+    }
+    safeIcons();
+}
+function saveCloudConfig() {
+    const id = document.getElementById('gdrive-client-id').value.trim();
+    if (!id) { showToast('Cole um Client ID valido.'); return; }
+    if (!id.includes('.apps.googleusercontent.com')) { showToast('Client ID deve terminar com .apps.googleusercontent.com'); return; }
+    googleClientId = id;
+    localStorage.setItem('notas_pessoais_v3_client_id', id);
+    showToast('Client ID salvo! Conectando...');
+    updateModalDriveUI();
+    connectGoogleDrive();
+}
+function resetCloudConfig() {
+    localStorage.removeItem('notas_pessoais_v3_client_id');
+    localStorage.removeItem('gdrive_access_token');
+    localStorage.removeItem('gdrive_token_expires');
+    localStorage.removeItem('gdrive_last_sync');
+    googleClientId = ''; accessToken = null; gdriveFileId = null; lastSyncTimestamp = null;
+    document.getElementById('gdrive-client-id').value = '';
+    updateDriveStatus('disconnected');
+    updateModalDriveUI();
+    showToast('Google Drive desconectado.');
+}
+function updateDriveStatus(status) {
+    const icon = document.getElementById('gdrive-icon');
+    const text = document.getElementById('gdrive-text');
+    const btn  = document.getElementById('btn-gdrive-status');
+    btn.className = "flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-semibold transition-all";
+    const configs = {
+        disconnected: { icon:'cloud-off', text:'Drive', cls:'border-slate-200 dark:border-zinc-700 bg-slate-50 dark:bg-zinc-800 text-slate-600' },
+        connecting:   { icon:'loader', text:'Conectando...', cls:'border-amber-300 bg-amber-50/50 text-amber-700', spin:true },
+        connected:    { icon:'cloud', text:'Sincronizado', cls:'border-emerald-500 bg-emerald-50 dark:bg-emerald-950/30 text-emerald-700 dark:text-emerald-400' },
+        syncing:      { icon:'refresh-cw', text:'Sincronizando...', cls:'border-amber-500 bg-amber-100/30 text-amber-800 dark:text-amber-400', spin:true },
+        error:        { icon:'cloud-lightning', text:'Erro', cls:'border-red-500 bg-red-50 text-red-700' }
+    };
+    const cfg = configs[status] || configs.disconnected;
+    icon.setAttribute('data-lucide', cfg.icon);
+    if (cfg.spin) icon.classList.add('animate-spin'); else icon.classList.remove('animate-spin');
+    text.textContent = cfg.text;
+    btn.classList.add(...cfg.cls.split(' '));
+    safeIcons();
+}
+function handleDriveActionButton() {
+    if (!googleClientId) { openCloudConfigModal(); return; }
+    if (!accessToken) connectGoogleDrive();
+    else { openCloudConfigModal(); }
+}
+function tryRestoreDriveSession() {
+    const t = localStorage.getItem('gdrive_access_token');
+    const exp = localStorage.getItem('gdrive_token_expires');
+    const ls = localStorage.getItem('gdrive_last_sync');
+    if (ls) lastSyncTimestamp = parseInt(ls);
+    if (t && exp && Date.now() < parseInt(exp)) {
+        accessToken = t;
+        updateDriveStatus('connecting');
+        initializeGoogleIdentity(false);
+        setTimeout(syncWithGoogleDrive, 1500);
+    } else {
+        if (t) { localStorage.removeItem('gdrive_access_token'); localStorage.removeItem('gdrive_token_expires'); }
+        updateDriveStatus('disconnected');
+    }
+}
+function initializeGoogleIdentity(forcePrompt=true) {
+    if (!googleClientId) return;
+    if (typeof google === 'undefined' || !google.accounts) {
+        if (forcePrompt) showToast('Google Identity Services nao carregou. Verifique sua conexao.');
+        updateDriveStatus('error');
+        return;
+    }
+    try {
+        tokenClient = google.accounts.oauth2.initTokenClient({
+            client_id: googleClientId,
+            scope: 'https://www.googleapis.com/auth/drive.file',
+            callback: resp => {
+                if (resp.error) {
+                    updateDriveStatus('error');
+                    showToast('Erro na autenticacao: ' + (resp.error_description || resp.error));
+                    return;
+                }
+                accessToken = resp.access_token;
+                localStorage.setItem('gdrive_access_token', accessToken);
+                localStorage.setItem('gdrive_token_expires', (Date.now() + resp.expires_in * 1000).toString());
+                updateModalDriveUI();
+                syncWithGoogleDrive();
+            }
+        });
+        if (forcePrompt && !accessToken) tokenClient.requestAccessToken({ prompt: 'consent' });
+    } catch(err) {
+        updateDriveStatus('error');
+        showToast('Erro ao inicializar autenticacao Google.');
+    }
+}
+function connectGoogleDrive() { updateDriveStatus('connecting'); initializeGoogleIdentity(true); }
+
+function forceManualSync() {
+    if (!accessToken) { showToast('Conecte ao Drive primeiro.'); return; }
+    showToast('Sincronizando...');
+    syncWithGoogleDrive();
+}
+
+async function syncWithGoogleDrive() {
+    if (!accessToken) return;
+    updateDriveStatus('syncing');
+    try {
+        const search = await fetch('https://www.googleapis.com/drive/v3/files?q=name%3D%27notas_pessoais_v3_db.json%27+and+trashed%3Dfalse&fields=files(id,name,modifiedTime)', {
+            headers: { 'Authorization': 'Bearer ' + accessToken }
+        });
+        if (search.status === 401) {
+            accessToken = null;
+            localStorage.removeItem('gdrive_access_token');
+            updateDriveStatus('disconnected');
+            showToast('Sessao expirada. Reconecte ao Drive.');
+            updateModalDriveUI();
+            return;
+        }
+        const result = await search.json();
+        if (result.files && result.files.length > 0) {
+            gdriveFileId = result.files[0].id;
+            const dl = await fetch('https://www.googleapis.com/drive/v3/files/' + gdriveFileId + '?alt=media', {
+                headers: { 'Authorization': 'Bearer ' + accessToken }
+            });
+            if (dl.ok) mergeLocalAndCloudData(await dl.json());
+            else throw new Error('Download falhou');
+        } else {
+            await createBackupFileInDrive();
+        }
+        lastSyncTimestamp = Date.now();
+        localStorage.setItem('gdrive_last_sync', lastSyncTimestamp.toString());
+        updateDriveStatus('connected');
+        updateModalDriveUI();
+    } catch(err) {
+        updateDriveStatus('error');
+        showToast('Falha ao sincronizar: ' + (err.message || 'erro desconhecido'));
+    }
+}
+function mergeLocalAndCloudData(cloudData) {
+    let hasChanges = false;
+    (cloudData.labels || []).forEach(l => { if (!labels.includes(l)) { labels.push(l); hasChanges = true; } });
+    (cloudData.notes || []).forEach(cn => {
+        const li = notes.findIndex(n => n.id === cn.id);
+        if (li === -1) { notes.push(cn); hasChanges = true; }
+        else if (cn.updatedAt > notes[li].updatedAt) { notes[li] = cn; hasChanges = true; }
+        else if (notes[li].updatedAt > cn.updatedAt) hasChanges = true;
+    });
+    if (hasChanges) {
+        notes.sort((a, b) => b.updatedAt - a.updatedAt);
+        localStorage.setItem('notas_pessoais_v3_notes', JSON.stringify(notes));
+        localStorage.setItem('notas_pessoais_v3_labels', JSON.stringify(labels));
+        renderLabels(); renderNotes();
+        showToast('Notas sincronizadas com o Drive!');
+    }
+    uploadDataToDrive();
+}
+async function createBackupFileInDrive() {
+    const fd = new FormData();
+    fd.append('metadata', new Blob([JSON.stringify({ name: 'notas_pessoais_v3_db.json', mimeType: 'application/json' })], { type: 'application/json' }));
+    fd.append('file', new Blob([JSON.stringify({ notes, labels, lastUpdated: Date.now() })], { type: 'application/json' }));
+    const resp = await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+        method: 'POST', headers: { 'Authorization': 'Bearer ' + accessToken }, body: fd
+    });
+    if (resp.ok) { gdriveFileId = (await resp.json()).id; showToast('Backup criado no Drive!'); }
+    else throw new Error('Falha ao criar arquivo no Drive.');
+}
+async function uploadDataToDrive() {
+    if (!accessToken || !gdriveFileId) return;
+    try {
+        await fetch('https://www.googleapis.com/upload/drive/v3/files/' + gdriveFileId + '?uploadType=media', {
+            method: 'PATCH',
+            headers: { 'Authorization': 'Bearer ' + accessToken, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ notes, labels, lastUpdated: Date.now() })
+        });
+    } catch(err) { updateDriveStatus('error'); }
+}
+function triggerCloudSync() {
+    if (!accessToken || !gdriveFileId) return;
+    updateDriveStatus('syncing');
+    if (syncTimeout) clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(async () => {
+        await uploadDataToDrive();
+        lastSyncTimestamp = Date.now();
+        localStorage.setItem('gdrive_last_sync', lastSyncTimestamp.toString());
+        updateDriveStatus('connected');
+    }, 3000);
+}
+
+// ===== UTILITÁRIOS =====
+function toggleTodoItemStatus(noteId, itemId) {
+    const note = notes.find(n=>n.id===noteId);
+    if (note && note.todoItems) {
+        const item = note.todoItems.find(i=>i.id===itemId);
+        if (item) { item.completed=!item.completed; note.updatedAt=Date.now(); saveToLocalStorage(); renderNotes(); }
+    }
+}
+function toggleArchive(id) {
+    const note = notes.find(n=>n.id===id);
+    if (note) { note.isArchived=!note.isArchived; note.isPinned=false; note.updatedAt=Date.now(); saveToLocalStorage(); renderNotes(); showToast(note.isArchived?'Nota arquivada.':'Nota desarquivada.'); }
+}
+function moveToTrash(id) {
+    const i = notes.findIndex(n=>n.id===id);
+    if (i > -1) {
+        const note = notes[i];
+        if (note.isTrashed) { notes.splice(i,1); showToast('Excluída permanentemente.'); }
+        else { note.isTrashed=true; note.isPinned=false; note.updatedAt=Date.now(); showToast('Nota movida para Lixeira.'); }
+        saveToLocalStorage(); renderNotes();
+    }
+}
+function restoreFromTrash(id) {
+    const note = notes.find(n=>n.id===id);
+    if (note) { note.isTrashed=false; note.updatedAt=Date.now(); saveToLocalStorage(); renderNotes(); showToast('Nota restaurada!'); }
+}
+function togglePin(id) {
+    const note = notes.find(n=>n.id===id);
+    if (note) { note.isPinned=!note.isPinned; note.updatedAt=Date.now(); saveToLocalStorage(); renderNotes(); }
+}
+function copyNoteText(id) {
+    const note = notes.find(n=>n.id===id);
+    if (note) {
+        const text = note.type==='todo' ? (note.todoItems||[]).map(i=>`[${i.completed?'x':' '}] ${i.text}`).join('\n') : (note.content||'');
+        copyToClipboard(text); showToast('Conteúdo copiado!');
+    }
+}
+function exportNotes() {
+    const data = JSON.stringify({version:'3.5.0', exportedAt:Date.now(), labels, notes}, null, 2);
+    const a = document.createElement('a');
+    a.href = 'data:text/json;charset=utf-8,' + encodeURIComponent(data);
+    a.download = `Backup_PapeldePao_${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    showToast('Backup exportado!');
+}
+function copyToClipboard(text) {
+    if (navigator.clipboard) { navigator.clipboard.writeText(text).catch(() => {}); return; }
+    const el = document.createElement('textarea');
+    el.value = text; document.body.appendChild(el); el.select(); document.execCommand('copy'); document.body.removeChild(el);
+}
+function showToast(message) {
+    const toast = document.getElementById('toast');
+    document.getElementById('toast-text').textContent = message;
+    toast.classList.remove('translate-y-[-20px]','opacity-0');
+    toast.classList.add('translate-y-0','opacity-100');
+    setTimeout(() => { toast.classList.remove('translate-y-0','opacity-100'); toast.classList.add('translate-y-[-20px]','opacity-0'); }, 3000);
+}
+function escapeHTML(str) {
+    return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+}
+</script>
+</body>
+</html>
