@@ -46,8 +46,8 @@ export default function Header({ onToggleSidebar, onOpenThemeModal, onOpenDriveM
         </button>
 
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center shadow-md shadow-sky-500/20">
-            <span className="text-white font-black text-sm">P</span>
+          <div className="w-8 h-8 rounded-xl flex items-center justify-center">
+            <img src="/icon.png" alt="Papel de Pão" className="w-8 h-8 object-contain" />
           </div>
           <span className="font-extrabold text-base tracking-tight hidden sm:inline bg-gradient-to-r from-sky-500 to-blue-600 bg-clip-text text-transparent">
             Papel de Pão
