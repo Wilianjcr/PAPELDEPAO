@@ -793,8 +793,8 @@
         <button class="hub-item" id="hub-projects"        onclick="hubNav('projects')"><span class="hub-item-icon">📁</span> Projetos</button>
         <button class="hub-item" id="hub-habits"          onclick="hubNav('habits')"><span class="hub-item-icon">🔥</span> Hábitos</button>
         <button class="hub-item" id="hub-estudos"         onclick="hubNav('estudos')"><span class="hub-item-icon">📚</span> Estudos</button>
-        <button class="hub-item active" id="hub-notas"    onclick="hubNav('notas')"><span class="hub-item-icon">📝</span> Notas</button>
-        <button class="hub-item" id="hub-pomodoro"        onclick="hubNav('pomodoro')"><span class="hub-item-icon">🍅</span> Pomodoro</button>
+        <button class="hub-item" id="hub-notas"    onclick="hubNav('notas')"><span class="hub-item-icon">📝</span> Notas</button>
+        <button class="hub-item" id="hub-contas-pagar"    onclick="hubNav('contas-pagar')"><span class="hub-item-icon">📑</span> Contas a Pagar</button>
         <div class="hub-sep">Finanças</div>
         <button class="hub-item" id="hub-finance"         onclick="hubNav('finance')"><span class="hub-item-icon">💰</span> Gestão</button>
         <button class="hub-item" id="hub-stats"           onclick="hubNav('stats')"><span class="hub-item-icon">📊</span> Estatísticas</button>
@@ -807,7 +807,7 @@
         <button class="hub-item" id="hub-journal"         onclick="hubNav('journal')"><span class="hub-item-icon">📖</span> Diário</button>
         <button class="hub-item" id="hub-mood"            onclick="hubNav('mood')"><span class="hub-item-icon">😊</span> Humor</button>
         <div class="hub-sep">Análise &amp; Progresso</div>
-        <button class="hub-item" id="hub-dashboard"       onclick="hubNav('dashboard')"><span class="hub-item-icon">⚡</span> Dashboard</button>
+        <button class="hub-item active" id="hub-dashboard"       onclick="hubNav('dashboard')"><span class="hub-item-icon">⚡</span> Dashboard</button>
         <button class="hub-item" id="hub-profile"         onclick="hubNav('profile')"><span class="hub-item-icon">🏆</span> Perfil</button>
         <div class="hub-sep">Ferramentas</div>
         <button class="hub-item" id="hub-task-search"     onclick="hubNav('task-search')"><span class="hub-item-icon">🔍</span> Pesquisar Tarefas</button>
@@ -1016,7 +1016,7 @@
 <div id="module-tasks"      class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-profile"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-stats"      class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
-<div id="module-pomodoro"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-contas-pagar" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-birthdays"  class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-shopping"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-projects"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
@@ -1039,11 +1039,11 @@
 
 <!-- ===== BOTTOM MODULE NAV ===== -->
 <nav id="bottom-module-nav" class="fixed bottom-0 left-0 right-0 z-[35] theme-panel flex items-center">
-    <button class="mod-tab active" id="tab-notas"     onclick="setActiveModule('notas')">
-        <span class="mod-tab-icon">📝</span><span class="mod-tab-lbl">Notas</span>
+    <button class="mod-tab active" id="tab-dashboard"  onclick="setActiveModule('dashboard')">
+        <span class="mod-tab-icon">⚡</span><span class="mod-tab-lbl">Início</span>
     </button>
-    <button class="mod-tab" id="tab-dashboard"  onclick="setActiveModule('dashboard')">
-        <span class="mod-tab-icon">⚡</span><span class="mod-tab-lbl">Dashboard</span>
+    <button class="mod-tab" id="tab-tasks"     onclick="setActiveModule('tasks')">
+        <span class="mod-tab-icon">📋</span><span class="mod-tab-lbl">Tarefas</span>
     </button>
     <button class="mod-tab" id="tab-finance"    onclick="setActiveModule('finance')">
         <span class="mod-tab-icon">💰</span><span class="mod-tab-lbl">Finanças</span>
@@ -1051,8 +1051,8 @@
     <button class="mod-tab" id="tab-habits"     onclick="setActiveModule('habits')">
         <span class="mod-tab-icon">🔥</span><span class="mod-tab-lbl">Hábitos</span>
     </button>
-    <button class="mod-tab" id="tab-journal"    onclick="setActiveModule('journal')">
-        <span class="mod-tab-icon">📖</span><span class="mod-tab-lbl">Diário</span>
+    <button class="mod-tab" id="tab-shopping"    onclick="setActiveModule('shopping')">
+        <span class="mod-tab-icon">🛒</span><span class="mod-tab-lbl">Compras</span>
     </button>
 </nav>
 
@@ -1112,30 +1112,18 @@
                 <div class="w-full h-20 rounded-xl bg-[#fdf6e3] border border-orange-200 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-orange-500 rounded"></div><div class="h-1 w-5/6 bg-orange-200 rounded"></div><div class="h-1 w-4/6 bg-orange-200 rounded"></div></div>
                 <span class="text-xs font-bold text-slate-300 mt-2.5">Solarized Light</span>
             </button>
-            <button onclick="applySystemTheme('rosa')" id="theme-card-rosa" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
-                <div class="w-full h-20 rounded-xl bg-rose-50 border border-rose-200 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-rose-500 rounded"></div><div class="h-1 w-5/6 bg-rose-200 rounded"></div><div class="h-1 w-4/6 bg-rose-200 rounded"></div></div>
-                <span class="text-xs font-bold text-slate-300 mt-2.5">Rosa</span>
-            </button>
+
             <button onclick="applySystemTheme('roxo')" id="theme-card-roxo" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
                 <div class="w-full h-20 rounded-xl bg-[#0f0a1c] border border-purple-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-purple-500 rounded"></div><div class="h-1 w-5/6 bg-purple-950 rounded"></div><div class="h-1 w-4/6 bg-purple-950 rounded"></div></div>
                 <span class="text-xs font-bold text-slate-300 mt-2.5">Roxo</span>
             </button>
-            <button onclick="applySystemTheme('marrom')" id="theme-card-marrom" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
-                <div class="w-full h-20 rounded-xl bg-[#1c120c] border border-[#4a3425] p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-orange-600 rounded"></div><div class="h-1 w-5/6 bg-[#4a3425] rounded"></div><div class="h-1 w-4/6 bg-[#4a3425] rounded"></div></div>
-                <span class="text-xs font-bold text-slate-300 mt-2.5">Marrom</span>
-            </button>
+
             <button onclick="applySystemTheme('black-glass')" id="theme-card-black-glass" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
                 <div class="w-full h-20 rounded-xl bg-[#030712] border border-zinc-800 p-2 flex flex-col gap-1.5 relative"><div class="absolute inset-0 bg-white/5 rounded-xl"></div><div class="h-1.5 w-1/3 bg-purple-500 rounded z-10"></div><div class="h-1 w-5/6 bg-zinc-700 rounded z-10"></div><div class="h-1 w-4/6 bg-zinc-700 rounded z-10"></div></div>
                 <span class="text-xs font-bold text-slate-300 mt-2.5">Black Glass</span>
             </button>
-            <button onclick="applySystemTheme('azul')" id="theme-card-azul" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#0d1b2e] hover:border-sky-500 transition-all">
-                <div class="w-full h-20 rounded-xl bg-[#0a1628] border border-sky-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-sky-400 rounded"></div><div class="h-1 w-5/6 bg-sky-900 rounded"></div><div class="h-1 w-4/6 bg-sky-900 rounded"></div></div>
-                <span class="text-xs font-bold text-sky-400 mt-2.5">Azul</span>
-            </button>
-            <button onclick="applySystemTheme('vermelho')" id="theme-card-vermelho" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#1a0a0a] hover:border-red-500 transition-all">
-                <div class="w-full h-20 rounded-xl bg-[#1a0a0a] border border-red-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-red-500 rounded"></div><div class="h-1 w-5/6 bg-red-900 rounded"></div><div class="h-1 w-4/6 bg-red-900 rounded"></div></div>
-                <span class="text-xs font-bold text-red-400 mt-2.5">Vermelho</span>
-            </button>
+
+
         </div>
         <div class="p-4 border-t border-violet-500/10 flex justify-center bg-[#0d091a]">
             <button onclick="closeThemeModal()" class="px-8 py-3 w-full bg-[#1b1235] hover:bg-[#251a49] text-violet-100 font-extrabold text-xs tracking-wider rounded-xl border border-violet-500/20 uppercase">Fechar</button>
@@ -1788,6 +1776,7 @@ function initApp() {
     updateNotesCountBadge();
     parseAllNotes();
     setupQuickEntry();
+    setActiveModule('dashboard');
 }
 
 function setupEvents() {
@@ -1968,8 +1957,7 @@ function applySystemTheme(themeName) {
 function highlightActiveThemeInModal() {
     const themeBg = {
         'dark-modern':'#120e24','light-modern':'#f1f5f9','solarized-dark':'#002b36',
-        'solarized-light':'#fdf6e3','rosa':'#fff1f2','roxo':'#0a051b',
-        'marrom':'#1c120c','black-glass':'#030712','azul':'#0d1b2e','vermelho':'#1a0808'
+        'solarized-light':'#fdf6e3','roxo':'#0a051b','black-glass':'#030712'
     };
     Object.keys(themeBg).forEach(t => {
         const card = document.getElementById(`theme-card-${t}`);
@@ -3119,7 +3107,7 @@ function escapeHTML(str) {
 // ===== MÓDULOS =====
 
 // ── Estado ────────────────────────────────────────────────────────────────
-let activeModule    = 'notas';
+let activeModule    = 'dashboard';
 let parsedTxns      = [];
 let parsedHabitsArr = [];
 let habitProgress   = {};
@@ -3272,7 +3260,7 @@ function setActiveModule(mod) {
     activeModule = mod;
 
     // Atualizar tabs
-    ['notas','dashboard','finance','habits','journal'].forEach(id => {
+    ['dashboard','tasks','finance','habits','shopping'].forEach(id => {
         const el = document.getElementById('tab-' + id);
         if (el) el.classList.toggle('active', id === mod);
     });
@@ -3333,8 +3321,29 @@ function renderDashboard() {
         ? '🏆 Nível máximo!'
         : `${tier.xpNeeded - inLvl} XP para o próximo nível`;
 
+    const shortcuts = [
+        {icon:'📋',label:'Tarefas',   mod:'tasks',   bg:'rgba(59,130,246,.15)'},
+        {icon:'💰',label:'Finanças',  mod:'finance',  bg:'rgba(22,163,74,.15)'},
+        {icon:'🔥',label:'Hábitos',   mod:'habits',   bg:'rgba(249,115,22,.15)'},
+        {icon:'🛒',label:'Compras',   mod:'shopping', bg:'rgba(168,85,247,.15)'},
+        {icon:'📑',label:'Contas',    mod:'contas-pagar',bg:'rgba(234,179,8,.15)'},
+        {icon:'📖',label:'Diário',    mod:'journal',  bg:'rgba(96,165,250,.15)'},
+        {icon:'🌙',label:'Sonhos',    mod:'dreams',   bg:'rgba(139,92,246,.15)'},
+        {icon:'📝',label:'Notas',     mod:'notas',    bg:'rgba(100,116,139,.15)'},
+    ];
+    const shortcutsHtml = shortcuts.map(s => `
+      <button onclick="setActiveModule('${s.mod}')" style="display:flex;flex-direction:column;align-items:center;gap:6px;padding:14px 8px;
+        background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;cursor:pointer;transition:all .15s;min-width:0"
+        onmouseover="this.style.borderColor='var(--accent-primary)'" onmouseout="this.style.borderColor='var(--border-main)'">
+        <div style="width:42px;height:42px;border-radius:12px;background:${s.bg};display:flex;align-items:center;justify-content:center;font-size:20px">${s.icon}</div>
+        <span style="font-size:11px;font-weight:700;color:var(--text-secondary);text-align:center">${s.label}</span>
+      </button>`).join('');
+
     el.innerHTML = `
-<h2 style="font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px">Dashboard</h2>
+<h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:16px">⚡ Dashboard</h2>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
+  ${shortcutsHtml}
+</div>
 
 <div class="xp-card" style="margin-bottom:16px">
   <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
@@ -3688,7 +3697,7 @@ function hubNav(mod) {
 
 // ── Extended setActiveModule ───────────────────────────────────────────────
 // Override with full module list
-const _ALL_MODULE_IDS = ['dashboard','finance','habits','journal','tasks','profile','stats','pomodoro','birthdays','shopping','projects','dreams','mood','estudos','recorrentes','home','dream-analysis','task-search'];
+const _ALL_MODULE_IDS = ['dashboard','finance','habits','journal','tasks','profile','stats','contas-pagar','birthdays','shopping','projects','dreams','mood','estudos','recorrentes','home','dream-analysis','task-search'];
 
 // Patch setActiveModule to handle all modules
 const _origSetActiveModule = setActiveModule;
@@ -3696,7 +3705,7 @@ setActiveModule = function(mod) {
     activeModule = mod;
 
     // Update bottom tabs
-    ['notas','dashboard','finance','habits','journal'].forEach(id => {
+    ['dashboard','tasks','finance','habits','shopping'].forEach(id => {
         const el = document.getElementById('tab-' + id);
         if (el) el.classList.toggle('active', id === mod);
     });
@@ -3741,7 +3750,7 @@ setActiveModule = function(mod) {
         else if (mod === 'tasks')      renderTasks();
         else if (mod === 'profile')    renderProfile();
         else if (mod === 'stats')      renderStats();
-        else if (mod === 'pomodoro')   renderPomodoro();
+        else if (mod === 'contas-pagar') renderBills();
         else if (mod === 'birthdays')  renderBirthdays();
         else if (mod === 'shopping')   renderShopping();
         else if (mod === 'projects')   renderProjects();
@@ -4229,6 +4238,151 @@ function renderStats() {
       </div>`;
 }
 
+// ── Bills (Contas a Pagar) ────────────────────────────────────────────────
+let bills = JSON.parse(localStorage.getItem('notas_pessoais_v3_bills') || '[]');
+function saveBills() { localStorage.setItem('notas_pessoais_v3_bills', JSON.stringify(bills)); }
+
+function addBill() {
+    const name  = (document.getElementById('bill-name')||{}).value?.trim();
+    const value = parseFloat((document.getElementById('bill-value')||{}).value || '0');
+    const due   = parseInt((document.getElementById('bill-due')||{}).value || '1', 10);
+    if (!name) { showToast('Informe o nome da conta'); return; }
+    if (!value || value <= 0) { showToast('Informe o valor'); return; }
+    bills.push({id:'b'+Date.now(), name, value, due, paidDates:[]});
+    saveBills(); renderBills();
+    ['bill-name','bill-value','bill-due'].forEach(id => {
+        const el = document.getElementById(id); if(el) el.value = '';
+    });
+    showToast('Conta adicionada!');
+}
+
+function toggleBillPaid(id) {
+    const bill = bills.find(b => b.id === id);
+    if (!bill) return;
+    const today = new Date().toISOString().slice(0,10);
+    const ym = today.slice(0,7);
+    const already = bill.paidDates.find(p => p.ym === ym);
+    if (already) {
+        bill.paidDates = bill.paidDates.filter(p => p.ym !== ym);
+        showToast('Marcado como não pago');
+    } else {
+        bill.paidDates.push({ym, date: today, amount: bill.value});
+        showToast('Marcado como pago! ✅');
+    }
+    saveBills(); renderBills();
+}
+
+function deleteBill(id) {
+    bills = bills.filter(b => b.id !== id);
+    saveBills(); renderBills();
+}
+
+function renderBills() {
+    const el = document.getElementById('module-contas-pagar');
+    if (!el) return;
+    const thisYM = new Date().toISOString().slice(0,7);
+    const total  = bills.reduce((s,b) => s + b.value, 0);
+    const paid   = bills.filter(b => b.paidDates.some(p => p.ym === thisYM));
+    const unpaid = bills.filter(b => !b.paidDates.some(p => p.ym === thisYM));
+    const paidTotal   = paid.reduce((s,b) => s + b.value, 0);
+    const unpaidTotal = unpaid.reduce((s,b) => s + b.value, 0);
+
+    const billRow = (b, isPaid) => {
+        const safe = b.id.replace(/'/g,"\'");
+        return `<div class="task-item" style="align-items:center">
+          <div onclick="toggleBillPaid('${safe}')" style="width:24px;height:24px;border-radius:8px;border:2px solid ${isPaid?'#16a34a':'var(--border-main)'};
+            background:${isPaid?'#16a34a':'transparent'};display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">
+            ${isPaid?'<span style="color:#fff;font-size:12px;font-weight:800">✓</span>':''}
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:14px;font-weight:600;color:var(--text-primary);${isPaid?'text-decoration:line-through;opacity:.6':''}">${modEsc(b.name)}</div>
+            <div style="font-size:11px;color:var(--text-secondary)">Vence dia ${b.due} · ${isPaid?'✅ Pago este mês':'⏳ Pendente'}</div>
+          </div>
+          <div style="text-align:right;flex-shrink:0">
+            <div style="font-size:15px;font-weight:800;color:${isPaid?'#16a34a':'#dc2626'}">R$ ${b.value.toFixed(2).replace('.',',')}</div>
+            <button onclick="deleteBill('${safe}')" style="font-size:10px;color:var(--text-secondary);background:none;border:none;cursor:pointer;padding:0">Remover</button>
+          </div>
+        </div>`;
+    };
+
+    // Payment history (last 6 months)
+    const historyRows = (() => {
+        if (bills.length === 0) return '';
+        const months = [];
+        for (let i = 5; i >= 0; i--) {
+            const d = new Date(); d.setMonth(d.getMonth() - i);
+            const ym = d.toISOString().slice(0,7);
+            const label = d.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+            const monthPaid = bills.filter(b => b.paidDates.some(p => p.ym === ym));
+            const total = monthPaid.reduce((s,b) => s + b.value, 0);
+            months.push(`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border-main)">
+              <span style="font-size:12px;color:var(--text-secondary);text-transform:capitalize">${label}</span>
+              <span style="font-size:13px;font-weight:700;color:${total>0?'#16a34a':'var(--text-secondary)'}">
+                ${monthPaid.length}/${bills.length} · R$ ${total.toFixed(2).replace('.',',')}
+              </span>
+            </div>`);
+        }
+        return months.join('');
+    })();
+
+    el.innerHTML = `
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+  <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">📑 Contas a Pagar</h2>
+</div>
+
+<!-- Resumo do mês -->
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px">
+  <div class="wd-card">
+    <div class="wd-label">Total/mês</div>
+    <div class="wd-value" style="font-size:18px;color:var(--text-primary)">R$ ${total.toFixed(2).replace('.',',')}</div>
+  </div>
+  <div class="wd-card">
+    <div class="wd-label">Pendente</div>
+    <div class="wd-value" style="font-size:18px;color:#dc2626">R$ ${unpaidTotal.toFixed(2).replace('.',',')}</div>
+    <div class="wd-sub">${unpaid.length} conta(s)</div>
+  </div>
+  <div class="wd-card">
+    <div class="wd-label">Pago</div>
+    <div class="wd-value" style="font-size:18px;color:#16a34a">R$ ${paidTotal.toFixed(2).replace('.',',')}</div>
+    <div class="wd-sub">${paid.length} conta(s)</div>
+  </div>
+</div>
+
+<!-- Nova conta -->
+<div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:16px;margin-bottom:20px">
+  <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em">+ Nova Conta</div>
+  <input id="bill-name"  type="text"   class="txn-field" placeholder="Nome da conta (ex: Aluguel, Luz, Internet)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+    <input id="bill-value" type="number" class="txn-field" placeholder="Valor (R$)" step="0.01" min="0" style="margin-bottom:0">
+    <input id="bill-due"   type="number" class="txn-field" placeholder="Dia venc." min="1" max="31" style="margin-bottom:0">
+  </div>
+  <button onclick="addBill()" style="width:100%;margin-top:10px;padding:11px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer">Adicionar Conta</button>
+</div>
+
+<!-- Pendentes -->
+${unpaid.length > 0 ? `
+<div style="font-size:12px;font-weight:700;color:#dc2626;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">⏳ Pendentes (${unpaid.length})</div>
+${unpaid.map(b => billRow(b, false)).join('')}` : ''}
+
+<!-- Pagas -->
+${paid.length > 0 ? `
+<div style="font-size:12px;font-weight:700;color:#16a34a;margin:16px 0 8px;text-transform:uppercase;letter-spacing:.05em">✅ Pagas este mês (${paid.length})</div>
+${paid.map(b => billRow(b, true)).join('')}` : ''}
+
+${bills.length === 0 ? `<div style="text-align:center;padding:48px 0;color:var(--text-secondary)">
+  <div style="font-size:48px;margin-bottom:12px">📑</div>
+  <div style="font-size:15px;font-weight:700;margin-bottom:8px">Nenhuma conta cadastrada</div>
+  <div style="font-size:13px">Adicione suas contas mensais acima</div>
+</div>` : ''}
+
+<!-- Histórico -->
+${bills.length > 0 ? `
+<div style="margin-top:24px;background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:16px">
+  <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">Histórico de Pagamentos</div>
+  ${historyRows}
+</div>` : ''}`;
+}
+
 // ── Pomodoro State ────────────────────────────────────────────────────────
 let _pomoTimer   = null;
 let _pomoSeconds = 25 * 60;
@@ -4375,6 +4529,24 @@ function renderBirthdays() {
 
 // ── Stub renderers ────────────────────────────────────────────────────────
 // ── renderShopping ────────────────────────────────────────────────────────
+let standaloneShopItems = JSON.parse(localStorage.getItem('notas_pessoais_v3_shop_standalone') || '[]');
+function saveShopItems() { localStorage.setItem('notas_pessoais_v3_shop_standalone', JSON.stringify(standaloneShopItems)); }
+
+function addShopItem() {
+    const nameEl  = document.getElementById('shop-item-name');
+    const valueEl = document.getElementById('shop-item-value');
+    const name = (nameEl||{}).value?.trim();
+    if (!name) { showToast('Informe o item'); return; }
+    const val = parseFloat((valueEl||{}).value || '0') || null;
+    standaloneShopItems.push({id:'si'+Date.now(), text:name, value:val});
+    saveShopItems(); renderShopping();
+    if(nameEl) nameEl.value='';
+    if(valueEl) valueEl.value='';
+}
+function deleteShopItem(id) {
+    standaloneShopItems = standaloneShopItems.filter(i=>i.id!==id);
+    saveShopItems(); renderShopping();
+}
 function toggleShoppingItem(id) {
     shopChecked[id] = !shopChecked[id];
     localStorage.setItem('notas_pessoais_v3_shop_checked', JSON.stringify(shopChecked));
@@ -4390,7 +4562,12 @@ function renderShopping() {
     const el = document.getElementById('module-shopping');
     if (!el) return;
     parseAllNotes();
-    const items = window.parsedShopping || [];
+    const parsedItems = window.parsedShopping || [];
+    // Merge: standalone first, then parsed (from text)
+    const items = [
+        ...standaloneShopItems,
+        ...parsedItems.map(i => ({...i, _parsed:true}))
+    ];
 
     const fmt = v => v != null ? 'R$ ' + v.toFixed(2).replace('.', ',') : '';
     const totalAll     = items.reduce((s, i) => s + (i.value || 0), 0);
@@ -4416,21 +4593,32 @@ function renderShopping() {
 
     const itemsHtml = items.length
       ? items.map(item => `
-          <div class="shop-item ${shopChecked[item.id] ? 'checked' : ''}" onclick="toggleShoppingItem('${item.id}')">
-            <div class="shop-check ${shopChecked[item.id] ? 'on' : ''}">
+          <div class="shop-item ${shopChecked[item.id] ? 'checked' : ''}" style="display:flex;align-items:center;gap:10px">
+            <div class="shop-check ${shopChecked[item.id] ? 'on' : ''}" onclick="toggleShoppingItem('${item.id}')">
               ${shopChecked[item.id] ? '✓' : ''}
             </div>
-            <span class="shop-text" style="flex:1;font-size:13px">${modEsc(item.text)}</span>
+            <span class="shop-text" style="flex:1;font-size:13px;cursor:pointer" onclick="toggleShoppingItem('${item.id}')">${modEsc(item.text)}</span>
             ${item.value != null ? `<span style="font-size:12px;font-weight:700;color:var(--text-secondary)">${fmt(item.value)}</span>` : ''}
+            ${!item._parsed ? `<button onclick="deleteShopItem('${item.id}')" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:16px;padding:0 2px;flex-shrink:0">×</button>` : ''}
           </div>`).join('')
       : `<div style="text-align:center;padding:40px 0;color:var(--text-secondary);font-size:13px">
            <div style="font-size:32px;margin-bottom:8px">🛒</div>
-           Nenhum item encontrado.<br>Nas suas notas, use <code style="background:var(--bg-panel);padding:2px 6px;border-radius:4px">- Item R$ 5,00</code> para adicionar.
+           Sua lista está vazia.<br>Adicione itens acima!
          </div>`;
 
     el.innerHTML = `
-      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:6px">🛒 Lista de Compras</h2>
-      <p style="color:var(--text-secondary);font-size:12px;margin-bottom:16px">Adicione itens com <code>- Item R$ valor</code> nas notas. Clique para marcar no carrinho.</p>
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:16px">🛒 Lista de Compras</h2>
+
+      <!-- Formulário para adicionar item -->
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:14px;margin-bottom:16px">
+        <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">+ Adicionar Item</div>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input id="shop-item-name" type="text" placeholder="Nome do item" class="txn-field" style="flex:1;margin-bottom:0" onkeydown="if(event.key==='Enter')addShopItem()">
+          <input id="shop-item-value" type="number" placeholder="R$ (opt.)" class="txn-field" style="width:90px;margin-bottom:0" step="0.01" min="0">
+        </div>
+        <button onclick="addShopItem()" style="width:100%;padding:10px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer">Adicionar à Lista</button>
+      </div>
+
       ${totalBar}
       <div>${itemsHtml}</div>`;
 }
@@ -4812,7 +5000,7 @@ function renderHome() {
           ${miniCard('📚','rgba(139,92,246,.15)','Estudos',`${studyPlans.length} planos`,'estudos')}
           ${miniCard('📝','rgba(107,114,128,.15)','Notas',`${notes.filter(n=>!n.isTrashed&&!n.isArchived).length} notas`,'notas')}
         </div>
-        ${wideCard('🍅','rgba(220,38,38,.15)','Pomodoro','Foco e produtividade','pomodoro')}
+        ${wideCard('📑','rgba(234,179,8,.15)','Contas a Pagar','Gerencie suas contas mensais','contas-pagar')}
       </div>
 
       <div class="hub-home-section" style="margin-top:4px">
