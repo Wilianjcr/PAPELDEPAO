@@ -855,7 +855,7 @@
 </aside>
 
 <!-- ===== MAIN ===== -->
-<main class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
+<main class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar" style="padding-bottom:90px">
     <div id="quick-entry-container" class="max-w-2xl mx-auto"></div>
     <div id="notes-create-area" class="max-w-2xl mx-auto mb-8">
         <div id="create-note-box" class="theme-card rounded-xl shadow-md border transition-all duration-300">
@@ -3246,6 +3246,15 @@ function parseAllNotes() {
         name,
         ...(habitProgress[name] || {completedToday: false, streak: 0, lastDate: null}),
     }));
+    // Also include habits added directly (via template/form) that aren't in text
+    for (const name of Object.keys(habitProgress)) {
+        if (!habNames.has(name)) {
+            parsedHabitsArr.push({
+                name,
+                ...(habitProgress[name] || {completedToday: false, streak: 0, lastDate: null}),
+            });
+        }
+    }
 }
 
 // ── Gamificação ───────────────────────────────────────────────────────────
@@ -3384,55 +3393,79 @@ function renderFinance() {
     const el = document.getElementById('module-finance');
     if (!el) return;
 
+    // Filter by current month/year
+    const filterByMonth = t => {
+        const d = new Date(t.date + 'T12:00:00');
+        return d.getMonth() === financeCurrentMonth && d.getFullYear() === financeCurrentYear;
+    };
+
+    // Merge parsed + standalone, filtered by month
+    const allTxns = [
+        ...parsedTxns.map(t => ({...t, isIncome: t.type === 'income', desc: t.description})),
+        ...standaloneTxns.map(t => ({...t, isIncome: t.type === 'receita', desc: t.desc})),
+        // Apply recurring txns as virtual entries for current month
+        ...recurringTxns.map(t => ({
+            ...t, isIncome: t.type === 'receita',
+            date: `${financeCurrentYear}-${String(financeCurrentMonth+1).padStart(2,'0')}-${String(t.day||1).padStart(2,'0')}`,
+            desc: t.desc, id: t.id + '_r'
+        })),
+    ].filter(filterByMonth);
+
     let inc = 0, exp = 0;
-    for (const t of parsedTxns) { t.type === 'income' ? (inc += t.amount) : (exp += t.amount); }
-    const bal    = inc - exp;
-    const spPct  = Math.min((exp / MONTHLY_GOAL) * 100, 100);
-    const spCol  = spPct > 80 ? '#dc2626' : spPct > 50 ? '#d97706' : '#16a34a';
-    const sorted = [...parsedTxns].reverse();
+    for (const t of allTxns) { t.isIncome ? (inc += t.amount) : (exp += t.amount); }
+    const bal   = inc - exp;
+    const spPct = Math.min((exp / MONTHLY_GOAL) * 100, 100);
+    const spCol = spPct > 80 ? '#dc2626' : spPct > 50 ? '#d97706' : '#16a34a';
+
+    const sorted = [...allTxns].sort((a,b) => (b.date||'').localeCompare(a.date||''));
 
     const txnRows = sorted.length === 0
-        ? `<div class="mod-empty">
-             <div class="mod-empty-icon">💸</div>
-             <div class="mod-empty-title">Nenhuma transação identificada</div>
-             <div class="mod-empty-desc">Numa nota ou na Entrada Rápida, escreva:<br>
-               <span class="mod-empty-code">$ 45,00 Almoço</span> para despesa<br>
-               <span class="mod-empty-code">+$ 150,00 Salário</span> para receita</div>
+        ? `<div style="text-align:center;padding:32px 0;color:var(--text-secondary);font-size:13px">
+             <div style="font-size:32px;margin-bottom:8px">💸</div>
+             Nenhuma transação em ${MONTHS_PT[financeCurrentMonth]} ${financeCurrentYear}
            </div>`
         : sorted.map(t => {
-            const isInc  = t.type === 'income';
-            const arrow  = isInc ? '↑' : '↓';
-            const icCol  = isInc ? '#16a34a' : '#dc2626';
-            const amtCls = isInc ? 'c-green' : 'c-red';
-            const sign   = isInc ? '+' : '−';
-            const dtStr  = new Date(t.date + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
+            const isInc = t.isIncome;
+            const icCol = isInc ? '#16a34a' : '#dc2626';
+            const sign  = isInc ? '+' : '−';
+            const dtStr = new Date(t.date + 'T12:00:00').toLocaleDateString('pt-BR', {day:'2-digit', month:'short'});
             return `<div class="txn-row">
-              <div class="txn-icon" style="background:${icCol}18;color:${icCol}">${arrow}</div>
+              <div class="txn-icon" style="background:${icCol}18;color:${icCol}">${isInc?'↑':'↓'}</div>
               <div style="flex:1;min-width:0">
-                <div class="txn-desc">${modEsc(t.description)}</div>
-                <div class="txn-date">${dtStr}</div>
+                <div class="txn-desc">${modEsc(t.desc||t.description||'')}</div>
+                <div class="txn-date">${dtStr}${t.category?` · ${t.category}`:''}</div>
               </div>
-              <div class="txn-amt ${amtCls}">${sign} ${modBrl(t.amount)}</div>
+              <div class="txn-amt" style="color:${icCol}">${sign} ${modBrl(t.amount)}</div>
             </div>`;
           }).join('');
 
     el.innerHTML = `
-<h2 style="font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:16px">Finanças</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-bottom:18px">
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+  <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">💰 Finanças</h2>
+</div>
+<div class="fin-month-nav">
+  <button class="fin-month-btn" onclick="prevFinanceMonth()">‹</button>
+  <span style="font-weight:800;color:var(--text-primary);font-size:15px">${MONTHS_PT[financeCurrentMonth]} ${financeCurrentYear}</span>
+  <button class="fin-month-btn" onclick="nextFinanceMonth()">›</button>
+</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px">
   <div class="wd-card">
-    <div class="wd-label">Saldo atual</div>
-    <div class="wd-value" style="font-size:20px;color:${bal < 0 ? '#dc2626' : '#16a34a'}">${modBrl(bal)}</div>
+    <div class="wd-label">Saldo</div>
+    <div class="wd-value" style="font-size:18px;color:${bal < 0 ? '#dc2626' : '#16a34a'}">${modBrl(bal)}</div>
   </div>
   <div class="wd-card">
     <div class="wd-label">Receitas</div>
-    <div class="wd-value" style="font-size:20px;color:#16a34a">${modBrl(inc)}</div>
+    <div class="wd-value" style="font-size:18px;color:#16a34a">${modBrl(inc)}</div>
   </div>
   <div class="wd-card">
     <div class="wd-label">Despesas</div>
-    <div class="wd-value" style="font-size:20px;color:#dc2626">${modBrl(exp)}</div>
-    <div class="wd-sub">Meta: ${modBrl(MONTHLY_GOAL)}</div>
-    <div class="prog-track"><div class="prog-bar" style="width:${spPct}%;background:${spCol}"></div></div>
+    <div class="wd-value" style="font-size:18px;color:#dc2626">${modBrl(exp)}</div>
+    <div class="prog-track" style="margin-top:6px"><div class="prog-bar" style="width:${spPct}%;background:${spCol}"></div></div>
   </div>
+</div>
+<div style="display:flex;gap:8px;margin-bottom:16px">
+  <button onclick="openTxnModal('txn')" style="flex:1;padding:11px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer">+ Nova Transação</button>
+  <button onclick="openTxnModal('fixa')" style="flex:1;padding:11px;border-radius:10px;background:var(--bg-card-default);border:1px solid var(--border-main);color:var(--text-primary);font-size:13px;font-weight:700;cursor:pointer">🔁 Nova Fixa</button>
 </div>
 <div class="wd-card" style="padding:16px">
   <div class="wd-label" style="margin-bottom:10px">Movimentações</div>
@@ -3441,9 +3474,24 @@ function renderFinance() {
 }
 
 // ── renderHabits ──────────────────────────────────────────────────────────
+let _showHabitTemplates = false;
+function deleteHabit(name) {
+    delete habitProgress[name];
+    localStorage.setItem('notas_pessoais_v3_habits', JSON.stringify(habitProgress));
+    parseAllNotes();
+    renderHabits();
+}
+function addCustomHabitForm() {
+    const name = (document.getElementById('hab-custom-name')||{}).value?.trim();
+    if (!name) { showToast('Informe o nome do hábito'); return; }
+    addHabitFromTemplate(name);
+    const el = document.getElementById('hab-custom-name');
+    if (el) el.value = '';
+}
 function renderHabits() {
     const el = document.getElementById('module-habits');
     if (!el) return;
+    parseAllNotes();
 
     const done  = parsedHabitsArr.filter(h => h.completedToday).length;
     const total = parsedHabitsArr.length;
@@ -3451,36 +3499,57 @@ function renderHabits() {
 
     const emptyCheck = `<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 12.75l6 6 9-13.5"/></svg>`;
 
-    const rows = total === 0
+    const templateBtns = HABIT_TEMPLATES.map(t => {
+        const already = !!habitProgress[t.name];
+        const safe = t.name.replace(/'/g,"\\'");
+        return `<div class="hab-template" style="${already?'opacity:.5;pointer-events:none':''}">
+          <div class="hab-template-icon" style="background:${already?'var(--bg-panel)':'rgba(59,130,246,.15)'}">${t.icon}</div>
+          <div style="flex:1">
+            <div style="font-size:13px;font-weight:700;color:var(--text-primary)">${modEsc(t.name)}</div>
+            <div style="font-size:11px;color:var(--text-secondary)">${modEsc(t.desc)}</div>
+          </div>
+          ${already
+            ? `<span style="font-size:11px;color:var(--text-secondary)">✓ Adicionado</span>`
+            : `<button onclick="addHabitFromTemplate('${safe}')" style="padding:6px 12px;border-radius:8px;background:var(--accent-primary);color:#fff;font-size:11px;font-weight:700;border:none;cursor:pointer">+ Adicionar</button>`}
+        </div>`;
+    }).join('');
+
+    const rows = parsedHabitsArr.length === 0
         ? `<div class="mod-empty">
              <div class="mod-empty-icon">🔥</div>
-             <div class="mod-empty-title">Nenhum hábito listado</div>
-             <div class="mod-empty-desc">Numa nota ou na Entrada Rápida, escreva:<br>
-               <span class="mod-empty-code">* Beber 2L de água</span><br>para rastrear seus hábitos</div>
+             <div class="mod-empty-title">Nenhum hábito ainda</div>
+             <div class="mod-empty-desc">Adicione um template acima ou crie um personalizado</div>
            </div>`
         : parsedHabitsArr.map(h => {
             const safeName = h.name.replace(/'/g, "\\'");
-            return `<div class="habit-row${h.completedToday ? ' done' : ''}" onclick="toggleHabit('${safeName}')">
-              <div class="habit-check">${h.completedToday ? emptyCheck : ''}</div>
-              <span class="habit-name">${modEsc(h.name)}</span>
+            return `<div class="habit-row${h.completedToday ? ' done' : ''}" style="display:flex;align-items:center;gap:10px">
+              <div class="habit-check" style="flex-shrink:0" onclick="toggleHabit('${safeName}')">${h.completedToday ? emptyCheck : ''}</div>
+              <span class="habit-name" style="flex:1;cursor:pointer" onclick="toggleHabit('${safeName}')">${modEsc(h.name)}</span>
               ${h.streak > 0 ? `<span class="habit-streak">🔥 ${h.streak}</span>` : ''}
+              <button onclick="deleteHabit('${safeName}')" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:16px;padding:0 4px;flex-shrink:0">×</button>
             </div>`;
           }).join('');
 
     el.innerHTML = `
-<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px">
-  <div>
-    <h2 style="font-size:16px;font-weight:800;color:var(--text-primary)">Hábitos</h2>
-    <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">${
-        total > 0
-            ? `${done} de ${total} concluído${total !== 1 ? 's' : ''} hoje`
-            : 'Comece a rastrear seus hábitos'
-    }</div>
-  </div>
-  ${total > 0 ? `<span style="font-size:13px;font-weight:700;color:var(--text-secondary)">${pct}%</span>` : ''}
+<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+  <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">🔥 Hábitos</h2>
+  <span style="font-size:13px;font-weight:700;color:var(--text-secondary)">${total>0?`${done}/${total} hoje`:''}</span>
 </div>
 ${total > 0 ? `<div class="prog-track" style="margin-bottom:16px"><div class="prog-bar" style="width:${pct}%;background:#f97316"></div></div>` : ''}
-${rows}`;
+${rows}
+<div style="margin:20px 0 12px;border-top:1px solid var(--border-main);padding-top:16px">
+  <button onclick="_showHabitTemplates=!_showHabitTemplates;renderHabits()" style="width:100%;padding:10px;border-radius:10px;background:var(--bg-card-default);border:1px solid var(--border-main);color:var(--text-primary);font-size:13px;font-weight:700;cursor:pointer;text-align:left">
+    ${_showHabitTemplates ? '▲' : '▼'} Templates de Hábitos
+  </button>
+</div>
+${_showHabitTemplates ? `<div style="margin-bottom:16px">${templateBtns}</div>` : ''}
+<div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px">
+  <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Hábito Personalizado</div>
+  <div style="display:flex;gap:8px">
+    <input id="hab-custom-name" type="text" placeholder="Nome do hábito" class="txn-field" style="flex:1;margin-bottom:0">
+    <button onclick="addCustomHabitForm()" style="padding:10px 14px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer;flex-shrink:0">+ Criar</button>
+  </div>
+</div>`;
 }
 
 // ── renderJournal ─────────────────────────────────────────────────────────
@@ -3650,6 +3719,10 @@ setActiveModule = function(mod) {
 
     const fab = document.querySelector('.fixed.bottom-20.right-6');
     if (fab) fab.style.display = notesVisible ? '' : 'none';
+
+    // Hide quick-entry when not on notas
+    const qeContainer = document.getElementById('quick-entry-container');
+    if (qeContainer) qeContainer.style.display = notesVisible ? '' : 'none';
 
     // Show/hide all module panels
     _ALL_MODULE_IDS.forEach(id => {
