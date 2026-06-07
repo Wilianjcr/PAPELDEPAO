@@ -300,9 +300,123 @@
         .gdrive-status-dot {
             width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
         }
+
+        /* ===== MÓDULOS – NAVEGAÇÃO INFERIOR ===== */
+        #bottom-module-nav { box-shadow: 0 -1px 0 var(--border-main); }
+        .mod-tab {
+            display:flex; flex-direction:column; align-items:center;
+            gap:2px; padding:6px 14px; border-radius:12px;
+            cursor:pointer; transition:all .2s; border:none;
+            background:transparent; color:var(--text-muted); flex:1;
+        }
+        .mod-tab .mod-tab-icon { font-size:18px; line-height:1; }
+        .mod-tab .mod-tab-lbl  { font-size:9px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; }
+        .mod-tab.active { color:var(--accent-color); background:rgba(var(--accent-color-rgb,.08),0.08); }
+        .mod-tab:hover:not(.active) { background:rgba(128,128,128,.08); }
+
+        /* ===== MÓDULOS – PAINÉIS ===== */
+        .module-panel { display:none; }
+        .module-panel.active { display:block; }
+
+        /* ===== WIDGET CARDS ===== */
+        .wd-card {
+            border:1px solid var(--border-main); border-radius:16px;
+            background:var(--panel-bg); padding:20px;
+            transition:transform .2s, box-shadow .2s;
+        }
+        .wd-card:hover { transform:translateY(-2px); box-shadow:0 8px 24px rgba(0,0,0,.18); }
+        .wd-label {
+            font-size:10px; font-weight:700; letter-spacing:.1em;
+            text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;
+            display:flex; align-items:center; gap:6px;
+        }
+        .wd-value { font-size:26px; font-weight:800; letter-spacing:-.02em; }
+        .wd-sub   { font-size:11px; color:var(--text-muted); margin-top:4px; }
+
+        /* ===== BARRAS DE PROGRESSO ===== */
+        .prog-track { height:6px; border-radius:99px; background:rgba(128,128,128,.15); overflow:hidden; margin-top:8px; }
+        .prog-bar   { height:100%; border-radius:99px; transition:width .6s cubic-bezier(.22,1,.36,1); }
+
+        /* ===== XP CARD ===== */
+        .xp-card {
+            border:1px solid rgba(245,158,11,.2); border-radius:16px;
+            background:linear-gradient(135deg,rgba(245,158,11,.08),transparent);
+            padding:20px; transition:box-shadow .2s;
+        }
+        .xp-card:hover { box-shadow:0 8px 24px rgba(245,158,11,.07); }
+
+        /* ===== HABIT ITEMS ===== */
+        .habit-row {
+            display:flex; align-items:center; gap:12px; padding:12px 14px;
+            border:1px solid var(--border-main); border-radius:12px;
+            cursor:pointer; transition:all .2s; background:var(--panel-bg);
+            margin-bottom:8px;
+        }
+        .habit-row:hover { background:rgba(128,128,128,.06); }
+        .habit-row.done  { border-color:rgba(52,211,153,.2); background:rgba(52,211,153,.04); }
+        .habit-check {
+            width:20px; height:20px; border-radius:50%; border:2px solid #4b5563;
+            display:flex; align-items:center; justify-content:center; flex-shrink:0;
+            transition:all .2s;
+        }
+        .habit-row.done .habit-check { border-color:#34d399; background:#34d399; }
+        .habit-name { flex:1; font-size:14px; font-weight:500; transition:all .2s; }
+        .habit-row.done .habit-name { text-decoration:line-through; color:var(--text-muted); }
+        .habit-streak {
+            font-size:11px; font-weight:700; background:rgba(249,115,22,.12);
+            color:#f97316; padding:3px 10px; border-radius:99px;
+        }
+
+        /* ===== JOURNAL TIMELINE ===== */
+        .jnl-group { display:flex; gap:14px; margin-bottom:24px; }
+        .jnl-spine { display:flex; flex-direction:column; align-items:center; }
+        .jnl-dot   { width:10px; height:10px; border-radius:50%; background:#7c3aed; margin-top:4px;
+                     box-shadow:0 0 0 4px rgba(124,58,237,.12); flex-shrink:0; }
+        .jnl-line  { width:1px; flex:1; margin-top:4px;
+                     background:linear-gradient(to bottom, rgba(124,58,237,.3), transparent); }
+        .jnl-date  { font-size:11px; font-weight:700; color:#7c3aed; letter-spacing:.06em;
+                     text-transform:capitalize; margin-bottom:8px; }
+        .jnl-entry {
+            border:1px solid var(--border-main); border-radius:12px;
+            background:var(--panel-bg); padding:12px 14px; margin-bottom:6px;
+            font-size:13px; line-height:1.6; color:var(--text-main);
+            transition:background .2s;
+        }
+        .jnl-entry:hover { background:rgba(128,128,128,.06); }
+        .jnl-search {
+            width:100%; padding:9px 14px 9px 36px; border-radius:12px;
+            border:1px solid var(--border-main); background:var(--panel-bg);
+            color:var(--text-main); font-size:13px; outline:none; transition:border-color .2s;
+            box-sizing:border-box;
+        }
+        .jnl-search:focus { border-color:#7c3aed; }
+        .jnl-hl { background:rgba(124,58,237,.25); color:#c4b5fd; border-radius:2px; }
+
+        /* ===== FINANÇAS ===== */
+        .txn-row {
+            display:flex; align-items:center; gap:12px; padding:11px 2px;
+            border-bottom:1px solid var(--border-main);
+        }
+        .txn-row:last-child { border-bottom:none; }
+        .txn-icon  { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+        .txn-desc  { flex:1; font-size:13px; font-weight:500; }
+        .txn-date  { font-size:11px; color:var(--text-muted); }
+        .txn-amt   { font-size:13px; font-weight:700; font-variant-numeric:tabular-nums; white-space:nowrap; }
+        .color-green { color:#34d399; }
+        .color-red   { color:#f87171; }
+
+        /* ===== ESTADO VAZIO ===== */
+        .mod-empty {
+            display:flex; flex-direction:column; align-items:center; text-align:center;
+            padding:48px 24px; border:1px dashed var(--border-main); border-radius:16px;
+        }
+        .mod-empty-icon  { font-size:36px; margin-bottom:12px; }
+        .mod-empty-title { font-size:14px; font-weight:700; margin-bottom:6px; }
+        .mod-empty-desc  { font-size:12px; color:var(--text-muted); max-width:280px; line-height:1.6; }
+        .mod-empty-code  { font-family:monospace; background:rgba(128,128,128,.1); padding:2px 7px; border-radius:4px; font-size:11px; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col pb-24">
+<body class="min-h-screen flex flex-col pb-36">
 
 <!-- ===== LOADING ANIMATION SCREEN ===== -->
 <div id="loading-animation-screen" class="fixed inset-0 bg-[#0a051b] z-[9999] overflow-hidden" style="display:flex;flex-direction:column;align-items:center;justify-content:center;">
@@ -424,7 +538,7 @@
 
 <!-- ===== MAIN ===== -->
 <main class="flex-1 overflow-y-auto p-4 sm:p-6 custom-scrollbar">
-    <div class="max-w-2xl mx-auto mb-8">
+    <div id="notes-create-area" class="max-w-2xl mx-auto mb-8">
         <div id="create-note-box" class="theme-card rounded-xl shadow-md border transition-all duration-300">
             <div id="note-collapsed" class="p-4 flex items-center justify-between cursor-pointer" onclick="expandCreateNote()">
                 <span class="theme-text-muted text-sm font-medium">Escreva uma nota...</span>
@@ -555,7 +669,7 @@
     </div>
 
     <!-- ===== GRID DE NOTAS ===== -->
-    <div class="max-w-7xl mx-auto space-y-8">
+    <div id="notes-grid-area" class="max-w-7xl mx-auto space-y-8">
         <div id="section-pinned" class="hidden">
             <h2 class="text-xs font-bold uppercase tracking-wider mb-3 theme-text-muted flex items-center gap-2">
                 <i data-lucide="pin" class="w-3.5 h-3.5"></i> Fixadas
@@ -574,11 +688,36 @@
             <p class="text-sm theme-text-muted max-w-sm mt-1" id="empty-desc">Use o botão "+" para criar notas, áudios, desenhos ou checklists.</p>
         </div>
     </div>
+
+<!-- ===== MODULE PANELS ===== -->
+<div id="module-dashboard" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-finance"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-habits"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-journal"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 </main>
+
+<!-- ===== BOTTOM MODULE NAV ===== -->
+<nav id="bottom-module-nav" class="fixed bottom-0 left-0 right-0 z-[35] theme-panel flex items-center">
+    <button class="mod-tab active" id="tab-notas"     onclick="setActiveModule('notas')">
+        <span class="mod-tab-icon">📝</span><span class="mod-tab-lbl">Notas</span>
+    </button>
+    <button class="mod-tab" id="tab-dashboard"  onclick="setActiveModule('dashboard')">
+        <span class="mod-tab-icon">⚡</span><span class="mod-tab-lbl">Dashboard</span>
+    </button>
+    <button class="mod-tab" id="tab-finance"    onclick="setActiveModule('finance')">
+        <span class="mod-tab-icon">💰</span><span class="mod-tab-lbl">Finanças</span>
+    </button>
+    <button class="mod-tab" id="tab-habits"     onclick="setActiveModule('habits')">
+        <span class="mod-tab-icon">🔥</span><span class="mod-tab-lbl">Hábitos</span>
+    </button>
+    <button class="mod-tab" id="tab-journal"    onclick="setActiveModule('journal')">
+        <span class="mod-tab-icon">📖</span><span class="mod-tab-lbl">Diário</span>
+    </button>
+</nav>
 
 <!-- ===== FAB ===== -->
 <div id="fab-overlay" onclick="toggleFabMenu()" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden"></div>
-<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
+<div class="fixed bottom-20 right-6 z-50 flex flex-col items-end gap-3">
     <div id="fab-menu" class="hidden flex-col items-end gap-3 mb-3 transition-all duration-300 transform translate-y-8 opacity-0">
         <button onclick="triggerAudioOption()" class="flex items-center gap-3 px-6 py-3.5 bg-[#004f9f] hover:bg-[#003d7c] text-white rounded-full shadow-lg transition-transform hover:scale-105">
             <i data-lucide="mic" class="w-5 h-5"></i><span class="text-sm font-semibold">Áudio</span>
@@ -1265,6 +1404,8 @@ function saveToLocalStorage() {
     localStorage.setItem('notas_pessoais_v3_labels', JSON.stringify(labels));
     updateNotesCountBadge();
     triggerCloudSync();
+    parseAllNotes();
+    if (activeModule !== 'notas') renderActiveModule();
 }
 
 function loadLocalData() {
@@ -1281,6 +1422,8 @@ function loadLocalData() {
     labels = savedLabels ? JSON.parse(savedLabels) : ["Trabalho", "Códigos", "Pessoal", "Ideias"];
     if (savedClientId) { googleClientId = savedClientId; document.getElementById('gdrive-client-id').value = googleClientId; }
     if (savedTheme) activeTheme = savedTheme;
+    const savedHP = localStorage.getItem('notas_pessoais_v3_habits');
+    if (savedHP) habitProgress = JSON.parse(savedHP);
 }
 
 function initApp() {
@@ -1290,6 +1433,7 @@ function initApp() {
     renderNotes();
     setupEvents();
     updateNotesCountBadge();
+    parseAllNotes();
 }
 
 function setupEvents() {
@@ -2607,6 +2751,391 @@ function showToast(message) {
 function escapeHTML(str) {
     return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
 }
+
+// ===== MÓDULOS =====
+
+// ── Estado dos módulos ────────────────────────────────────────────────────
+let activeModule     = 'notas';
+let parsedTxns       = [];
+let parsedHabitsArr  = [];
+let habitProgress    = {};
+let parsedJournal    = [];
+let journalQuery     = '';
+const MONTHLY_GOAL   = 1000;
+const XP_TASK        = 50;
+const XP_HABIT       = 30;
+const TIERS = [
+    {level:1, title:'Iniciante',               xpStart:0,    xpNeeded:150},
+    {level:2, title:'Aprendiz',                xpStart:150,  xpNeeded:200},
+    {level:3, title:'Organizador',             xpStart:350,  xpNeeded:250},
+    {level:4, title:'Mestre da Produtividade', xpStart:600,  xpNeeded:300},
+    {level:5, title:'Expert',                  xpStart:900,  xpNeeded:400},
+    {level:6, title:'Lendário',                xpStart:1300, xpNeeded:9999},
+];
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+function modBrl(v) {
+    return new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(v);
+}
+function modFmtDate(iso) {
+    return new Date(iso+'T12:00:00').toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'long'});
+}
+function modEsc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function resolveLevel(xp) {
+    let tier = TIERS[0];
+    for (const t of TIERS) { if (xp >= t.xpStart) tier = t; }
+    const inLvl = xp - tier.xpStart;
+    const pct   = tier.xpNeeded >= 9999 ? 100 : Math.min((inLvl / tier.xpNeeded) * 100, 100);
+    return { tier, inLvl, pct };
+}
+
+// ── Parser ────────────────────────────────────────────────────────────────
+function parseAllNotes() {
+    const today = new Date().toISOString().slice(0,10);
+    const RE_INC = /^\+\$\s+(\d+(?:[.,]\d{1,2})?)\s+(.+)$/;
+    const RE_EXP = /^\$\s+(\d+(?:[.,]\d{1,2})?)\s+(.+)$/;
+    const RE_HAB = /^\*\s+(.+)$/;
+    const RE_JNL = /^>\s+(.+)$/;
+
+    const txns = []; const habNames = new Set(); const jnls = [];
+    let ti = 0, ji = 0;
+
+    const active = notes.filter(n => !n.isArchived && !n.isTrashed);
+    for (const note of active) {
+        const date = new Date(note.updatedAt).toISOString().slice(0,10);
+        for (const raw of (note.content||'').split('\n')) {
+            const line = raw.trim(); if (!line) continue;
+            let m;
+            if ((m = line.match(RE_INC))) {
+                txns.push({id:'t'+(ti++), type:'income',  amount:parseFloat(m[1].replace(',','.')), description:m[2].trim(), date});
+            } else if ((m = line.match(RE_EXP))) {
+                txns.push({id:'t'+(ti++), type:'expense', amount:parseFloat(m[1].replace(',','.')), description:m[2].trim(), date});
+            } else if ((m = line.match(RE_HAB))) {
+                habNames.add(m[1].trim());
+            } else if ((m = line.match(RE_JNL))) {
+                jnls.push({id:'j'+(ji++), content:m[1].trim(), date});
+            }
+        }
+    }
+
+    parsedTxns    = txns;
+    parsedJournal = jnls;
+
+    // Resetar completedToday se passou do dia
+    for (const name of Object.keys(habitProgress)) {
+        if (habitProgress[name].lastDate !== today) {
+            habitProgress[name] = {...habitProgress[name], completedToday:false};
+        }
+    }
+    parsedHabitsArr = Array.from(habNames).map(name => ({
+        name, ...(habitProgress[name] || {completedToday:false, streak:0, lastDate:null})
+    }));
+}
+
+// ── Navegação de módulo ───────────────────────────────────────────────────
+function setActiveModule(mod) {
+    activeModule = mod;
+    // Tabs
+    ['notas','dashboard','finance','habits','journal'].forEach(id => {
+        const el = document.getElementById('tab-'+id);
+        if (el) el.classList.toggle('active', id === mod);
+    });
+    // notes área
+    const notesVisible = mod === 'notas';
+    ['notes-create-area','notes-grid-area','filter-indicator'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = notesVisible ? '' : 'none';
+    });
+    // FAB
+    const fab = document.querySelector('.fixed.bottom-20.right-6');
+    if (fab) fab.style.display = notesVisible ? '' : 'none';
+    // Module panels
+    ['dashboard','finance','habits','journal'].forEach(id => {
+        const el = document.getElementById('module-'+id);
+        if (!el) return;
+        const isActive = id === mod;
+        el.classList.toggle('active', isActive);
+        if (isActive) renderActiveModule();
+    });
+    // Search bar visibility
+    const searchWrap = document.querySelector('header .flex-1.max-w-xl');
+    if (searchWrap) searchWrap.style.display = notesVisible ? '' : 'none';
+}
+
+function renderActiveModule() {
+    parseAllNotes();
+    if (activeModule === 'dashboard') renderDashboard();
+    else if (activeModule === 'finance')   renderFinance();
+    else if (activeModule === 'habits')    renderHabits();
+    else if (activeModule === 'journal')   renderJournal();
+}
+
+// ── Gamificação ───────────────────────────────────────────────────────────
+function calcXP() {
+    const tasksDone  = notes.flatMap(n => n.todoItems||[]).filter(t => t.checked).length;
+    const habitsDone = parsedHabitsArr.filter(h => h.completedToday).length;
+    return { tasksDone, habitsDone, totalXP: tasksDone * XP_TASK + habitsDone * XP_HABIT };
+}
+
+// ── renderDashboard ───────────────────────────────────────────────────────
+function renderDashboard() {
+    const el = document.getElementById('module-dashboard');
+    if (!el) return;
+    const { tasksDone, habitsDone, totalXP } = calcXP();
+    const { tier, inLvl, pct } = resolveLevel(totalXP);
+    const todo  = notes.flatMap(n=>n.todoItems||[]).filter(t=>!t.checked && !n?.isTrashed && !n?.isArchived).length;
+    const done  = notes.flatMap(n=>n.todoItems||[]).filter(t=>t.checked).length;
+    let inc=0, exp=0;
+    for (const t of parsedTxns) { t.type==='income'?inc+=t.amount:exp+=t.amount; }
+    const bal = inc - exp;
+    const spPct = Math.min((exp/MONTHLY_GOAL)*100,100);
+    const spColor = spPct>80?'#f87171':spPct>50?'#facc15':'#34d399';
+    const habTotal = parsedHabitsArr.length;
+    const habDone  = parsedHabitsArr.filter(h=>h.completedToday).length;
+    const habPct   = habTotal>0?Math.round((habDone/habTotal)*100):0;
+    const lastJnl  = parsedJournal.at(-1);
+    const xpLeft   = tier.xpNeeded>=9999 ? '' : `${tier.xpNeeded - inLvl} XP para o próximo nível`;
+
+    el.innerHTML = `
+<h2 style="font-size:15px;font-weight:800;margin-bottom:16px">Dashboard</h2>
+
+<!-- XP Card -->
+<div class="xp-card" style="margin-bottom:16px">
+  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div style="display:flex;align-items:center;gap:14px">
+      <div style="width:52px;height:52px;border-radius:14px;background:rgba(245,158,11,.15);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900;color:#f59e0b;flex-shrink:0">${tier.level}</div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted)">Nível ${tier.level}</div>
+        <div style="font-size:17px;font-weight:800">${tier.title}</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:16px;font-size:11px;color:var(--text-muted)">
+      <span>✅ ${tasksDone} tarefa${tasksDone!==1?'s':''} × ${XP_TASK} XP</span>
+      <span>🔥 ${habitsDone} hábito${habitsDone!==1?'s':''} × ${XP_HABIT} XP</span>
+    </div>
+  </div>
+  <div style="margin-top:16px">
+    <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:5px">
+      <span style="color:var(--text-muted)">${totalXP} XP total</span>
+      <span style="color:var(--text-muted)">${xpLeft || '🏆 Nível máximo!'}</span>
+    </div>
+    <div class="prog-track"><div class="prog-bar" style="width:${pct}%;background:linear-gradient(90deg,#f59e0b,#fbbf24)"></div></div>
+  </div>
+</div>
+
+<!-- Grid de widgets -->
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px">
+
+  <!-- Tarefas -->
+  <div class="wd-card">
+    <div class="wd-label">📋 Tarefas</div>
+    <div class="wd-value">${todo}</div>
+    <div class="wd-sub">pendentes · ${done} concluída${done!==1?'s':''}</div>
+  </div>
+
+  <!-- Finanças -->
+  <div class="wd-card">
+    <div class="wd-label">💰 Saldo</div>
+    <div class="wd-value" style="color:${bal<0?'#f87171':'#34d399'}">${modBrl(bal)}</div>
+    <div class="wd-sub">gastos vs meta</div>
+    <div class="prog-track"><div class="prog-bar" style="width:${spPct}%;background:${spColor}"></div></div>
+  </div>
+
+  <!-- Hábitos -->
+  <div class="wd-card">
+    <div class="wd-label">🔥 Hábitos</div>
+    <div class="wd-value">${habDone}<span style="font-size:14px;font-weight:400;color:var(--text-muted)"> / ${habTotal}</span></div>
+    <div class="wd-sub">${habPct}% concluídos hoje</div>
+    <div class="prog-track"><div class="prog-bar" style="width:${habPct}%;background:#f97316"></div></div>
+  </div>
+
+  <!-- Diário -->
+  <div class="wd-card">
+    <div class="wd-label">📖 Diário</div>
+    ${lastJnl
+      ? `<p style="font-size:13px;font-style:italic;color:var(--text-muted);line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden">"${modEsc(lastJnl.content)}"</p>`
+      : '<div style="font-size:12px;color:var(--text-muted)">Nenhuma anotação ainda</div>'}
+  </div>
+
+</div>`;
+}
+
+// ── renderFinance ─────────────────────────────────────────────────────────
+function renderFinance() {
+    const el = document.getElementById('module-finance');
+    if (!el) return;
+    let inc=0, exp=0;
+    for (const t of parsedTxns) { t.type==='income'?inc+=t.amount:exp+=t.amount; }
+    const bal = inc - exp;
+    const spPct  = Math.min((exp/MONTHLY_GOAL)*100,100);
+    const spCol  = spPct>80?'#f87171':spPct>50?'#facc15':'#34d399';
+    const sorted = [...parsedTxns].reverse();
+
+    const txnRows = sorted.length === 0
+        ? `<div class="mod-empty">
+            <div class="mod-empty-icon">💸</div>
+            <div class="mod-empty-title">Nenhuma transação identificada</div>
+            <div class="mod-empty-desc">Nas suas notas, escreva:<br>
+              <span class="mod-empty-code">$ 45.00 Almoço</span> para despesa<br>
+              <span class="mod-empty-code">+$ 150.00 Salário</span> para receita</div>
+           </div>`
+        : sorted.map(t => {
+            const isInc = t.type==='income';
+            const ic    = isInc ? '↑' : '↓';
+            const icCol = isInc ? '#34d399' : '#f87171';
+            const amtCl = isInc ? 'color-green' : 'color-red';
+            const sign  = isInc ? '+' : '−';
+            return `<div class="txn-row">
+              <div class="txn-icon" style="background:${icCol}18;color:${icCol};font-size:14px;font-weight:800">${ic}</div>
+              <div style="flex:1;min-width:0">
+                <div class="txn-desc">${modEsc(t.description)}</div>
+                <div class="txn-date">${new Date(t.date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short'})}</div>
+              </div>
+              <div class="txn-amt ${amtCl}">${sign} ${modBrl(t.amount)}</div>
+            </div>`;
+          }).join('');
+
+    el.innerHTML = `
+<h2 style="font-size:15px;font-weight:800;margin-bottom:16px">Finanças</h2>
+
+<!-- Resumo 3 cards -->
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px">
+  <div class="wd-card">
+    <div class="wd-label">Saldo atual</div>
+    <div class="wd-value" style="font-size:20px;color:${bal<0?'#f87171':'#34d399'}">${modBrl(bal)}</div>
+  </div>
+  <div class="wd-card">
+    <div class="wd-label">Receitas</div>
+    <div class="wd-value" style="font-size:20px;color:#34d399">${modBrl(inc)}</div>
+  </div>
+  <div class="wd-card">
+    <div class="wd-label">Despesas</div>
+    <div class="wd-value" style="font-size:20px;color:#f87171">${modBrl(exp)}</div>
+    <div class="wd-sub">Meta: ${modBrl(MONTHLY_GOAL)}</div>
+    <div class="prog-track"><div class="prog-bar" style="width:${spPct}%;background:${spCol}"></div></div>
+  </div>
+</div>
+
+<!-- Lista de transações -->
+<div class="wd-card" style="padding:16px">
+  <div class="wd-label" style="margin-bottom:8px">Movimentações</div>
+  ${txnRows}
+</div>`;
+}
+
+// ── renderHabits ──────────────────────────────────────────────────────────
+function renderHabits() {
+    const el = document.getElementById('module-habits');
+    if (!el) return;
+    const done  = parsedHabitsArr.filter(h=>h.completedToday).length;
+    const total = parsedHabitsArr.length;
+    const pct   = total>0?Math.round((done/total)*100):0;
+
+    const rows = total === 0
+        ? `<div class="mod-empty">
+            <div class="mod-empty-icon">🔥</div>
+            <div class="mod-empty-title">Nenhum hábito listado</div>
+            <div class="mod-empty-desc">Nas suas notas, escreva:<br>
+              <span class="mod-empty-code">* Beber 2L de água</span><br>
+              para rastrear hábitos</div>
+           </div>`
+        : parsedHabitsArr.map(h => `
+            <div class="habit-row${h.completedToday?' done':''}" onclick="toggleHabit('${modEsc(h.name)}')">
+              <div class="habit-check">
+                ${h.completedToday?'<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/></svg>':''}
+              </div>
+              <span class="habit-name">${modEsc(h.name)}</span>
+              ${h.streak>0?`<span class="habit-streak">🔥 ${h.streak}</span>`:''}
+            </div>`).join('');
+
+    el.innerHTML = `
+<div style="display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px">
+  <div>
+    <h2 style="font-size:15px;font-weight:800">Hábitos</h2>
+    <div style="font-size:11px;color:var(--text-muted)">${total>0?`${done} de ${total} concluídos hoje`:'Comece a rastrear seus hábitos'}</div>
+  </div>
+  ${total>0?`<span style="font-size:12px;color:var(--text-muted)">${pct}%</span>`:''}
+</div>
+${total>0?`<div class="prog-track" style="margin-bottom:16px"><div class="prog-bar" style="width:${pct}%;background:#f97316"></div></div>`:''}
+${rows}`;
+}
+
+// ── renderJournal ─────────────────────────────────────────────────────────
+function renderJournal() {
+    const el = document.getElementById('module-journal');
+    if (!el) return;
+
+    const q = journalQuery.trim().toLowerCase();
+    const filtered = q
+        ? parsedJournal.filter(e => e.content.toLowerCase().includes(q))
+        : parsedJournal;
+
+    // Agrupar por data
+    const grouped = new Map();
+    for (const e of filtered) {
+        const list = grouped.get(e.date) || [];
+        list.push(e);
+        grouped.set(e.date, list);
+    }
+    const days = Array.from(grouped.entries()).sort(([a],[b])=>b.localeCompare(a));
+
+    function highlight(text) {
+        if (!q) return modEsc(text);
+        const esc = q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+        return modEsc(text).replace(new RegExp('('+esc+')', 'gi'),
+            '<mark class="jnl-hl">$1</mark>');
+    }
+
+    const timeline = days.length === 0
+        ? (parsedJournal.length === 0
+            ? `<div class="mod-empty">
+                <div class="mod-empty-icon">📖</div>
+                <div class="mod-empty-title">Seu diário está vazio</div>
+                <div class="mod-empty-desc">Nas suas notas, escreva:<br>
+                  <span class="mod-empty-code">&gt; Hoje foi um dia produtivo</span></div>
+               </div>`
+            : `<div class="mod-empty"><div class="mod-empty-title">Nenhuma entrada para "${modEsc(journalQuery)}"</div></div>`)
+        : days.map(([date, entries], idx) => `
+            <div class="jnl-group">
+              <div class="jnl-spine">
+                <div class="jnl-dot"></div>
+                ${idx<days.length-1?'<div class="jnl-line"></div>':''}
+              </div>
+              <div style="flex:1;padding-bottom:8px">
+                <div class="jnl-date">${modFmtDate(date)}</div>
+                ${entries.map(e=>`<div class="jnl-entry">${highlight(e.content)}</div>`).join('')}
+              </div>
+            </div>`).join('');
+
+    el.innerHTML = `
+<div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:14px">
+  <h2 style="font-size:15px;font-weight:800">Diário</h2>
+  <span style="font-size:11px;color:var(--text-muted)">${parsedJournal.length} entrada${parsedJournal.length!==1?'s':''}</span>
+</div>
+<div style="position:relative;margin-bottom:18px">
+  <svg style="position:absolute;left:11px;top:50%;transform:translateY(-50%);opacity:.4" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+  <input class="jnl-search" type="text" placeholder="Buscar no diário..." value="${modEsc(journalQuery)}"
+         oninput="journalQuery=this.value;renderJournal()">
+</div>
+${timeline}`;
+}
+
+// ── toggleHabit ───────────────────────────────────────────────────────────
+function toggleHabit(name) {
+    const today = new Date().toISOString().slice(0,10);
+    const cur   = habitProgress[name] || {completedToday:false, streak:0, lastDate:null};
+    const completing = !cur.completedToday;
+    habitProgress[name] = {
+        completedToday: completing,
+        streak: completing ? cur.streak+1 : Math.max(0, cur.streak-1),
+        lastDate: today,
+    };
+    localStorage.setItem('notas_pessoais_v3_habits', JSON.stringify(habitProgress));
+    parseAllNotes();
+    renderHabits();
+}
+
 </script>
 </body>
 </html>
