@@ -610,6 +610,114 @@
           border:1px solid var(--border-main); border-radius:10px; padding:10px 12px;
           font-size:13px; resize:none; box-sizing:border-box; min-height:64px; }
         .mood-note-input:focus { outline:none; border-color:var(--accent-primary); }
+/* ── Hub Home Cards ─────────────────────────────────────────────────────── */
+.hub-home-section { padding: 4px 0 0; }
+.hub-home-sep { font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-secondary);padding:14px 0 8px;border-bottom:1px solid var(--border-main);margin-bottom:12px; }
+.hub-home-wide { display:flex;align-items:center;gap:12px;background:var(--bg-card-default);
+  border:1px solid var(--border-main);border-radius:14px;padding:14px 16px;margin-bottom:8px;
+  cursor:pointer;transition:all .15s;width:100%;text-align:left;box-sizing:border-box; }
+.hub-home-wide:hover { border-color:var(--accent-primary); }
+.hub-home-grid { display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px; }
+.hub-home-card { display:flex;flex-direction:column;align-items:flex-start;
+  background:var(--bg-card-default);border:1px solid var(--border-main);
+  border-radius:14px;padding:14px;cursor:pointer;transition:all .15s; }
+.hub-home-card:hover { border-color:var(--accent-primary); }
+.hub-home-icon { width:40px;height:40px;border-radius:12px;display:flex;
+  align-items:center;justify-content:center;font-size:20px;margin-bottom:8px;flex-shrink:0; }
+.hub-home-row { display:flex;align-items:center;gap:12px;padding:13px 0;
+  border-bottom:1px solid var(--border-main);cursor:pointer;transition:color .15s; }
+.hub-home-row:last-child { border-bottom:none; }
+.hub-home-row:hover .hub-home-row-name { color:var(--accent-primary); }
+.hub-home-row-icon { width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0; }
+/* ── Task System ──────────────────────────────────────────────────────────── */
+.task-views { display:flex;gap:4px;background:var(--bg-panel);border-radius:10px;
+  padding:4px;margin-bottom:16px; }
+.task-view-btn { flex:1;padding:6px;border-radius:7px;border:none;font-size:12px;
+  font-weight:600;cursor:pointer;background:transparent;color:var(--text-secondary);
+  transition:all .15s; }
+.task-view-btn.active { background:var(--bg-card-default);color:var(--accent-primary); }
+.task-item { display:flex;align-items:flex-start;gap:10px;padding:12px;
+  background:var(--bg-card-default);border:1px solid var(--border-main);
+  border-radius:10px;margin-bottom:6px; }
+.task-check { width:20px;height:20px;border-radius:6px;border:2px solid var(--border-main);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;cursor:pointer;margin-top:1px; }
+.task-check.done { background:var(--accent-primary);border-color:var(--accent-primary); }
+.task-pri { font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;margin-right:4px; }
+.task-pri.alta { background:#fef2f2;color:#dc2626; }
+.task-pri.media { background:#fefce8;color:#d97706; }
+.task-pri.baixa { background:#f0fdf4;color:#16a34a; }
+[data-theme="dark-modern"] .task-pri.alta,[data-theme="roxo"] .task-pri.alta,
+[data-theme="black-glass"] .task-pri.alta { background:#3b1010;color:#f87171; }
+[data-theme="dark-modern"] .task-pri.media,[data-theme="roxo"] .task-pri.media,
+[data-theme="black-glass"] .task-pri.media { background:#2e2a04;color:#fbbf24; }
+[data-theme="dark-modern"] .task-pri.baixa,[data-theme="roxo"] .task-pri.baixa,
+[data-theme="black-glass"] .task-pri.baixa { background:#0d2b18;color:#4ade80; }
+.task-cat-badge { font-size:10px;padding:2px 7px;border-radius:99px;
+  background:var(--bg-panel);color:var(--text-secondary); }
+.cal-grid { display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin:8px 0; }
+.cal-cell { aspect-ratio:1;display:flex;align-items:center;justify-content:center;
+  border-radius:8px;font-size:12px;cursor:pointer;transition:all .15s;position:relative; }
+.cal-cell:hover { background:var(--bg-panel); }
+.cal-cell.today { background:var(--accent-primary);color:#fff;font-weight:800; }
+.cal-cell.has-tasks::after { content:'';position:absolute;bottom:3px;left:50%;
+  transform:translateX(-50%);width:4px;height:4px;border-radius:50%;background:var(--accent-primary); }
+.cal-cell.today.has-tasks::after { background:#fff; }
+.cal-cell.other-month { opacity:.35; }
+/* ── Habit Templates ─────────────────────────────────────────────────────── */
+.hab-template { display:flex;align-items:center;gap:12px;padding:12px;
+  background:var(--bg-card-default);border:1px solid var(--border-main);
+  border-radius:12px;margin-bottom:8px;cursor:pointer;transition:all .15s; }
+.hab-template:hover { border-color:var(--accent-primary); }
+.hab-template-icon { width:40px;height:40px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0; }
+/* ── Study Plans ─────────────────────────────────────────────────────────── */
+.study-template { background:var(--bg-card-default);border:1px solid var(--border-main);
+  border-radius:14px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .15s; }
+.study-template:hover { border-color:var(--accent-primary); }
+.study-plan-card { background:var(--bg-card-default);border:1px solid var(--accent-primary);
+  border-radius:14px;padding:16px;margin-bottom:10px; }
+/* ── Finance Month Nav ───────────────────────────────────────────────────── */
+.fin-month-nav { display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:16px;padding:10px 14px;background:var(--bg-card-default);
+  border:1px solid var(--border-main);border-radius:12px; }
+.fin-month-btn { background:none;border:none;color:var(--text-secondary);
+  cursor:pointer;font-size:20px;padding:4px 8px;border-radius:6px;transition:all .15s; }
+.fin-month-btn:hover { color:var(--accent-primary);background:var(--bg-panel); }
+.fin-cat-badge { font-size:10px;padding:2px 8px;border-radius:99px;
+  background:var(--bg-panel);color:var(--text-secondary);margin-left:6px; }
+/* ── Transaction Modal ───────────────────────────────────────────────────── */
+.txn-type-toggle { display:flex;background:var(--bg-panel);border-radius:10px;
+  padding:3px;margin-bottom:16px; }
+.txn-type-btn { flex:1;padding:8px;border-radius:8px;border:none;font-size:13px;
+  font-weight:700;cursor:pointer;background:transparent;color:var(--text-secondary);
+  transition:all .15s; }
+.txn-type-btn.sel-receita { background:#16a34a;color:#fff; }
+.txn-type-btn.sel-despesa { background:#dc2626;color:#fff; }
+.txn-amount-input { font-size:36px;font-weight:800;text-align:center;width:100%;
+  background:transparent;border:none;color:var(--text-primary);outline:none;margin:12px 0; }
+.txn-field { width:100%;background:var(--bg-panel);color:var(--text-primary);
+  border:1px solid var(--border-main);border-radius:10px;padding:10px 14px;
+  font-size:13px;box-sizing:border-box;margin-bottom:10px;font-family:inherit; }
+.txn-field:focus { outline:none;border-color:var(--accent-primary); }
+.modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;
+  display:flex;align-items:flex-end;justify-content:center; }
+.modal-sheet { background:var(--bg-panel);border-radius:20px 20px 0 0;
+  width:100%;max-width:600px;padding:20px;max-height:85vh;overflow-y:auto; }
+.modal-sheet-handle { width:40px;height:4px;border-radius:2px;
+  background:var(--border-main);margin:0 auto 16px; }
+/* ── Dream Analysis / Task Search ───────────────────────────────────────── */
+.dream-chart-bar { height:8px;border-radius:99px;transition:width .6s; }
+.task-search-input { width:100%;background:var(--bg-card-default);
+  color:var(--text-primary);border:1px solid var(--border-main);
+  border-radius:12px;padding:12px 14px 12px 40px;font-size:14px;box-sizing:border-box; }
+.task-search-input:focus { outline:none;border-color:var(--accent-primary); }
+.filter-chip { padding:6px 14px;border-radius:99px;border:1.5px solid var(--border-main);
+  font-size:12px;font-weight:600;cursor:pointer;background:var(--bg-panel);
+  color:var(--text-secondary);transition:all .15s; }
+.filter-chip.sel { border-color:var(--accent-primary);color:var(--accent-primary);
+  background:rgba(59,130,246,.1); }
     </style>
 </head>
 <body class="min-h-screen flex flex-col pb-36">
@@ -695,11 +803,14 @@
         <div class="hub-sep">Vida Pessoal</div>
         <button class="hub-item" id="hub-birthdays"       onclick="hubNav('birthdays')"><span class="hub-item-icon">🎂</span> Aniversários</button>
         <button class="hub-item" id="hub-dreams"          onclick="hubNav('dreams')"><span class="hub-item-icon">⭐</span> Meus Sonhos</button>
+        <button class="hub-item" id="hub-dream-analysis"  onclick="hubNav('dream-analysis')"><span class="hub-item-icon">🔮</span> Análise Sonhos</button>
         <button class="hub-item" id="hub-journal"         onclick="hubNav('journal')"><span class="hub-item-icon">📖</span> Diário</button>
         <button class="hub-item" id="hub-mood"            onclick="hubNav('mood')"><span class="hub-item-icon">😊</span> Humor</button>
-        <div class="hub-sep">Análise</div>
+        <div class="hub-sep">Análise &amp; Progresso</div>
         <button class="hub-item" id="hub-dashboard"       onclick="hubNav('dashboard')"><span class="hub-item-icon">⚡</span> Dashboard</button>
         <button class="hub-item" id="hub-profile"         onclick="hubNav('profile')"><span class="hub-item-icon">🏆</span> Perfil</button>
+        <div class="hub-sep">Ferramentas</div>
+        <button class="hub-item" id="hub-task-search"     onclick="hubNav('task-search')"><span class="hub-item-icon">🔍</span> Pesquisar Tarefas</button>
         <div class="hub-sep">Filtros de Notas</div>
         <button id="menu-all"     onclick="changeFilter('all');hubNav('notas')"     class="hub-item" style="font-size:12px"><span class="hub-item-icon">🏠</span> Todas</button>
         <button id="menu-pinned"  onclick="changeFilter('pinned');hubNav('notas')"  class="hub-item" style="font-size:12px"><span class="hub-item-icon">📌</span> Fixadas</button>
@@ -913,6 +1024,17 @@
 <div id="module-mood"       class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-estudos"     class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 <div id="module-recorrentes" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-home"           class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-dream-analysis" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-task-search"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<!-- Transaction Modal -->
+<div id="txn-modal" class="modal-overlay hidden" onclick="closeTxnModal(event)">
+  <div class="modal-sheet" onclick="event.stopPropagation()">
+    <div class="modal-sheet-handle"></div>
+    <div style="font-size:16px;font-weight:800;color:var(--text-primary);margin-bottom:14px" id="txn-modal-title">Nova Transação</div>
+    <div id="txn-modal-body"></div>
+  </div>
+</div>
 </main>
 
 <!-- ===== BOTTOM MODULE NAV ===== -->
@@ -3008,8 +3130,42 @@ let projects    = JSON.parse(localStorage.getItem('notas_pessoais_v3_projects') 
 let dreams      = JSON.parse(localStorage.getItem('notas_pessoais_v3_dreams')        || '[]');
 let moodData    = JSON.parse(localStorage.getItem('notas_pessoais_v3_mood')          || '{}');
 let shopChecked = JSON.parse(localStorage.getItem('notas_pessoais_v3_shop_checked')  || '{}');
+let standaloneTasksList = JSON.parse(localStorage.getItem('notas_pessoais_v3_tasks_list') || '[]');
+let studyPlans    = JSON.parse(localStorage.getItem('notas_pessoais_v3_study_plans') || '[]');
+let recurringTxns = JSON.parse(localStorage.getItem('notas_pessoais_v3_recurring')   || '[]');
+let standaloneTxns= JSON.parse(localStorage.getItem('notas_pessoais_v3_txns_standalone') || '[]');
+let financeCurrentMonth = new Date().getMonth();
+let financeCurrentYear  = new Date().getFullYear();
+let activeTaskView = 'lista';
+let activeCalDate  = new Date().toISOString().slice(0,10);
+let _txnModalType  = 'txn';
+let _txnModalMode  = 'despesa';
+let _showStudyTemplates = false;
 
 const MONTHLY_GOAL = 1000;
+const TASK_CATEGORIES = ['Casa','Compras','Estudo','Finanças','Lazer','Pessoal','Saúde','Trabalho'];
+const TASK_CATEGORY_ICONS = {'Casa':'🏠','Compras':'🛒','Estudo':'📚','Finanças':'💰','Lazer':'🎮','Pessoal':'👤','Saúde':'❤️','Trabalho':'💼'};
+const FIN_CATEGORIES = ['Alimentação','Casa','Saúde','Lazer','Transporte','Educação','Trabalho','Outros'];
+const HABIT_TEMPLATES = [
+  {icon:'💧',name:'Beber 2L de água',desc:'Mantenha-se hidratado',cat:'Saúde'},
+  {icon:'🏃',name:'Exercício físico',desc:'30 min de atividade física',cat:'Saúde'},
+  {icon:'📚',name:'Ler por 20 minutos',desc:'Desenvolva o hábito da leitura',cat:'Produtividade'},
+  {icon:'🧘',name:'Meditar',desc:'10 minutos de meditação',cat:'Saúde'},
+  {icon:'☀️',name:'Acordar cedo',desc:'Acordar antes das 7h',cat:'Saúde'},
+  {icon:'💤',name:'Dormir 8 horas',desc:'Durma pelo menos 8 horas',cat:'Saúde'},
+  {icon:'🥗',name:'Alimentação saudável',desc:'Fazer refeições balanceadas',cat:'Saúde'},
+  {icon:'✍️',name:'Escrever no diário',desc:'Registre seus pensamentos',cat:'Produtividade'},
+  {icon:'🧹',name:'Organizar ambiente',desc:'Mantenha seu espaço limpo',cat:'Produtividade'},
+  {icon:'🎯',name:'Estudar',desc:'Tempo dedicado aos estudos',cat:'Produtividade'},
+];
+const STUDY_TEMPLATES = [
+  {icon:'📚',name:'Vestibular Intensivo',period:'6 meses',subjects:'7 matérias',daily:'4h/dia',desc:'Preparação completa para vestibulares competitivos'},
+  {icon:'🎓',name:'ENEM',period:'8 meses',subjects:'5 áreas',daily:'3h/dia',desc:'Foco em todas as competências do ENEM'},
+  {icon:'📋',name:'Concurso Público',period:'1 ano',subjects:'Matérias básicas',daily:'5h/dia',desc:'Preparação para concursos federais e estaduais'},
+  {icon:'💻',name:'Certificação em TI',period:'3 meses',subjects:'Cloud & DevOps',daily:'2h/dia',desc:'AWS, Azure, Kubernetes e mais'},
+  {icon:'🌐',name:'Inglês Avançado',period:'6 meses',subjects:'4 skills',daily:'1.5h/dia',desc:'Grammar, Speaking, Listening e Writing'},
+];
+const MONTHS_PT = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const XP_TASK      = 50;
 const XP_HABIT     = 30;
 const TIERS = [
@@ -3463,7 +3619,7 @@ function hubNav(mod) {
 
 // ── Extended setActiveModule ───────────────────────────────────────────────
 // Override with full module list
-const _ALL_MODULE_IDS = ['dashboard','finance','habits','journal','tasks','profile','stats','pomodoro','birthdays','shopping','projects','dreams','mood','estudos','recorrentes'];
+const _ALL_MODULE_IDS = ['dashboard','finance','habits','journal','tasks','profile','stats','pomodoro','birthdays','shopping','projects','dreams','mood','estudos','recorrentes','home','dream-analysis','task-search'];
 
 // Patch setActiveModule to handle all modules
 const _origSetActiveModule = setActiveModule;
@@ -3518,8 +3674,11 @@ setActiveModule = function(mod) {
         else if (mod === 'projects')   renderProjects();
         else if (mod === 'dreams')     renderDreams();
         else if (mod === 'mood')       renderMood();
-        else if (mod === 'estudos')    renderEstudos();
-        else if (mod === 'recorrentes') renderRecorrentes();
+        else if (mod === 'estudos')        renderEstudos();
+        else if (mod === 'recorrentes')    renderRecorrentes();
+        else if (mod === 'home')           renderHome();
+        else if (mod === 'dream-analysis') renderDreamAnalysis();
+        else if (mod === 'task-search')    renderTaskSearch();
     }
 };
 
@@ -3575,34 +3734,207 @@ parseAllNotes = function() {
 };
 
 // ── renderTasks ───────────────────────────────────────────────────────────
+// ── Task CRUD (standalone) ─────────────────────────────────────────────────
+function saveTasks() { localStorage.setItem('notas_pessoais_v3_tasks_list', JSON.stringify(standaloneTasksList)); }
+function addStandaloneTask(title, desc, date, time, priority, category, tags) {
+    if (!title.trim()) return;
+    standaloneTasksList.unshift({
+        id: 'st' + Date.now(),
+        title: title.trim(), desc: desc.trim(), date, time,
+        priority: priority || 'media', category: category || '',
+        tags: tags ? tags.split(',').map(t=>t.trim()).filter(Boolean) : [],
+        done: false, createdAt: Date.now()
+    });
+    saveTasks();
+    renderTasks();
+}
+function toggleStandaloneTask(id) {
+    const t = standaloneTasksList.find(t=>t.id===id);
+    if (t) { t.done = !t.done; saveTasks(); renderTasks(); }
+}
+function deleteStandaloneTask(id) {
+    standaloneTasksList = standaloneTasksList.filter(t=>t.id!==id);
+    saveTasks(); renderTasks();
+}
+function setTaskView(view) { activeTaskView = view; renderTasks(); }
+
 function renderTasks() {
     const el = document.getElementById('module-tasks');
     if (!el) return;
-
     parseAllNotes();
-    const tasks = window.parsedTasks || [];
-    const todo  = tasks.filter(t => !t.done);
-    const done  = tasks.filter(t =>  t.done);
+    const parsedTasks = window.parsedTasks || [];
+    const today = new Date().toISOString().slice(0,10);
+    const todayPending = standaloneTasksList.filter(t=>!t.done && (!t.date || t.date===today)).length
+                       + parsedTasks.filter(t=>!t.done).length;
 
-    const col = (title, icon, items, cls) => `
-      <div class="kb-col">
-        <div class="kb-head">${icon} ${title} <span class="kb-count">${items.length}</span></div>
-        ${items.length === 0
-          ? `<div style="color:var(--text-secondary);font-size:12px;padding:8px 0;">Nenhuma tarefa aqui</div>`
-          : items.map(t => `
-            <div class="kb-card ${cls}">
-              <div style="font-size:13px;line-height:1.4">${modEsc(t.text)}</div>
-              <div style="font-size:10px;color:var(--text-secondary);margin-top:4px">${t.date}</div>
-            </div>`).join('')}
+    const priClass = p => p==='alta'?'alta':p==='baixa'?'baixa':'media';
+    const priLabel = p => p==='alta'?'Alta':p==='baixa'?'Baixa':'Média';
+
+    function renderTaskItem(t, fromStandalone) {
+        const doneClass = t.done ? 'done' : '';
+        const checkMark = t.done ? '✓' : '';
+        const text = t.title || t.text || '';
+        const dateStr = t.date || '';
+        const pri = t.priority || 'media';
+        return `
+          <div class="task-item">
+            <div class="task-check ${doneClass}" onclick="${fromStandalone ? `toggleStandaloneTask('${t.id}')` : ''}">
+              <span style="color:#fff;font-size:12px;font-weight:800">${checkMark}</span>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:600;color:var(--text-primary);${t.done?'text-decoration:line-through;opacity:.6':''}">
+                ${modEsc(text)}
+              </div>
+              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-top:5px">
+                ${fromStandalone ? `<span class="task-pri ${priClass(pri)}">${priLabel(pri)}</span>` : ''}
+                ${t.category ? `<span class="task-cat-badge">${TASK_CATEGORY_ICONS[t.category]||''} ${t.category}</span>` : ''}
+                ${dateStr ? `<span style="font-size:10px;color:var(--text-secondary)">${dateStr}${t.time?' '+t.time:''}</span>` : ''}
+                ${(t.tags||[]).map(tag=>`<span class="task-cat-badge">#${modEsc(tag)}</span>`).join('')}
+              </div>
+            </div>
+            ${fromStandalone ? `<button onclick="deleteStandaloneTask('${t.id}')" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:16px;padding:0 4px;flex-shrink:0">×</button>` : ''}
+          </div>`;
+    }
+
+    // Task form HTML
+    const formHtml = `
+      <div id="task-form-wrap" style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px">Nova Tarefa</div>
+        <input id="tf-title" type="text" placeholder="Título da tarefa *" class="txn-field" style="margin-bottom:8px">
+        <input id="tf-desc" type="text" placeholder="Descrição (opcional)" class="txn-field" style="margin-bottom:8px">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <input id="tf-date" type="date" class="txn-field" style="margin-bottom:0">
+          <input id="tf-time" type="time" class="txn-field" style="margin-bottom:0">
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <select id="tf-priority" class="txn-field" style="margin-bottom:0">
+            <option value="baixa">🟢 Baixa</option>
+            <option value="media" selected>🟡 Média</option>
+            <option value="alta">🔴 Alta</option>
+          </select>
+          <select id="tf-category" class="txn-field" style="margin-bottom:0">
+            <option value="">Categoria</option>
+            ${TASK_CATEGORIES.map(c=>`<option value="${c}">${TASK_CATEGORY_ICONS[c]} ${c}</option>`).join('')}
+          </select>
+        </div>
+        <input id="tf-tags" type="text" placeholder="Tags (separadas por vírgula)" class="txn-field" style="margin-bottom:12px">
+        <div style="display:flex;gap:8px">
+          <button onclick="saveTaskForm()" style="flex:1;padding:11px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer">Salvar Tarefa</button>
+          <button onclick="document.getElementById('task-form-wrap').style.display='none'" style="padding:11px 16px;border-radius:10px;background:var(--bg-panel);color:var(--text-secondary);font-size:13px;font-weight:700;border:1px solid var(--border-main);cursor:pointer">Cancelar</button>
+        </div>
       </div>`;
+
+    // Calendar view
+    function calendarView() {
+        const [cy, cm] = activeCalDate.split('-').map(Number);
+        const calYear = cy, calMonth = cm - 1;
+        const firstDay = new Date(calYear, calMonth, 1);
+        const lastDay  = new Date(calYear, calMonth+1, 0);
+        const todayStr = new Date().toISOString().slice(0,10);
+        const allTasks = [...standaloneTasksList, ...parsedTasks.map(t=>({...t, title:t.text}))];
+        const taskDates = new Set(allTasks.filter(t=>t.date).map(t=>t.date.slice(0,10)));
+        const startDow = firstDay.getDay();
+        const daysInMonth = lastDay.getDate();
+        const prevMonth = new Date(calYear, calMonth, 0);
+        let cells = '';
+        const dayNames = ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+        cells += dayNames.map(d=>`<div style="text-align:center;font-size:10px;font-weight:700;color:var(--text-secondary);padding:4px 0">${d}</div>`).join('');
+        for (let i=0; i<startDow; i++) {
+            const d = prevMonth.getDate() - startDow + 1 + i;
+            cells += `<div class="cal-cell other-month">${d}</div>`;
+        }
+        for (let d=1; d<=daysInMonth; d++) {
+            const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            const isToday = dateStr === todayStr;
+            const hasTasks = taskDates.has(dateStr);
+            const isSel = dateStr === activeCalDate;
+            cells += `<div class="cal-cell ${isToday?'today':''} ${hasTasks?'has-tasks':''}"
+              style="${isSel&&!isToday?'background:var(--bg-panel);font-weight:700;':''}border:${isSel?'2px solid var(--accent-primary)':'2px solid transparent'};border-radius:8px"
+              onclick="activeCalDate='${dateStr}';renderTasks()">${d}</div>`;
+        }
+        const remaining = 42 - startDow - daysInMonth;
+        for (let d=1; d<=remaining; d++) cells += `<div class="cal-cell other-month">${d}</div>`;
+        const selTasks = allTasks.filter(t=>t.date && t.date.slice(0,10)===activeCalDate);
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+            <button onclick="activeCalDate=new Date(new Date(activeCalDate).getFullYear(),new Date(activeCalDate).getMonth()-1,1).toISOString().slice(0,10);renderTasks()"
+              class="fin-month-btn">‹</button>
+            <span style="font-weight:700;color:var(--text-primary)">${MONTHS_PT[calMonth]} ${calYear}</span>
+            <button onclick="activeCalDate=new Date(new Date(activeCalDate).getFullYear(),new Date(activeCalDate).getMonth()+1,1).toISOString().slice(0,10);renderTasks()"
+              class="fin-month-btn">›</button>
+          </div>
+          <div class="cal-grid">${cells}</div>
+          <div style="margin-top:12px">
+            <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px">${activeCalDate} — ${selTasks.length} tarefa(s)</div>
+            ${selTasks.length===0?`<div style="color:var(--text-secondary);font-size:12px">Nenhuma tarefa neste dia</div>`
+              :selTasks.map(t=>renderTaskItem(t, !!t.title&&standaloneTasksList.some(s=>s.id===t.id))).join('')}
+          </div>`;
+    }
+
+    // Kanban view
+    function kanbanView() {
+        const allT = [...standaloneTasksList, ...parsedTasks.map(t=>({...t,title:t.text}))];
+        const todo  = allT.filter(t=>!t.done);
+        const done  = allT.filter(t=> t.done);
+        const col = (title, icon, items, cls) => `
+          <div class="kb-col">
+            <div class="kb-head">${icon} ${title} <span class="kb-count">${items.length}</span></div>
+            ${items.length===0
+              ? `<div style="color:var(--text-secondary);font-size:12px;padding:8px 0">Nenhuma tarefa</div>`
+              : items.map(t=>renderTaskItem(t, standaloneTasksList.some(s=>s.id===t.id))).join('')}
+          </div>`;
+        return `<div class="kb-board">${col('A Fazer','📌',todo,'')}${col('Concluído','✅',done,'done')}</div>`;
+    }
+
+    // Lista view
+    function listaView() {
+        const pending = standaloneTasksList.filter(t=>!t.done);
+        const done    = standaloneTasksList.filter(t=> t.done);
+        const parsedPending = parsedTasks.filter(t=>!t.done);
+        const parsedDone    = parsedTasks.filter(t=> t.done);
+        let html = '';
+        if (pending.length+parsedPending.length > 0) {
+            html += `<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:8px">PENDENTES (${pending.length+parsedPending.length})</div>`;
+            html += pending.map(t=>renderTaskItem(t,true)).join('');
+            html += parsedPending.map(t=>renderTaskItem({...t,title:t.text},false)).join('');
+        }
+        if (done.length+parsedDone.length > 0) {
+            html += `<div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin:16px 0 8px">CONCLUÍDAS (${done.length+parsedDone.length})</div>`;
+            html += done.map(t=>renderTaskItem(t,true)).join('');
+            html += parsedDone.map(t=>renderTaskItem({...t,title:t.text},false)).join('');
+        }
+        if (!html) html = `<div style="color:var(--text-secondary);font-size:13px;text-align:center;padding:32px 0">Nenhuma tarefa ainda. Crie uma acima! 📋</div>`;
+        return html;
+    }
 
     el.innerHTML = `
-      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">📋 Tarefas</h2>
-      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:16px">Use <code>[] Tarefa</code> para pendente e <code>[x] Tarefa</code> para concluída nas suas notas.</p>
-      <div class="kb-board">
-        ${col('A Fazer', '📌', todo, '')}
-        ${col('Concluído', '✅', done, 'done')}
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">📋 Tarefas</h2>
+        <span style="font-size:12px;color:var(--text-secondary)">${todayPending} pendentes hoje</span>
+      </div>
+      <button onclick="document.getElementById('task-form-wrap').style.display='block'" style="width:100%;padding:11px;border-radius:12px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer;margin-bottom:16px">+ Nova Tarefa</button>
+      <div id="task-form-wrap" style="display:none">${formHtml}</div>
+      <div class="task-views">
+        <button class="task-view-btn ${activeTaskView==='lista'?'active':''}" onclick="setTaskView('lista')">📋 Lista</button>
+        <button class="task-view-btn ${activeTaskView==='kanban'?'active':''}" onclick="setTaskView('kanban')">🗂 Kanban</button>
+        <button class="task-view-btn ${activeTaskView==='calendario'?'active':''}" onclick="setTaskView('calendario')">📅 Calendário</button>
+      </div>
+      <div id="tasks-view-content">
+        ${activeTaskView==='lista'?listaView():activeTaskView==='kanban'?kanbanView():calendarView()}
       </div>`;
+}
+
+function saveTaskForm() {
+    const title    = document.getElementById('tf-title')?.value || '';
+    const desc     = document.getElementById('tf-desc')?.value || '';
+    const date     = document.getElementById('tf-date')?.value || '';
+    const time     = document.getElementById('tf-time')?.value || '';
+    const priority = document.getElementById('tf-priority')?.value || 'media';
+    const category = document.getElementById('tf-category')?.value || '';
+    const tags     = document.getElementById('tf-tags')?.value || '';
+    if (!title.trim()) { showToast('Informe o título da tarefa'); return; }
+    addStandaloneTask(title, desc, date, time, priority, category, tags);
+    showToast('Tarefa criada!');
 }
 
 // ── renderProfile ─────────────────────────────────────────────────────────
@@ -3613,15 +3945,24 @@ function renderProfile() {
     const {tasksDone, habitsDone, totalXP} = calcXP();
     const {tier, inLvl, pct} = resolveLevel(totalXP);
 
+    const maxStreak = Math.max(0, ...Object.values(habitProgress).map(h=>h.streak||0));
+    const pomoSessions = parseInt(localStorage.getItem('notas_pessoais_v3_pomo_sessions')||'0',10);
+    const standaloneDone = standaloneTasksList.filter(t=>t.done).length;
+    const totalDone = tasksDone + standaloneDone;
+
     const BADGES = [
-        {icon:'📝', name:'Primeira Nota',    desc:'Crie sua primeira nota',             unlocked: notes.length >= 1},
-        {icon:'✅', name:'5 Tarefas',        desc:'Conclua 5 tarefas',                 unlocked: tasksDone >= 5},
-        {icon:'🔥', name:'Hábito do Dia',    desc:'Complete um hábito hoje',            unlocked: habitsDone >= 1},
-        {icon:'💰', name:'Controlador',      desc:'Registre uma transação financeira',  unlocked: parsedTxns.length >= 1},
-        {icon:'📖', name:'Diário Aberto',    desc:'Escreva uma entrada de diário',      unlocked: parsedJournal.length >= 1},
-        {icon:'🎯', name:'Foco Total',       desc:'Complete 10 tarefas',               unlocked: tasksDone >= 10},
-        {icon:'🏆', name:'Veterano',         desc:'Alcance o nível Experiente',         unlocked: totalXP >= 500},
-        {icon:'⭐', name:'Lendário',         desc:'Alcance o nível Lendário',          unlocked: tier.title === 'Lendário'},
+        {icon:'⭐', name:'Primeira Tarefa', desc:'Conclua sua primeira tarefa',
+         unlocked: totalDone >= 1},
+        {icon:'⭐', name:'Iniciante',       desc:'Ganhe seu primeiro XP',
+         unlocked: totalXP >= 1},
+        {icon:'🏆', name:'Dedicado',        desc:'Conclua 10 tarefas',
+         unlocked: totalDone >= 10},
+        {icon:'👑', name:'Comprometido',    desc:'Complete 5 hábitos',
+         unlocked: habitsDone >= 5},
+        {icon:'💎', name:'Mestre',          desc:'Alcance 500 XP',
+         unlocked: totalXP >= 500},
+        {icon:'🔥', name:'7 Dias',          desc:'Sequência de 7 dias em hábitos',
+         unlocked: maxStreak >= 7},
     ];
 
     const tierColors = {
@@ -3635,26 +3976,30 @@ function renderProfile() {
 
       <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center">
         <div style="width:72px;height:72px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px">🏅</div>
-        <div style="font-size:22px;font-weight:800;color:${color}">${tier}</div>
+        <div style="font-size:22px;font-weight:800;color:${color}">${tier.title} · Nv ${tier.level}</div>
         <div style="font-size:13px;color:var(--text-secondary);margin:4px 0 16px">${totalXP} XP total</div>
         <div style="background:var(--bg-panel);border-radius:99px;height:10px;overflow:hidden;margin-bottom:6px">
           <div style="height:100%;width:${pct}%;background:${color};border-radius:99px;transition:width .5s"></div>
         </div>
-        <div style="font-size:11px;color:var(--text-secondary)">${inLvl} XP no nível atual · ${pct}% para o próximo</div>
+        <div style="font-size:11px;color:var(--text-secondary)">${inLvl} XP no nível · ${pct}% para o próximo</div>
       </div>
 
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
         <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
-          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${notes.filter(n=>!n.isTrashed&&!n.isArchived).length}</div>
-          <div style="font-size:11px;color:var(--text-secondary)">Notas</div>
+          <div style="font-size:28px;font-weight:800;color:var(--accent-primary)">✅ ${totalDone}</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:4px">Tarefas</div>
         </div>
         <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
-          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${tasksDone}</div>
-          <div style="font-size:11px;color:var(--text-secondary)">Tarefas Feitas</div>
+          <div style="font-size:28px;font-weight:800;color:var(--accent-primary)">🔥 ${maxStreak}</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:4px">Sequência</div>
         </div>
         <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
-          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${habitsDone}</div>
-          <div style="font-size:11px;color:var(--text-secondary)">Hábitos Hoje</div>
+          <div style="font-size:28px;font-weight:800;color:var(--accent-primary)">🍅 ${pomoSessions}</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:4px">Pomodoros</div>
+        </div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:28px;font-weight:800;color:var(--accent-primary)">📈 ${maxStreak}</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:4px">Melhor Seq.</div>
         </div>
       </div>
 
@@ -4243,23 +4588,416 @@ function renderMood() {
 }
 
 // ── renderEstudos (stub) ───────────────────────────────────────────────────
+function saveStudyPlans() { localStorage.setItem('notas_pessoais_v3_study_plans', JSON.stringify(studyPlans)); }
+function addStudyPlan(idx) {
+    const t = STUDY_TEMPLATES[idx];
+    if (!t) return;
+    studyPlans.push({id:'sp'+Date.now(), ...t, progress:0, createdAt:Date.now()});
+    saveStudyPlans(); _showStudyTemplates=false; renderEstudos();
+    showToast('Plano de estudos criado!');
+}
+function deleteStudyPlan(id) {
+    studyPlans = studyPlans.filter(p=>p.id!==id);
+    saveStudyPlans(); renderEstudos();
+}
+
 function renderEstudos() {
     const el = document.getElementById('module-estudos');
     if (!el) return;
+
+    const templatesList = STUDY_TEMPLATES.map((t,i)=>`
+      <div class="study-template" onclick="addStudyPlan(${i})">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <span style="font-size:28px">${t.icon}</span>
+          <div>
+            <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${t.name}</div>
+            <div style="font-size:11px;color:var(--text-secondary)">${t.period} · ${t.subjects} · ${t.daily}</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--text-secondary)">${t.desc}</div>
+        <button style="margin-top:10px;padding:7px 14px;border-radius:8px;background:var(--accent-primary);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer" onclick="event.stopPropagation();addStudyPlan(${i})">Usar Template</button>
+      </div>`).join('');
+
+    const planCards = studyPlans.map(p=>`
+      <div class="study-plan-card">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span style="font-size:24px">${p.icon}</span>
+            <div>
+              <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${modEsc(p.name)}</div>
+              <div style="font-size:11px;color:var(--text-secondary)">${p.period} · ${p.subjects} · ${p.daily}</div>
+            </div>
+          </div>
+          <button onclick="deleteStudyPlan('${p.id}')" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:18px">×</button>
+        </div>
+        <div style="background:var(--bg-panel);border-radius:99px;height:6px;overflow:hidden">
+          <div style="height:100%;width:${p.progress||0}%;background:var(--accent-primary);border-radius:99px"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:4px">${p.progress||0}% concluído</div>
+      </div>`).join('');
+
     el.innerHTML = `
-      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:12px">📚 Estudos</h2>
-      <p style="color:var(--text-secondary);font-size:13px">Em breve: organize seus estudos, flashcards e metas de aprendizado.</p>`;
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">📚 Estudos</h2>
+        <button onclick="_showStudyTemplates=!_showStudyTemplates;renderEstudos()" style="padding:8px 14px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer">✨ Criar Plano</button>
+      </div>
+      ${_showStudyTemplates ? `
+        <div style="margin-bottom:20px">
+          <div style="font-size:13px;font-weight:700;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em">Escolha um template</div>
+          ${templatesList}
+        </div>` : ''}
+      ${studyPlans.length===0 && !_showStudyTemplates ? `
+        <div style="text-align:center;padding:48px 0">
+          <div style="font-size:48px;margin-bottom:12px">📚</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:8px">Nenhum cronograma criado</div>
+          <div style="font-size:13px;color:var(--text-secondary);margin-bottom:20px">Crie um plano de estudos para organizar seu aprendizado</div>
+          <button onclick="_showStudyTemplates=true;renderEstudos()" style="padding:12px 24px;border-radius:12px;background:var(--accent-primary);color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer">✨ Criar Plano de Estudos</button>
+        </div>` : planCards}`;
 }
 
 // ── renderRecorrentes (stub) ───────────────────────────────────────────────
 function renderRecorrentes() {
     const el = document.getElementById('module-recorrentes');
     if (!el) return;
+    const items = recurringTxns.map((t,i)=>`
+      <div class="task-item" style="align-items:center">
+        <div style="width:36px;height:36px;border-radius:10px;background:${t.type==='receita'?'rgba(22,163,74,.15)':'rgba(220,38,38,.15)'};
+          display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">
+          ${t.type==='receita'?'⬆️':'⬇️'}
+        </div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600;color:var(--text-primary)">${modEsc(t.desc||'Sem descrição')}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Todo dia ${t.day} · ${t.category||''}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:14px;font-weight:800;color:${t.type==='receita'?'#16a34a':'#dc2626'}">
+            ${t.type==='receita'?'+':'-'} R$ ${parseFloat(t.amount||0).toLocaleString('pt-BR',{minimumFractionDigits:2})}
+          </div>
+          <button onclick="recurringTxns.splice(${i},1);localStorage.setItem('notas_pessoais_v3_recurring',JSON.stringify(recurringTxns));renderRecorrentes()"
+            style="font-size:11px;color:var(--text-secondary);background:none;border:none;cursor:pointer">Remover</button>
+        </div>
+      </div>`).join('');
+
     el.innerHTML = `
-      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:12px">🔁 Recorrentes</h2>
-      <p style="color:var(--text-secondary);font-size:13px">Em breve: gerencie despesas e receitas recorrentes mensais.</p>`;
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:700;color:var(--text-primary)">🔁 Recorrentes</h2>
+        <button onclick="openTxnModal('fixa')" style="padding:8px 14px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer">+ Nova Fixa</button>
+      </div>
+      ${recurringTxns.length===0
+        ? `<div style="text-align:center;padding:48px 0;color:var(--text-secondary)">Nenhuma transação fixa cadastrada</div>`
+        : items}`;
 }
 
+// ── renderHome (Hub Home Screen) ──────────────────────────────────────────
+function renderHome() {
+    const el = document.getElementById('module-home');
+    if (!el) return;
+    parseAllNotes();
+    const parsedTasks = window.parsedTasks || [];
+    const todayPending = standaloneTasksList.filter(t=>!t.done).length + parsedTasks.filter(t=>!t.done).length;
+    const activeProjects = projects.filter(p=>p.status!=='done').length;
+    const activeHabits = Object.keys(habitProgress).length;
+
+    const wideCard = (icon, iconBg, title, sub, mod) => `
+      <button class="hub-home-wide" onclick="hubNav('${mod}')">
+        <div class="hub-home-icon" style="background:${iconBg}">${icon}</div>
+        <div style="flex:1">
+          <div style="font-size:14px;font-weight:700;color:var(--text-primary)">${title}</div>
+          <div style="font-size:12px;color:var(--text-secondary);margin-top:2px">${sub}</div>
+        </div>
+        <span style="color:var(--text-secondary);font-size:18px">›</span>
+      </button>`;
+
+    const miniCard = (icon, iconBg, title, sub, mod) => `
+      <button class="hub-home-card" onclick="hubNav('${mod}')">
+        <div class="hub-home-icon" style="background:${iconBg}">${icon}</div>
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary)">${title}</div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:2px">${sub}</div>
+      </button>`;
+
+    const rowItem = (icon, iconBg, name, mod) => `
+      <div class="hub-home-row" onclick="hubNav('${mod}')">
+        <div class="hub-home-row-icon" style="background:${iconBg}">${icon}</div>
+        <div class="hub-home-row-name" style="font-size:14px;font-weight:600;color:var(--text-primary);flex:1">${name}</div>
+        <span style="color:var(--text-secondary)">›</span>
+      </div>`;
+
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px">
+        <div style="font-size:22px;font-weight:800;color:var(--text-primary)">Bem-vindo!</div>
+        <span style="background:#d97706;color:#fff;font-size:11px;font-weight:800;padding:2px 10px;border-radius:99px">🏆 Nv ${resolveLevel(calcXP().totalXP).tier.level}</span>
+      </div>
+
+      <div class="hub-home-section">
+        <div class="hub-home-sep">PRODUTIVIDADE</div>
+        ${wideCard('📋','rgba(59,130,246,.15)','Tarefas',`${todayPending} pendentes hoje`,'tasks')}
+        <div class="hub-home-grid">
+          ${miniCard('📁','rgba(16,185,129,.15)','Projetos',`${activeProjects} Ativos`,'projects')}
+          ${miniCard('🔥','rgba(249,115,22,.15)','Hábitos',`${activeHabits} Ativos`,'habits')}
+        </div>
+        <div class="hub-home-grid">
+          ${miniCard('📚','rgba(139,92,246,.15)','Estudos',`${studyPlans.length} planos`,'estudos')}
+          ${miniCard('📝','rgba(107,114,128,.15)','Notas',`${notes.filter(n=>!n.isTrashed&&!n.isArchived).length} notas`,'notas')}
+        </div>
+        ${wideCard('🍅','rgba(220,38,38,.15)','Pomodoro','Foco e produtividade','pomodoro')}
+      </div>
+
+      <div class="hub-home-section" style="margin-top:4px">
+        <div class="hub-home-sep">FINANÇAS</div>
+        ${wideCard('💰','rgba(16,163,74,.15)','Gestão Financeira','Entradas e saídas','finance')}
+        <div class="hub-home-grid">
+          ${miniCard('📊','rgba(59,130,246,.15)','Estatísticas','Análise mensal','stats')}
+          ${miniCard('🛒','rgba(245,158,11,.15)','Compras','Lista de compras','shopping')}
+        </div>
+        ${wideCard('🔁','rgba(107,114,128,.15)','Recorrentes','Despesas fixas mensais','recorrentes')}
+      </div>
+
+      <div class="hub-home-section" style="margin-top:4px">
+        <div class="hub-home-sep">VIDA PESSOAL</div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:4px 16px">
+          ${rowItem('🎂','rgba(249,115,22,.15)','Aniversários','birthdays')}
+          ${rowItem('⭐','rgba(234,179,8,.15)','Meus Sonhos','dreams')}
+          ${rowItem('🔮','rgba(139,92,246,.15)','Análise Sonhos','dream-analysis')}
+          ${rowItem('📖','rgba(59,130,246,.15)','Diário','journal')}
+          ${rowItem('😊','rgba(16,185,129,.15)','Humor','mood')}
+        </div>
+      </div>
+
+      <div class="hub-home-section" style="margin-top:4px">
+        <div class="hub-home-sep">ANÁLISE &amp; PROGRESSO</div>
+        <div class="hub-home-grid">
+          ${miniCard('⚡','rgba(245,158,11,.15)','Dashboard','Visão geral','dashboard')}
+          ${miniCard('🏆','rgba(139,92,246,.15)','Perfil',`Nível ${resolveLevel(calcXP().totalXP).tier.level}`,'profile')}
+        </div>
+      </div>
+
+      <div class="hub-home-section" style="margin-top:4px">
+        <div class="hub-home-sep">FERRAMENTAS</div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:4px 16px">
+          ${rowItem('🔍','rgba(59,130,246,.15)','Pesquisar Tarefas','task-search')}
+          ${rowItem('💾','rgba(107,114,128,.15)','Backup & Restauração','profile')}
+        </div>
+      </div>`;
+}
+
+// ── renderDreamAnalysis ────────────────────────────────────────────────────
+function renderDreamAnalysis() {
+    const el = document.getElementById('module-dream-analysis');
+    if (!el) return;
+    const typeLabels = {normal:'Normal',lucido:'Lúcido',pesadelo:'Pesadelo',vivido:'Vívido'};
+    const typeColors = {normal:'#3b82f6',lucido:'#8b5cf6',pesadelo:'#dc2626',vivido:'#f59e0b'};
+    const counts = {normal:0,lucido:0,pesadelo:0,vivido:0};
+    dreams.forEach(d=>{ if(d.type && counts[d.type]!==undefined) counts[d.type]++; });
+    const total = dreams.length;
+    const recent = [...dreams].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,7);
+    const favType = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+
+    const bars = Object.entries(counts).map(([type,count])=>`
+      <div style="margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px">
+          <span style="font-size:12px;font-weight:600;color:var(--text-primary)">${typeLabels[type]}</span>
+          <span style="font-size:12px;color:var(--text-secondary)">${count}</span>
+        </div>
+        <div style="background:var(--bg-panel);border-radius:99px;height:8px;overflow:hidden">
+          <div class="dream-chart-bar" style="width:${total>0?Math.round(count/total*100):0}%;background:${typeColors[type]}"></div>
+        </div>
+      </div>`).join('');
+
+    const recentList = recent.length===0
+      ? `<div style="color:var(--text-secondary);font-size:13px;padding:20px 0;text-align:center">Nenhum sonho registrado ainda</div>`
+      : recent.map(d=>`
+        <div class="task-item">
+          <div style="width:36px;height:36px;border-radius:10px;background:${typeColors[d.type]||'#6b7280'}22;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">
+            ${d.type==='lucido'?'✨':d.type==='pesadelo'?'😰':d.type==='vivido'?'🌈':'⭐'}
+          </div>
+          <div style="flex:1;min-width:0">
+            <div style="font-size:13px;font-weight:600;color:var(--text-primary);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${modEsc(d.title||'Sem título')}</div>
+            <div style="font-size:11px;color:var(--text-secondary)">${d.date} · ${typeLabels[d.type]||d.type}</div>
+          </div>
+        </div>`).join('');
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">🔮 Análise de Sonhos</h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:20px">
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${total}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Total</div>
+        </div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:14px;font-weight:800;color:var(--accent-primary)">${favType&&favType[1]>0?typeLabels[favType[0]]:'—'}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Tipo fav.</div>
+        </div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:14px;font-weight:800;color:var(--accent-primary)">${total>0?new Date(dreams[dreams.length-1]?.date).toLocaleDateString('pt-BR',{month:'short'}):'—'}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Mês ativo</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:12px">Distribuição por Tipo</div>
+        ${bars}
+      </div>
+
+      <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:10px">Últimas Entradas</div>
+      ${recentList}
+      <div style="margin-top:16px;text-align:center">
+        <button onclick="hubNav('dreams')" style="padding:10px 20px;border-radius:10px;background:var(--accent-primary);color:#fff;font-size:13px;font-weight:700;border:none;cursor:pointer">➕ Registrar Sonho</button>
+      </div>`;
+}
+
+// ── renderTaskSearch ───────────────────────────────────────────────────────
+let _taskSearchQuery = '';
+let _taskSearchPri = 'todas';
+let _taskSearchStatus = 'todas';
+
+function renderTaskSearch() {
+    const el = document.getElementById('module-task-search');
+    if (!el) return;
+    parseAllNotes();
+    const parsedTasks = window.parsedTasks || [];
+    const all = [
+        ...standaloneTasksList.map(t=>({...t, src:'standalone'})),
+        ...parsedTasks.map(t=>({...t, title:t.text, src:'parsed'}))
+    ];
+    const q = _taskSearchQuery.toLowerCase();
+    const filtered = all.filter(t=>{
+        if (q && !((t.title||'').toLowerCase().includes(q) ||
+            (t.desc||'').toLowerCase().includes(q) ||
+            (t.tags||[]).some(tag=>tag.toLowerCase().includes(q)))) return false;
+        if (_taskSearchPri!=='todas' && t.priority!==_taskSearchPri) return false;
+        if (_taskSearchStatus==='pendentes' && t.done) return false;
+        if (_taskSearchStatus==='concluidas' && !t.done) return false;
+        return true;
+    });
+
+    const priClass = p => p==='alta'?'alta':p==='baixa'?'baixa':'media';
+    const priLabel = p => p==='alta'?'Alta':p==='baixa'?'Baixa':'Média';
+    const results = filtered.length===0
+      ? `<div style="text-align:center;padding:32px 0;color:var(--text-secondary)">Nenhuma tarefa encontrada</div>`
+      : filtered.map(t=>`
+          <div class="task-item">
+            <div class="task-check ${t.done?'done':''}" onclick="${t.src==='standalone'?`toggleStandaloneTask('${t.id}');renderTaskSearch()`:''}">
+              <span style="color:#fff;font-size:12px">${t.done?'✓':''}</span>
+            </div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:13px;font-weight:600;color:var(--text-primary);${t.done?'text-decoration:line-through;opacity:.6':''}">${modEsc(t.title||t.text||'')}</div>
+              <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px">
+                ${t.src==='standalone'?`<span class="task-pri ${priClass(t.priority)}">${priLabel(t.priority)}</span>`:''}
+                ${t.category?`<span class="task-cat-badge">${TASK_CATEGORY_ICONS[t.category]||''} ${t.category}</span>`:''}
+                ${t.date?`<span style="font-size:10px;color:var(--text-secondary)">${t.date}</span>`:''}
+              </div>
+            </div>
+          </div>`).join('');
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:16px">🔍 Pesquisar Tarefas</h2>
+      <div style="position:relative;margin-bottom:12px">
+        <span style="position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:16px">🔍</span>
+        <input type="text" class="task-search-input" placeholder="Pesquisar por título, descrição ou tags..."
+          value="${modEsc(_taskSearchQuery)}"
+          oninput="_taskSearchQuery=this.value;renderTaskSearch()">
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px">
+        <span style="font-size:11px;font-weight:700;color:var(--text-secondary);align-self:center">PRIORIDADE:</span>
+        ${['todas','alta','media','baixa'].map(p=>`
+          <button class="filter-chip ${_taskSearchPri===p?'sel':''}" onclick="_taskSearchPri='${p}';renderTaskSearch()">
+            ${p==='todas'?'Todas':p==='alta'?'Alta':p==='media'?'Média':'Baixa'}
+          </button>`).join('')}
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px">
+        <span style="font-size:11px;font-weight:700;color:var(--text-secondary);align-self:center">STATUS:</span>
+        ${['todas','pendentes','concluidas'].map(s=>`
+          <button class="filter-chip ${_taskSearchStatus===s?'sel':''}" onclick="_taskSearchStatus='${s}';renderTaskSearch()">
+            ${s==='todas'?'Todas':s==='pendentes'?'Pendentes':'Concluídas'}
+          </button>`).join('')}
+      </div>
+      <div style="font-size:12px;color:var(--text-secondary);margin-bottom:10px">${filtered.length} tarefa(s) encontrada(s)</div>
+      ${results}`;
+}
+
+// ── Transaction Modal ──────────────────────────────────────────────────────
+function openTxnModal(type) {
+    _txnModalType = type;
+    _txnModalMode = 'despesa';
+    const modal = document.getElementById('txn-modal');
+    const title = document.getElementById('txn-modal-title');
+    if (title) title.textContent = type==='fixa' ? 'Nova Transação Fixa' : 'Nova Transação';
+    if (modal) modal.classList.remove('hidden');
+    renderTxnModalBody();
+}
+
+function closeTxnModal(event) {
+    if (!event || event.target === document.getElementById('txn-modal')) {
+        document.getElementById('txn-modal')?.classList.add('hidden');
+    }
+}
+
+function renderTxnModalBody() {
+    const body = document.getElementById('txn-modal-body');
+    if (!body) return;
+    const isFixa = _txnModalType === 'fixa';
+    body.innerHTML = `
+      <div class="txn-type-toggle">
+        <button class="txn-type-btn ${_txnModalMode==='receita'?'sel-receita':''}" onclick="_txnModalMode='receita';renderTxnModalBody()">Receita</button>
+        <button class="txn-type-btn ${_txnModalMode==='despesa'?'sel-despesa':''}" onclick="_txnModalMode='despesa';renderTxnModalBody()">Despesa</button>
+      </div>
+      <div style="text-align:center;color:var(--text-secondary);font-size:13px;margin-bottom:4px">R$</div>
+      <input id="txn-amount" type="number" class="txn-amount-input" placeholder="0,00" step="0.01" min="0">
+      <input id="txn-desc" type="text" class="txn-field" placeholder="Descrição">
+      <select id="txn-cat" class="txn-field">
+        <option value="">Categoria</option>
+        ${FIN_CATEGORIES.map(c=>`<option value="${c}">${c}</option>`).join('')}
+      </select>
+      ${isFixa
+        ? `<input id="txn-day" type="number" class="txn-field" placeholder="Dia do mês (ex: 5)" min="1" max="31">`
+        : `<input id="txn-date" type="date" class="txn-field" value="${new Date().toISOString().slice(0,10)}">`}
+      <button onclick="saveTransaction()" style="width:100%;padding:13px;border-radius:12px;background:${_txnModalMode==='receita'?'#16a34a':'#dc2626'};color:#fff;font-size:14px;font-weight:700;border:none;cursor:pointer;margin-top:4px">
+        Salvar ${isFixa?'Fixa':'Transação'}
+      </button>`;
+}
+
+function saveTransaction() {
+    const amount = parseFloat(document.getElementById('txn-amount')?.value || '0');
+    const desc   = document.getElementById('txn-desc')?.value || '';
+    const cat    = document.getElementById('txn-cat')?.value || '';
+    if (!amount || amount <= 0) { showToast('Informe o valor'); return; }
+    if (_txnModalType === 'fixa') {
+        const day = parseInt(document.getElementById('txn-day')?.value || '1', 10);
+        recurringTxns.push({id:'rc'+Date.now(), type:_txnModalMode, amount, desc, category:cat, day});
+        localStorage.setItem('notas_pessoais_v3_recurring', JSON.stringify(recurringTxns));
+        showToast('Transação fixa criada!');
+    } else {
+        const date = document.getElementById('txn-date')?.value || new Date().toISOString().slice(0,10);
+        standaloneTxns.push({id:'tx'+Date.now(), type:_txnModalMode, amount, desc, category:cat, date});
+        localStorage.setItem('notas_pessoais_v3_txns_standalone', JSON.stringify(standaloneTxns));
+        showToast('Transação salva!');
+    }
+    closeTxnModal({target:document.getElementById('txn-modal')});
+    if (activeModule === 'finance') renderFinance();
+    if (activeModule === 'recorrentes') renderRecorrentes();
+}
+
+// ── Finance month navigation ───────────────────────────────────────────────
+function prevFinanceMonth() {
+    if (financeCurrentMonth === 0) { financeCurrentMonth=11; financeCurrentYear--; }
+    else financeCurrentMonth--;
+    renderFinance();
+}
+function nextFinanceMonth() {
+    if (financeCurrentMonth === 11) { financeCurrentMonth=0; financeCurrentYear++; }
+    else financeCurrentMonth++;
+    renderFinance();
+}
+
+// ── addHabitFromTemplate ───────────────────────────────────────────────────
+function addHabitFromTemplate(name) {
+    if (habitProgress[name]) { showToast('Hábito já adicionado!'); return; }
+    habitProgress[name] = {streak:0, lastDate:null, completedToday:false};
+    localStorage.setItem('notas_pessoais_v3_habits', JSON.stringify(habitProgress));
+    showToast('Hábito adicionado!');
+    renderHabits();
+}
 // ── Additional CSS for new features ───────────────────────────────────────
 (function() {
     const s = document.createElement('style');
