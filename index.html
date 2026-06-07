@@ -449,7 +449,155 @@
         }
         .qh { font-size: 11px; font-family: monospace; padding: 2px 8px; border-radius: 6px;
               background: rgba(128,128,128,.07); color: var(--text-secondary); }
-        </style>
+    
+        /* ── Hub sidebar ── */
+        .hub-sep  { font-size: 9px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+                    color: var(--text-secondary); padding: 14px 16px 4px; user-select: none; }
+        .hub-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px;
+                    border-radius: 10px; cursor: pointer; background: none; border: none;
+                    width: 100%; text-align: left; font-size: 13px; font-weight: 500;
+                    color: var(--text-primary); transition: background .15s, color .15s; }
+        .hub-item:hover  { background: rgba(128,128,128,.08); }
+        .hub-item.active { background: rgba(0,79,159,.1); color: var(--accent-primary); font-weight: 700; }
+        .hub-item-icon   { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+
+        /* ── Azul theme ── */
+        [data-theme="azul"] {
+            --bg-app: #0d1b2e; --bg-panel: #112240; --bg-card-default: #1a3353;
+            --text-primary: #e2e8f0; --text-secondary: #94a3b8;
+            --border-main: rgba(56,189,248,.15); --accent-primary: #38bdf8;
+            --accent-hover: #7dd3fc; --shadow-intensity: .35; --card-glow: rgba(56,189,248,.08);
+        }
+        /* ── Vermelho theme ── */
+        [data-theme="vermelho"] {
+            --bg-app: #1a0808; --bg-panel: #2d0f0f; --bg-card-default: #3d1515;
+            --text-primary: #fef2f2; --text-secondary: #fca5a5;
+            --border-main: rgba(239,68,68,.2); --accent-primary: #ef4444;
+            --accent-hover: #f87171; --shadow-intensity: .35; --card-glow: rgba(239,68,68,.08);
+        }
+
+        /* ── Kanban ── */
+        .kb-board { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .kb-col   { background: var(--bg-card-default); border: 1px solid var(--border-main);
+                    border-radius: 14px; padding: 14px; }
+        .kb-head  { font-size: 13px; font-weight: 700; color: var(--text-primary);
+                    margin-bottom: 12px; display: flex; align-items: center; }
+        .kb-count { font-size: 11px; background: var(--bg-panel); border-radius: 99px;
+                    padding: 1px 7px; margin-left: 6px; color: var(--text-secondary); }
+        .kb-card  { background: var(--bg-panel); border-radius: 10px; padding: 10px 12px;
+                    margin-bottom: 8px; border-left: 3px solid var(--accent-primary); }
+        .kb-card.done { opacity: .6; border-left-color: #16a34a; }
+
+        /* ── Badges ── */
+        .badge-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(100px,1fr)); gap: 10px; }
+        .badge-item { background: var(--bg-card-default); border: 1px solid var(--border-main);
+                      border-radius: 12px; padding: 14px 10px; text-align: center; }
+        .badge-item.locked   { opacity: .4; filter: grayscale(1); }
+        .badge-item.unlocked { border-color: var(--accent-primary); }
+
+        /* ── Stats donut/bar ── */
+        .donut-wrap { background: var(--bg-card-default); border: 1px solid var(--border-main);
+                      border-radius: 14px; padding: 18px; text-align: center; }
+        .bar-chart  { display: flex; flex-direction: column; gap: 10px; }
+        .bar-row    { display: flex; align-items: center; gap: 10px; }
+        .bar-fill   { height: 100%; border-radius: 99px; transition: width .6s; }
+
+        /* ── Pomodoro ── */
+        .pomo-wrap      { display: flex; flex-direction: column; align-items: center; padding: 20px 0; }
+        .pomo-ring-wrap { position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+        .pomo-time      { position: absolute; font-size: 28px; font-weight: 800; color: var(--text-primary); letter-spacing: 2px; }
+        .pomo-btn       { padding: 10px 24px; border-radius: 99px; background: var(--accent-primary);
+                          color: #fff; font-size: 14px; font-weight: 700; border: none; cursor: pointer; }
+        .pomo-btn:hover { opacity: .85; }
+
+        /* ── Birthdays ── */
+        .bday-row   { display: flex; align-items: center; gap: 12px; padding: 12px;
+                      background: var(--bg-card-default); border: 1px solid var(--border-main);
+                      border-radius: 12px; margin-bottom: 8px; }
+        .bday-row.today { border-color: #f97316; background: rgba(249,115,22,.06); }
+        .bday-avatar { width: 40px; height: 40px; border-radius: 50%; display: flex;
+                       align-items: center; justify-content: center; font-size: 18px;
+                       font-weight: 800; color: #fff; flex-shrink: 0; }
+
+        /* ── Quick Entry ── */
+        .quick-entry-box   { background: var(--bg-card-default); border: 1px solid var(--border-main);
+                             border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+        .quick-entry-title { font-size: 11px; font-weight: 700; letter-spacing: .08em;
+                             text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+        #quick-entry-textarea { width: 100%; background: var(--bg-panel); color: var(--text-primary);
+                                border: 1px solid var(--border-main); border-radius: 10px;
+                                padding: 10px 12px; font-size: 13px; resize: vertical;
+                                font-family: 'Menlo','Consolas',monospace; min-height: 80px; }
+        #quick-entry-textarea:focus { outline: none; border-color: var(--accent-primary); }
+        .quick-entry-hint  { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+        .qh { background: var(--bg-panel); border: 1px solid var(--border-main);
+               border-radius: 6px; padding: 3px 8px; font-size: 10px; color: var(--text-secondary); font-family: monospace; }
+
+        /* ── Shopping ── */
+        .shop-item { display:flex; align-items:center; gap:10px; padding:10px 12px;
+          background:var(--bg-card-default); border:1px solid var(--border-main);
+          border-radius:10px; margin-bottom:6px; cursor:pointer; transition:opacity .2s; }
+        .shop-item.checked { opacity:.45; }
+        .shop-item.checked .shop-text { text-decoration:line-through; color:var(--text-secondary); }
+        .shop-check { width:18px;height:18px;border-radius:4px;border:2px solid var(--accent-primary);
+          flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff; }
+        .shop-check.on { background:var(--accent-primary); }
+        .shop-total-bar { background:var(--bg-card-default); border:1px solid var(--border-main);
+          border-radius:12px; padding:14px 16px; margin-bottom:14px;
+          display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px; }
+
+        /* ── Kanban 3 colunas (Projetos) ── */
+        .kb3-board { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+        @media(max-width:640px){ .kb3-board { grid-template-columns:1fr; } }
+        .kb3-col   { background:var(--bg-card-default); border:1px solid var(--border-main);
+          border-radius:14px; padding:12px; min-height:120px; }
+        .kb3-head  { font-size:11px; font-weight:800; text-transform:uppercase;
+          letter-spacing:.07em; margin-bottom:10px; display:flex; align-items:center; gap:6px; }
+        .kb3-card  { background:var(--bg-panel); border-radius:10px; padding:10px 12px;
+          margin-bottom:8px; border-left:3px solid var(--accent-primary); }
+        .kb3-card-actions { display:flex; gap:4px; margin-top:8px; flex-wrap:wrap; }
+        .kb3-btn   { font-size:10px; padding:3px 8px; border-radius:6px;
+          border:1px solid var(--border-main); background:var(--bg-app);
+          color:var(--text-secondary); cursor:pointer; transition:all .15s; }
+        .kb3-btn:hover { border-color:var(--accent-primary); color:var(--accent-primary); }
+        .proj-form { background:var(--bg-card-default); border:1px solid var(--border-main);
+          border-radius:14px; padding:16px; margin-bottom:16px; }
+        .proj-input { width:100%;background:var(--bg-panel);color:var(--text-primary);
+          border:1px solid var(--border-main);border-radius:8px;padding:8px 12px;
+          font-size:13px;margin-bottom:8px;box-sizing:border-box; }
+        .proj-input:focus { outline:none;border-color:var(--accent-primary); }
+
+        /* ── Sonhos ── */
+        .dream-type-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+        .dream-pill { padding:6px 14px; border-radius:99px; border:1.5px solid var(--border-main);
+          font-size:12px; font-weight:600; cursor:pointer; background:var(--bg-panel);
+          color:var(--text-secondary); transition:all .15s; }
+        .dream-pill.sel { border-color:var(--accent-primary); color:var(--accent-primary);
+          background:rgba(59,130,246,.1); }
+        .dream-entry { background:var(--bg-card-default); border:1px solid var(--border-main);
+          border-radius:12px; padding:14px; margin-bottom:8px; }
+        .dream-stat-pills { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px; }
+        .dream-stat-pill { padding:4px 12px; border-radius:99px; font-size:11px;
+          font-weight:700; color:#fff; }
+
+        /* ── Humor ── */
+        .mood-emojis { display:flex; gap:12px; justify-content:center; margin:20px 0; flex-wrap:wrap; }
+        .mood-btn { font-size:36px; padding:10px 14px; border-radius:16px;
+          border:2px solid transparent; background:var(--bg-card-default);
+          cursor:pointer; transition:all .2s; }
+        .mood-btn:hover  { transform:scale(1.12); border-color:var(--border-main); }
+        .mood-btn.sel    { border-color:var(--accent-primary); background:rgba(59,130,246,.1);
+          transform:scale(1.18); }
+        .mood-history { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; margin-top:16px; }
+        .mood-day { border-radius:10px; padding:6px 4px; text-align:center; font-size:9px;
+          background:var(--bg-card-default); border:1px solid var(--border-main);
+          color:var(--text-secondary); }
+        .mood-day .mood-emoji { font-size:18px; display:block; margin-bottom:2px; }
+        .mood-note-input { width:100%; background:var(--bg-panel); color:var(--text-primary);
+          border:1px solid var(--border-main); border-radius:10px; padding:10px 12px;
+          font-size:13px; resize:none; box-sizing:border-box; min-height:64px; }
+        .mood-note-input:focus { outline:none; border-color:var(--accent-primary); }
+    </style>
 </head>
 <body class="min-h-screen flex flex-col pb-36">
 
@@ -518,22 +666,33 @@
 
 <!-- ===== SIDEBAR ===== -->
 <aside id="sidebar" class="fixed top-[61px] left-0 w-64 border-r theme-panel flex flex-col justify-between transition-transform duration-300 h-[calc(100vh-61px)] z-50 -translate-x-full">
-    <div class="p-3 space-y-1 overflow-y-auto flex-1 custom-scrollbar">
-        <button onclick="changeFilter('all')" id="menu-all" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors bg-amber-500/10 text-amber-500 font-bold">
-            <i data-lucide="lightbulb" class="w-5 h-5"></i><span>Notas</span>
-        </button>
-        <button onclick="changeFilter('todo')" id="menu-todo" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
-            <i data-lucide="check-square" class="w-5 h-5"></i><span>Tarefas</span>
-        </button>
-        <button onclick="changeFilter('pinned')" id="menu-pinned" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
-            <i data-lucide="pin" class="w-5 h-5"></i><span>Fixadas</span>
-        </button>
-        <button onclick="changeFilter('archive')" id="menu-archive" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
-            <i data-lucide="archive" class="w-5 h-5"></i><span>Arquivo</span>
-        </button>
-        <button onclick="changeFilter('trash')" id="menu-trash" class="sidebar-btn w-full flex items-center gap-3 px-4 py-3 rounded-r-full text-sm font-medium transition-colors text-slate-400 hover:bg-black/5">
-            <i data-lucide="trash-2" class="w-5 h-5"></i><span>Lixeira</span>
-        </button>
+    <div class="overflow-y-auto flex-1 custom-scrollbar py-2">
+        <div class="hub-sep">Produtividade</div>
+        <button class="hub-item" id="hub-tasks"           onclick="hubNav('tasks')"><span class="hub-item-icon">📋</span> Tarefas</button>
+        <button class="hub-item" id="hub-projects"        onclick="hubNav('projects')"><span class="hub-item-icon">📁</span> Projetos</button>
+        <button class="hub-item" id="hub-habits"          onclick="hubNav('habits')"><span class="hub-item-icon">🔥</span> Hábitos</button>
+        <button class="hub-item" id="hub-estudos"         onclick="hubNav('estudos')"><span class="hub-item-icon">📚</span> Estudos</button>
+        <button class="hub-item active" id="hub-notas"    onclick="hubNav('notas')"><span class="hub-item-icon">📝</span> Notas</button>
+        <button class="hub-item" id="hub-pomodoro"        onclick="hubNav('pomodoro')"><span class="hub-item-icon">🍅</span> Pomodoro</button>
+        <div class="hub-sep">Finanças</div>
+        <button class="hub-item" id="hub-finance"         onclick="hubNav('finance')"><span class="hub-item-icon">💰</span> Gestão</button>
+        <button class="hub-item" id="hub-stats"           onclick="hubNav('stats')"><span class="hub-item-icon">📊</span> Estatísticas</button>
+        <button class="hub-item" id="hub-shopping"        onclick="hubNav('shopping')"><span class="hub-item-icon">🛒</span> Compras</button>
+        <button class="hub-item" id="hub-recorrentes"     onclick="hubNav('recorrentes')"><span class="hub-item-icon">🔁</span> Recorrentes</button>
+        <div class="hub-sep">Vida Pessoal</div>
+        <button class="hub-item" id="hub-birthdays"       onclick="hubNav('birthdays')"><span class="hub-item-icon">🎂</span> Aniversários</button>
+        <button class="hub-item" id="hub-dreams"          onclick="hubNav('dreams')"><span class="hub-item-icon">⭐</span> Meus Sonhos</button>
+        <button class="hub-item" id="hub-journal"         onclick="hubNav('journal')"><span class="hub-item-icon">📖</span> Diário</button>
+        <button class="hub-item" id="hub-mood"            onclick="hubNav('mood')"><span class="hub-item-icon">😊</span> Humor</button>
+        <div class="hub-sep">Análise</div>
+        <button class="hub-item" id="hub-dashboard"       onclick="hubNav('dashboard')"><span class="hub-item-icon">⚡</span> Dashboard</button>
+        <button class="hub-item" id="hub-profile"         onclick="hubNav('profile')"><span class="hub-item-icon">🏆</span> Perfil</button>
+        <div class="hub-sep">Filtros de Notas</div>
+        <button id="menu-all"     onclick="changeFilter('all');hubNav('notas')"     class="hub-item" style="font-size:12px"><span class="hub-item-icon">🏠</span> Todas</button>
+        <button id="menu-pinned"  onclick="changeFilter('pinned');hubNav('notas')"  class="hub-item" style="font-size:12px"><span class="hub-item-icon">📌</span> Fixadas</button>
+        <button id="menu-archive" onclick="changeFilter('archive');hubNav('notas')" class="hub-item" style="font-size:12px"><span class="hub-item-icon">🗄️</span> Arquivo</button>
+        <button id="menu-trash"   onclick="changeFilter('trash');hubNav('notas')"   class="hub-item" style="font-size:12px"><span class="hub-item-icon">🗑️</span> Lixeira</button>
+        <button id="menu-todo"    onclick="changeFilter('todo');hubNav('notas')"    class="hub-item" style="font-size:12px"><span class="hub-item-icon">☑️</span> Lista</button>
 
         <div class="border-t theme-border my-4 pt-4">
             <div class="px-4 flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
@@ -726,10 +885,21 @@
     </div>
 
 <!-- ===== MODULE PANELS ===== -->
-<div id="module-dashboard" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
-<div id="module-finance"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
-<div id="module-habits"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
-<div id="module-journal"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-dashboard"  class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-finance"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-habits"     class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-journal"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-tasks"      class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-profile"    class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-stats"      class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-pomodoro"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-birthdays"  class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-shopping"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-projects"   class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-dreams"     class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+<div id="module-mood"       class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+    <div id="module-estudos"     class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
+    <div id="module-recorrentes" class="module-panel max-w-4xl mx-auto px-4 py-6"></div>
 </main>
 
 <!-- ===== BOTTOM MODULE NAV ===== -->
@@ -822,6 +992,14 @@
             <button onclick="applySystemTheme('black-glass')" id="theme-card-black-glass" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all">
                 <div class="w-full h-20 rounded-xl bg-[#030712] border border-zinc-800 p-2 flex flex-col gap-1.5 relative"><div class="absolute inset-0 bg-white/5 rounded-xl"></div><div class="h-1.5 w-1/3 bg-purple-500 rounded z-10"></div><div class="h-1 w-5/6 bg-zinc-700 rounded z-10"></div><div class="h-1 w-4/6 bg-zinc-700 rounded z-10"></div></div>
                 <span class="text-xs font-bold text-slate-300 mt-2.5">Black Glass</span>
+            </button>
+            <button onclick="applySystemTheme('azul')" id="theme-card-azul" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#0d1b2e] hover:border-sky-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#0a1628] border border-sky-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-sky-400 rounded"></div><div class="h-1 w-5/6 bg-sky-900 rounded"></div><div class="h-1 w-4/6 bg-sky-900 rounded"></div></div>
+                <span class="text-xs font-bold text-sky-400 mt-2.5">Azul</span>
+            </button>
+            <button onclick="applySystemTheme('vermelho')" id="theme-card-vermelho" class="group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#1a0a0a] hover:border-red-500 transition-all">
+                <div class="w-full h-20 rounded-xl bg-[#1a0a0a] border border-red-900 p-2 flex flex-col gap-1.5"><div class="h-1.5 w-1/3 bg-red-500 rounded"></div><div class="h-1 w-5/6 bg-red-900 rounded"></div><div class="h-1 w-4/6 bg-red-900 rounded"></div></div>
+                <span class="text-xs font-bold text-red-400 mt-2.5">Vermelho</span>
             </button>
         </div>
         <div class="p-4 border-t border-violet-500/10 flex justify-center bg-[#0d091a]">
@@ -1651,7 +1829,7 @@ function applySystemTheme(themeName) {
     highlightActiveThemeInModal();
 }
 function highlightActiveThemeInModal() {
-    const themes = ['dark-modern','light-modern','solarized-dark','solarized-light','rosa','roxo','marrom','black-glass'];
+    const themes = ['dark-modern','light-modern','solarized-dark','solarized-light','rosa','roxo','marrom','black-glass','azul','vermelho'];
     themes.forEach(t => {
         const card = document.getElementById(`theme-card-${t}`);
         if (card) card.className = "group flex flex-col items-center p-3 rounded-2xl border-2 border-slate-800 bg-[#120e24] hover:border-violet-500 transition-all";
@@ -2801,6 +2979,10 @@ let habitProgress   = {};
 let parsedJournal   = [];
 let journalQuery    = '';
 let quickEntryText  = '';
+let projects    = JSON.parse(localStorage.getItem('notas_pessoais_v3_projects')      || '[]');
+let dreams      = JSON.parse(localStorage.getItem('notas_pessoais_v3_dreams')        || '[]');
+let moodData    = JSON.parse(localStorage.getItem('notas_pessoais_v3_mood')          || '{}');
+let shopChecked = JSON.parse(localStorage.getItem('notas_pessoais_v3_shop_checked')  || '{}');
 
 const MONTHLY_GOAL = 1000;
 const XP_TASK      = 50;
@@ -3231,6 +3413,787 @@ function setupQuickEntry() {
     }
 }
 
+
+// ── Hub Navigation ────────────────────────────────────────────────────────
+function hubNav(mod) {
+    // Update active class on hub items
+    document.querySelectorAll('.hub-item').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    const hubBtn = document.getElementById('hub-' + mod);
+    if (hubBtn) hubBtn.classList.add('active');
+
+    // Delegate to setActiveModule for all known modules
+    setActiveModule(mod);
+}
+
+// ── Extended setActiveModule ───────────────────────────────────────────────
+// Override with full module list
+const _ALL_MODULE_IDS = ['dashboard','finance','habits','journal','tasks','profile','stats','pomodoro','birthdays','shopping','projects','dreams','mood','estudos','recorrentes'];
+
+// Patch setActiveModule to handle all modules
+const _origSetActiveModule = setActiveModule;
+setActiveModule = function(mod) {
+    activeModule = mod;
+
+    // Update bottom tabs
+    ['notas','dashboard','finance','habits','journal'].forEach(id => {
+        const el = document.getElementById('tab-' + id);
+        if (el) el.classList.toggle('active', id === mod);
+    });
+
+    // Update hub items
+    document.querySelectorAll('.hub-item').forEach(btn => btn.classList.remove('active'));
+    const hubBtn = document.getElementById('hub-' + mod);
+    if (hubBtn) hubBtn.classList.add('active');
+    // Special: filter buttons don't have hub- prefix but they map to notas
+    if (mod === 'notas') {
+        const hubNotas = document.getElementById('hub-notas');
+        if (hubNotas) hubNotas.classList.add('active');
+    }
+
+    const notesVisible = mod === 'notas';
+    ['notes-create-area', 'notes-grid-area', 'filter-indicator'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.style.display = notesVisible ? '' : 'none';
+    });
+
+    const fab = document.querySelector('.fixed.bottom-20.right-6');
+    if (fab) fab.style.display = notesVisible ? '' : 'none';
+
+    // Show/hide all module panels
+    _ALL_MODULE_IDS.forEach(id => {
+        const el = document.getElementById('module-' + id);
+        if (!el) return;
+        el.classList.toggle('active', id === mod);
+    });
+
+    // Render active panel
+    if (mod !== 'notas') {
+        parseAllNotes();
+        if      (mod === 'dashboard')  renderDashboard();
+        else if (mod === 'finance')    renderFinance();
+        else if (mod === 'habits')     renderHabits();
+        else if (mod === 'journal')    renderJournal();
+        else if (mod === 'tasks')      renderTasks();
+        else if (mod === 'profile')    renderProfile();
+        else if (mod === 'stats')      renderStats();
+        else if (mod === 'pomodoro')   renderPomodoro();
+        else if (mod === 'birthdays')  renderBirthdays();
+        else if (mod === 'shopping')   renderShopping();
+        else if (mod === 'projects')   renderProjects();
+        else if (mod === 'dreams')     renderDreams();
+        else if (mod === 'mood')       renderMood();
+        else if (mod === 'estudos')    renderEstudos();
+        else if (mod === 'recorrentes') renderRecorrentes();
+    }
+};
+
+// ── Extended parseAllNotes (add tasks + birthdays) ─────────────────────────
+const _origParseAllNotes = parseAllNotes;
+parseAllNotes = function() {
+    _origParseAllNotes();
+
+    const today = new Date().toISOString().slice(0, 10);
+    const RE_TASK_DONE  = /^\[x\]\s+(.+)$/i;
+    const RE_TASK_TODO  = /^\[\s?\]\s+(.+)$/;
+    const RE_BDAY       = /^@\s+(\d{1,2})\/(\d{1,2})\s+(.+)$/;
+
+    const tasks = []; const bdays = [];
+    let tIdx = 0, bIdx = 0;
+
+    const activeNotes = notes.filter(n => !n.isArchived && !n.isTrashed);
+    const allTexts = [];
+    for (const note of activeNotes) {
+        allTexts.push({text: note.content || '', date: new Date(note.updatedAt).toISOString().slice(0,10)});
+    }
+    if (quickEntryText.trim()) {
+        allTexts.push({text: quickEntryText, date: today});
+    }
+
+    for (const {text, date} of allTexts) {
+        for (const raw of text.split('\n')) {
+            const line = raw.trim(); if (!line) continue;
+            let m;
+            if      ((m = line.match(RE_TASK_DONE))) tasks.push({id:'tk'+(tIdx++), text: m[1].trim(), done: true,  date});
+            else if ((m = line.match(RE_TASK_TODO))) tasks.push({id:'tk'+(tIdx++), text: m[1].trim(), done: false, date});
+            else if ((m = line.match(RE_BDAY)))      bdays.push({id:'bd'+(bIdx++), day: parseInt(m[1]), month: parseInt(m[2]), name: m[3].trim()});
+        }
+    }
+
+    // shopping: lines starting with "- item [R$ value]"
+    const RE_SHOP = /^-\s+(.+?)(?:\s+R?\$\s*(\d+(?:[.,]\d{1,2})?))?$/;
+    const shopping = []; let sIdx = 0;
+    for (const {text, date} of allTexts) {
+        for (const raw of text.split('\n')) {
+            const line = raw.trim(); if (!line) continue;
+            const m = line.match(RE_SHOP);
+            if (m) {
+                const valRaw = m[2] ? m[2].replace(',', '.') : null;
+                shopping.push({id:'sh'+(sIdx++), text: m[1].trim(), value: valRaw ? parseFloat(valRaw) : null, date});
+            }
+        }
+    }
+    window.parsedShopping = shopping;
+
+    window.parsedTasks    = tasks;
+    window.parsedBirthdays = bdays;
+};
+
+// ── renderTasks ───────────────────────────────────────────────────────────
+function renderTasks() {
+    const el = document.getElementById('module-tasks');
+    if (!el) return;
+
+    parseAllNotes();
+    const tasks = window.parsedTasks || [];
+    const todo  = tasks.filter(t => !t.done);
+    const done  = tasks.filter(t =>  t.done);
+
+    const col = (title, icon, items, cls) => `
+      <div class="kb-col">
+        <div class="kb-head">${icon} ${title} <span class="kb-count">${items.length}</span></div>
+        ${items.length === 0
+          ? `<div style="color:var(--text-secondary);font-size:12px;padding:8px 0;">Nenhuma tarefa aqui</div>`
+          : items.map(t => `
+            <div class="kb-card ${cls}">
+              <div style="font-size:13px;line-height:1.4">${modEsc(t.text)}</div>
+              <div style="font-size:10px;color:var(--text-secondary);margin-top:4px">${t.date}</div>
+            </div>`).join('')}
+      </div>`;
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">📋 Tarefas</h2>
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:16px">Use <code>[] Tarefa</code> para pendente e <code>[x] Tarefa</code> para concluída nas suas notas.</p>
+      <div class="kb-board">
+        ${col('A Fazer', '📌', todo, '')}
+        ${col('Concluído', '✅', done, 'done')}
+      </div>`;
+}
+
+// ── renderProfile ─────────────────────────────────────────────────────────
+function renderProfile() {
+    const el = document.getElementById('module-profile');
+    if (!el) return;
+
+    const {tasksDone, habitsDone, totalXP} = calcXP();
+    const {tier, inLvl, pct} = resolveLevel(totalXP);
+
+    const BADGES = [
+        {icon:'📝', name:'Primeira Nota',    desc:'Crie sua primeira nota',             unlocked: notes.length >= 1},
+        {icon:'✅', name:'5 Tarefas',        desc:'Conclua 5 tarefas',                 unlocked: tasksDone >= 5},
+        {icon:'🔥', name:'Hábito do Dia',    desc:'Complete um hábito hoje',            unlocked: habitsDone >= 1},
+        {icon:'💰', name:'Controlador',      desc:'Registre uma transação financeira',  unlocked: (window.parsedTxns||[]).length >= 1},
+        {icon:'📖', name:'Diário Aberto',    desc:'Escreva uma entrada de diário',      unlocked: (window.parsedJournal||[]).length >= 1},
+        {icon:'🎯', name:'Foco Total',       desc:'Complete 10 tarefas',               unlocked: tasksDone >= 10},
+        {icon:'🏆', name:'Veterano',         desc:'Alcance o nível Experiente',         unlocked: totalXP >= 500},
+        {icon:'⭐', name:'Lendário',         desc:'Alcance o nível Lendário',          unlocked: tier === 'Lendário'},
+    ];
+
+    const tierColors = {
+        'Iniciante':'#6b7280','Aprendiz':'#3b82f6','Experiente':'#8b5cf6',
+        'Avançado':'#f59e0b','Mestre':'#ef4444','Lendário':'#f97316'
+    };
+    const color = tierColors[tier] || '#6b7280';
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">🏆 Perfil & Conquistas</h2>
+
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center">
+        <div style="width:72px;height:72px;border-radius:50%;background:${color};display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 12px">🏅</div>
+        <div style="font-size:22px;font-weight:800;color:${color}">${tier}</div>
+        <div style="font-size:13px;color:var(--text-secondary);margin:4px 0 16px">${totalXP} XP total</div>
+        <div style="background:var(--bg-panel);border-radius:99px;height:10px;overflow:hidden;margin-bottom:6px">
+          <div style="height:100%;width:${pct}%;background:${color};border-radius:99px;transition:width .5s"></div>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary)">${inLvl} XP no nível atual · ${pct}% para o próximo</div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${notes.filter(n=>!n.isTrashed&&!n.isArchived).length}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Notas</div>
+        </div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${tasksDone}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Tarefas Feitas</div>
+        </div>
+        <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:24px;font-weight:800;color:var(--accent-primary)">${habitsDone}</div>
+          <div style="font-size:11px;color:var(--text-secondary)">Hábitos Hoje</div>
+        </div>
+      </div>
+
+      <h3 style="font-size:15px;font-weight:700;color:var(--text-primary);margin-bottom:12px">🎖️ Conquistas</h3>
+      <div class="badge-grid">
+        ${BADGES.map(b => `
+          <div class="badge-item ${b.unlocked ? 'unlocked' : 'locked'}" title="${b.desc}">
+            <div style="font-size:28px">${b.unlocked ? b.icon : '🔒'}</div>
+            <div style="font-size:11px;font-weight:700;margin-top:4px">${b.name}</div>
+            <div style="font-size:9px;color:var(--text-secondary);margin-top:2px">${b.desc}</div>
+          </div>`).join('')}
+      </div>`;
+}
+
+// ── renderStats ───────────────────────────────────────────────────────────
+function renderStats() {
+    const el = document.getElementById('module-stats');
+    if (!el) return;
+
+    const {tasksDone, habitsDone, totalXP} = calcXP();
+    const activeNotes = notes.filter(n => !n.isTrashed && !n.isArchived);
+    const taskTotal = activeNotes.flatMap(n => n.todoItems || []).length;
+    const taskPct   = taskTotal > 0 ? Math.round((tasksDone / taskTotal) * 100) : 0;
+    const habTotal  = parsedHabitsArr.length;
+    const habDone   = parsedHabitsArr.filter(h => h.completedToday).length;
+
+    let inc = 0, exp = 0;
+    for (const t of (window.parsedTxns||[])) { t.type === 'income' ? (inc += t.amount) : (exp += t.amount); }
+    const bal = inc - exp;
+
+    // SVG donut for tasks
+    const R = 40, C = 2 * Math.PI * R;
+    const dash = (pct) => `${(pct/100)*C} ${C}`;
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">📊 Estatísticas</h2>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
+        <div class="donut-wrap">
+          <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:12px">Tarefas Concluídas</div>
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--bg-panel)" stroke-width="12"/>
+            <circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--accent-primary)" stroke-width="12"
+              stroke-dasharray="${dash(taskPct)}" stroke-dashoffset="${C*0.25}" stroke-linecap="round"
+              style="transition:stroke-dasharray .6s"/>
+            <text x="50" y="54" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text-primary)">${taskPct}%</text>
+          </svg>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px">${tasksDone} de ${taskTotal} tarefas</div>
+        </div>
+
+        <div class="donut-wrap">
+          <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:12px">Hábitos Hoje</div>
+          <svg width="100" height="100" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="${R}" fill="none" stroke="var(--bg-panel)" stroke-width="12"/>
+            <circle cx="50" cy="50" r="${R}" fill="none" stroke="#16a34a" stroke-width="12"
+              stroke-dasharray="${dash(habTotal>0?Math.round((habDone/habTotal)*100):0)}" stroke-dashoffset="${C*0.25}" stroke-linecap="round"
+              style="transition:stroke-dasharray .6s"/>
+            <text x="50" y="54" text-anchor="middle" font-size="18" font-weight="800" fill="var(--text-primary)">${habTotal>0?Math.round((habDone/habTotal)*100):0}%</text>
+          </svg>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:6px">${habDone} de ${habTotal} hábitos</div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:18px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:14px">💰 Finanças do Mês</div>
+        <div class="bar-chart">
+          <div class="bar-row">
+            <span style="color:var(--text-secondary);font-size:12px;width:70px">Receitas</span>
+            <div style="flex:1;background:var(--bg-panel);border-radius:99px;height:8px;overflow:hidden">
+              <div class="bar-fill" style="width:${inc>0?Math.min((inc/(inc+exp))*100,100):0}%;background:#16a34a"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#16a34a;width:70px;text-align:right">R$${inc.toFixed(2)}</span>
+          </div>
+          <div class="bar-row">
+            <span style="color:var(--text-secondary);font-size:12px;width:70px">Despesas</span>
+            <div style="flex:1;background:var(--bg-panel);border-radius:99px;height:8px;overflow:hidden">
+              <div class="bar-fill" style="width:${exp>0?Math.min((exp/(inc+exp))*100,100):0}%;background:#dc2626"></div>
+            </div>
+            <span style="font-size:12px;font-weight:700;color:#dc2626;width:70px;text-align:right">R$${exp.toFixed(2)}</span>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border-main);display:flex;justify-content:space-between;align-items:center">
+          <span style="font-size:13px;color:var(--text-secondary)">Saldo</span>
+          <span style="font-size:18px;font-weight:800;color:${bal>=0?'#16a34a':'#dc2626'}">${bal>=0?'+':''}R$${bal.toFixed(2)}</span>
+        </div>
+      </div>
+
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:14px;padding:18px">
+        <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:8px">⚡ XP Total</div>
+        <div style="font-size:32px;font-weight:800;color:var(--accent-primary)">${totalXP} XP</div>
+        <div style="font-size:12px;color:var(--text-secondary)">${tasksDone} tarefas × 50 + ${habitsDone} hábitos × 30</div>
+      </div>`;
+}
+
+// ── Pomodoro State ────────────────────────────────────────────────────────
+let _pomoTimer   = null;
+let _pomoSeconds = 25 * 60;
+let _pomoRunning = false;
+let _pomoSessions = parseInt(localStorage.getItem('notas_pomoSessions') || '0');
+const POMO_WORK = 25 * 60;
+
+function _pomoTick() {
+    if (_pomoSeconds <= 0) {
+        clearInterval(_pomoTimer);
+        _pomoTimer   = null;
+        _pomoRunning = false;
+        _pomoSessions++;
+        localStorage.setItem('notas_pomoSessions', _pomoSessions);
+        _renderPomoUI();
+        return;
+    }
+    _pomoSeconds--;
+    _renderPomoUI();
+}
+
+function _renderPomoUI() {
+    const wrap = document.getElementById('pomo-ui');
+    if (!wrap) return;
+
+    const mins = String(Math.floor(_pomoSeconds / 60)).padStart(2,'0');
+    const secs = String(_pomoSeconds % 60).padStart(2,'0');
+
+    const R = 54, circumference = 2 * Math.PI * R;
+    const progress = (_pomoSeconds / POMO_WORK);
+    const strokeDash = progress * circumference;
+
+    wrap.querySelector('.pomo-time').textContent = `${mins}:${secs}`;
+    const ring = wrap.querySelector('.pomo-ring-progress');
+    if (ring) ring.setAttribute('stroke-dasharray', `${strokeDash} ${circumference}`);
+
+    const btn = wrap.querySelector('.pomo-btn-play');
+    if (btn) btn.textContent = _pomoRunning ? '⏸ Pausar' : '▶ Iniciar';
+}
+
+function pomoToggle() {
+    if (_pomoRunning) {
+        clearInterval(_pomoTimer);
+        _pomoTimer   = null;
+        _pomoRunning = false;
+    } else {
+        _pomoRunning = true;
+        _pomoTimer   = setInterval(_pomoTick, 1000);
+    }
+    _renderPomoUI();
+}
+
+function pomoReset() {
+    clearInterval(_pomoTimer);
+    _pomoTimer   = null;
+    _pomoRunning = false;
+    _pomoSeconds = POMO_WORK;
+    _renderPomoUI();
+}
+
+function renderPomodoro() {
+    const el = document.getElementById('module-pomodoro');
+    if (!el) return;
+
+    const R = 54, circumference = 2 * Math.PI * R;
+    const progress = _pomoSeconds / POMO_WORK;
+    const strokeDash = progress * circumference;
+    const mins = String(Math.floor(_pomoSeconds / 60)).padStart(2,'0');
+    const secs = String(_pomoSeconds % 60).padStart(2,'0');
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:20px">🍅 Pomodoro</h2>
+      <div id="pomo-ui" class="pomo-wrap">
+        <div class="pomo-ring-wrap">
+          <svg width="140" height="140" viewBox="0 0 140 140">
+            <circle cx="70" cy="70" r="${R}" fill="none" stroke="var(--bg-panel)" stroke-width="10"/>
+            <circle class="pomo-ring-progress" cx="70" cy="70" r="${R}" fill="none" stroke="var(--accent-primary)" stroke-width="10"
+              stroke-dasharray="${strokeDash} ${circumference}" stroke-dashoffset="${circumference * 0.25}" stroke-linecap="round"
+              style="transition:stroke-dasharray .9s linear"/>
+          </svg>
+          <div class="pomo-time">${mins}:${secs}</div>
+        </div>
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:20px">
+          Sessões concluídas: <strong style="color:var(--text-primary)">${_pomoSessions}</strong>
+        </div>
+        <div style="display:flex;gap:12px;justify-content:center">
+          <button class="pomo-btn pomo-btn-play" onclick="pomoToggle()">${_pomoRunning ? '⏸ Pausar' : '▶ Iniciar'}</button>
+          <button class="pomo-btn" style="background:var(--bg-panel);color:var(--text-secondary)" onclick="pomoReset()">↩ Reiniciar</button>
+        </div>
+        <div style="font-size:11px;color:var(--text-secondary);margin-top:20px;text-align:center">
+          25 min foco · 5 min pausa
+        </div>
+      </div>`;
+}
+
+// ── renderBirthdays ───────────────────────────────────────────────────────
+function renderBirthdays() {
+    const el = document.getElementById('module-birthdays');
+    if (!el) return;
+
+    parseAllNotes();
+    const bdays = (window.parsedBirthdays || []).slice();
+    const now   = new Date();
+    const curMonth = now.getMonth() + 1;
+    const curDay   = now.getDate();
+
+    const daysUntil = (m, d) => {
+        let dy = m - curMonth;
+        if (dy < 0 || (dy === 0 && d < curDay)) dy += 12;
+        let days = (dy * 30) + (d - curDay);
+        if (days < 0) days += 365;
+        return days;
+    };
+
+    bdays.sort((a, b) => daysUntil(a.month, a.day) - daysUntil(b.month, b.day));
+
+    const avatarColor = (name) => {
+        const colors = ['#3b82f6','#8b5cf6','#f59e0b','#ef4444','#16a34a','#f97316','#06b6d4','#ec4899'];
+        let hash = 0;
+        for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) & 0xffffffff;
+        return colors[Math.abs(hash) % colors.length];
+    };
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:8px">🎂 Aniversários</h2>
+      <p style="font-size:12px;color:var(--text-secondary);margin-bottom:16px">Use <code>@ DD/MM Nome</code> nas suas notas para registrar aniversários.</p>
+      ${bdays.length === 0
+        ? `<div style="color:var(--text-secondary);text-align:center;padding:40px 0">Nenhum aniversário registrado</div>`
+        : bdays.map(b => {
+            const days = daysUntil(b.month, b.day);
+            const label = days === 0 ? '🎉 Hoje!' : days === 1 ? 'Amanhã' : `Em ${days} dias`;
+            const isToday = days === 0;
+            return `
+              <div class="bday-row ${isToday ? 'today' : ''}">
+                <div class="bday-avatar" style="background:${avatarColor(b.name)}">${b.name.charAt(0).toUpperCase()}</div>
+                <div style="flex:1">
+                  <div style="font-size:14px;font-weight:600;color:var(--text-primary)">${modEsc(b.name)}</div>
+                  <div style="font-size:12px;color:var(--text-secondary)">${String(b.day).padStart(2,'0')}/${String(b.month).padStart(2,'0')}</div>
+                </div>
+                <div style="font-size:12px;font-weight:700;color:${isToday?'#f97316':'var(--accent-primary)'};">${label}</div>
+              </div>`;
+          }).join('')}`;
+}
+
+// ── Stub renderers ────────────────────────────────────────────────────────
+// ── renderShopping ────────────────────────────────────────────────────────
+function toggleShoppingItem(id) {
+    shopChecked[id] = !shopChecked[id];
+    localStorage.setItem('notas_pessoais_v3_shop_checked', JSON.stringify(shopChecked));
+    renderShopping();
+}
+function clearShoppingChecked() {
+    shopChecked = {};
+    localStorage.setItem('notas_pessoais_v3_shop_checked', JSON.stringify(shopChecked));
+    renderShopping();
+}
+
+function renderShopping() {
+    const el = document.getElementById('module-shopping');
+    if (!el) return;
+    parseAllNotes();
+    const items = window.parsedShopping || [];
+
+    const fmt = v => v != null ? 'R$ ' + v.toFixed(2).replace('.', ',') : '';
+    const totalAll     = items.reduce((s, i) => s + (i.value || 0), 0);
+    const checkedItems = items.filter(i => shopChecked[i.id]);
+    const totalChecked = checkedItems.reduce((s, i) => s + (i.value || 0), 0);
+
+    const totalBar = items.length ? `
+      <div class="shop-total-bar">
+        <div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:2px">No carrinho</div>
+          <div style="font-size:18px;font-weight:800;color:var(--accent-primary)">${fmt(totalChecked)}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:var(--text-secondary);margin-bottom:2px">Total da lista</div>
+          <div style="font-size:16px;font-weight:700;color:var(--text-primary)">${fmt(totalAll)}</div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:12px">
+        <button onclick="clearShoppingChecked()" style="font-size:11px;padding:4px 12px;border-radius:8px;border:1px solid var(--border-main);background:var(--bg-panel);color:var(--text-secondary);cursor:pointer;">
+          Limpar marcados
+        </button>
+      </div>` : '';
+
+    const itemsHtml = items.length
+      ? items.map(item => `
+          <div class="shop-item ${shopChecked[item.id] ? 'checked' : ''}" onclick="toggleShoppingItem('${item.id}')">
+            <div class="shop-check ${shopChecked[item.id] ? 'on' : ''}">
+              ${shopChecked[item.id] ? '✓' : ''}
+            </div>
+            <span class="shop-text" style="flex:1;font-size:13px">${modEsc(item.text)}</span>
+            ${item.value != null ? `<span style="font-size:12px;font-weight:700;color:var(--text-secondary)">${fmt(item.value)}</span>` : ''}
+          </div>`).join('')
+      : `<div style="text-align:center;padding:40px 0;color:var(--text-secondary);font-size:13px">
+           <div style="font-size:32px;margin-bottom:8px">🛒</div>
+           Nenhum item encontrado.<br>Nas suas notas, use <code style="background:var(--bg-panel);padding:2px 6px;border-radius:4px">- Item R$ 5,00</code> para adicionar.
+         </div>`;
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:6px">🛒 Lista de Compras</h2>
+      <p style="color:var(--text-secondary);font-size:12px;margin-bottom:16px">Adicione itens com <code>- Item R$ valor</code> nas notas. Clique para marcar no carrinho.</p>
+      ${totalBar}
+      <div>${itemsHtml}</div>`;
+}
+
+// ── renderProjects (Kanban 3 colunas) ─────────────────────────────────────
+function saveProjects() {
+    localStorage.setItem('notas_pessoais_v3_projects', JSON.stringify(projects));
+}
+function addProject() {
+    const titleEl = document.getElementById('proj-title-input');
+    const descEl  = document.getElementById('proj-desc-input');
+    const title = (titleEl.value || '').trim();
+    if (!title) { titleEl.focus(); return; }
+    projects.push({id: 'p' + Date.now(), title, desc: descEl.value.trim(), column: 'todo', createdAt: new Date().toISOString()});
+    titleEl.value = ''; descEl.value = '';
+    saveProjects(); renderProjects();
+}
+function moveProject(id, dir) {
+    const cols = ['todo','doing','done'];
+    const p = projects.find(x => x.id === id);
+    if (!p) return;
+    const ci = cols.indexOf(p.column);
+    const ni = ci + dir;
+    if (ni < 0 || ni > 2) return;
+    p.column = cols[ni];
+    saveProjects(); renderProjects();
+}
+function deleteProject(id) {
+    if (!confirm('Remover este card?')) return;
+    projects = projects.filter(p => p.id !== id);
+    saveProjects(); renderProjects();
+}
+
+function renderProjects() {
+    const el = document.getElementById('module-projects');
+    if (!el) return;
+
+    const COLS = [
+        {key:'todo',  icon:'📌', label:'A Fazer',       color:'#f59e0b'},
+        {key:'doing', icon:'⚙️',  label:'Em Andamento',  color:'#3b82f6'},
+        {key:'done',  icon:'✅', label:'Concluído',      color:'#16a34a'},
+    ];
+
+    const colHtml = COLS.map(col => {
+        const cards = projects.filter(p => p.column === col.key);
+        return `
+        <div class="kb3-col">
+          <div class="kb3-head" style="color:${col.color}">${col.icon} ${col.label} <span class="kb-count">${cards.length}</span></div>
+          ${cards.length === 0
+            ? `<div style="font-size:12px;color:var(--text-secondary);padding:8px 0;text-align:center">Vazio</div>`
+            : cards.map(p => `
+              <div class="kb3-card" style="border-left-color:${col.color}">
+                <div style="font-size:13px;font-weight:600;color:var(--text-primary)">${modEsc(p.title)}</div>
+                ${p.desc ? `<div style="font-size:11px;color:var(--text-secondary);margin-top:3px">${modEsc(p.desc)}</div>` : ''}
+                <div class="kb3-card-actions">
+                  ${col.key !== 'todo'  ? `<button class="kb3-btn" onclick="moveProject('${p.id}',-1)">← Voltar</button>` : ''}
+                  ${col.key !== 'done'  ? `<button class="kb3-btn" onclick="moveProject('${p.id}',1)">Avançar →</button>` : ''}
+                  <button class="kb3-btn" onclick="deleteProject('${p.id}')" style="margin-left:auto;color:#f87171;border-color:#f87171">🗑</button>
+                </div>
+              </div>`).join('')}
+        </div>`;
+    }).join('');
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:16px">📁 Projetos — Kanban</h2>
+      <div class="proj-form">
+        <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">+ Novo Card</div>
+        <input id="proj-title-input" class="proj-input" placeholder="Título do card..." onkeydown="if(event.key==='Enter')addProject()">
+        <input id="proj-desc-input" class="proj-input" placeholder="Descrição (opcional)..." style="margin-bottom:0">
+        <div style="margin-top:10px;text-align:right">
+          <button onclick="addProject()" style="padding:7px 18px;border-radius:8px;background:var(--accent-primary);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;">Adicionar</button>
+        </div>
+      </div>
+      <div class="kb3-board">${colHtml}</div>`;
+}
+
+// ── renderDreams (Diário de Sonhos) ───────────────────────────────────────
+let _dreamSelType = 'normal';
+function selectDreamType(type) {
+    _dreamSelType = type;
+    document.querySelectorAll('.dream-pill').forEach(el => el.classList.toggle('sel', el.dataset.type === type));
+}
+function saveDreams() {
+    localStorage.setItem('notas_pessoais_v3_dreams', JSON.stringify(dreams));
+}
+function addDream() {
+    const dateEl = document.getElementById('dream-date-input');
+    const textEl = document.getElementById('dream-text-input');
+    const text = (textEl.value || '').trim();
+    if (!text) { textEl.focus(); return; }
+    dreams.unshift({id: 'd' + Date.now(), date: dateEl.value, type: _dreamSelType, description: text});
+    textEl.value = '';
+    saveDreams(); renderDreams();
+}
+function deleteDream(id) {
+    dreams = dreams.filter(d => d.id !== id);
+    saveDreams(); renderDreams();
+}
+
+function renderDreams() {
+    const el = document.getElementById('module-dreams');
+    if (!el) return;
+
+    const TYPES = [
+        {key:'normal',   label:'Normal',    color:'#6b7280'},
+        {key:'lucido',   label:'Lúcido',    color:'#8b5cf6'},
+        {key:'pesadelo', label:'Pesadelo',  color:'#ef4444'},
+        {key:'vivido',   label:'Vívido',    color:'#f59e0b'},
+    ];
+    const today = new Date().toISOString().slice(0,10);
+    const countByType = {};
+    TYPES.forEach(t => countByType[t.key] = dreams.filter(d => d.type === t.key).length);
+
+    const statsHtml = TYPES.filter(t => countByType[t.key] > 0).map(t =>
+        `<span class="dream-stat-pill" style="background:${t.color}">${t.label}: ${countByType[t.key]}</span>`
+    ).join('');
+
+    const pillsHtml = TYPES.map(t =>
+        `<button class="dream-pill ${t.key === _dreamSelType ? 'sel' : ''}" data-type="${t.key}"
+          onclick="selectDreamType('${t.key}')" style="${t.key === _dreamSelType ? `border-color:${t.color};color:${t.color}` : ''}">${t.label}</button>`
+    ).join('');
+
+    const entriesHtml = dreams.length ? dreams.map(d => {
+        const t = TYPES.find(x => x.key === d.type) || TYPES[0];
+        return `
+        <div class="dream-entry">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px">
+            <div style="display:flex;align-items:center;gap:8px">
+              <span class="dream-stat-pill" style="background:${t.color}">${t.label}</span>
+              <span style="font-size:11px;color:var(--text-secondary)">${d.date}</span>
+            </div>
+            <button onclick="deleteDream('${d.id}')" style="font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid var(--border-main);background:var(--bg-panel);color:var(--text-secondary);cursor:pointer;">🗑</button>
+          </div>
+          <p style="font-size:13px;color:var(--text-primary);margin:0;line-height:1.5">${modEsc(d.description)}</p>
+        </div>`;
+    }).join('')
+    : `<div style="text-align:center;padding:32px 0;color:var(--text-secondary);font-size:13px">
+         <div style="font-size:32px;margin-bottom:8px">🌙</div>
+         Nenhum sonho registrado ainda.
+       </div>`;
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:16px">🌙 Diário de Sonhos</h2>
+      ${statsHtml ? `<div class="dream-stat-pills">${statsHtml}</div>` : ''}
+      <div class="proj-form">
+        <div style="font-size:12px;font-weight:700;color:var(--text-secondary);margin-bottom:10px;text-transform:uppercase;letter-spacing:.06em">Registrar Sonho</div>
+        <input id="dream-date-input" type="date" class="proj-input" value="${today}">
+        <div class="dream-type-pills">${pillsHtml}</div>
+        <textarea id="dream-text-input" class="mood-note-input" placeholder="Descreva seu sonho..." rows="3"></textarea>
+        <div style="margin-top:10px;text-align:right">
+          <button onclick="addDream()" style="padding:7px 18px;border-radius:8px;background:var(--accent-primary);color:#fff;font-size:12px;font-weight:700;border:none;cursor:pointer;">Salvar Sonho</button>
+        </div>
+      </div>
+      <div>${entriesHtml}</div>`;
+}
+
+// ── renderMood (Rastreador de Humor) ──────────────────────────────────────
+const MOODS = [
+    {emoji:'😀', label:'Ótimo',   color:'#16a34a'},
+    {emoji:'😊', label:'Bom',     color:'#84cc16'},
+    {emoji:'😐', label:'Neutro',  color:'#f59e0b'},
+    {emoji:'🙁', label:'Ruim',    color:'#f97316'},
+    {emoji:'😡', label:'Péssimo', color:'#ef4444'},
+];
+function setMood(level) {
+    const today = new Date().toISOString().slice(0,10);
+    if (!moodData[today]) moodData[today] = {};
+    moodData[today].mood = level;
+    moodData[today].ts = Date.now();
+    localStorage.setItem('notas_pessoais_v3_mood', JSON.stringify(moodData));
+    renderMood();
+}
+function saveMoodNote() {
+    const today = new Date().toISOString().slice(0,10);
+    const note = (document.getElementById('mood-note-ta') || {}).value || '';
+    if (!moodData[today]) moodData[today] = {};
+    moodData[today].note = note;
+    localStorage.setItem('notas_pessoais_v3_mood', JSON.stringify(moodData));
+}
+
+function renderMood() {
+    const el = document.getElementById('module-mood');
+    if (!el) return;
+
+    const today = new Date().toISOString().slice(0,10);
+    const todayData = moodData[today] || {};
+    const selLevel  = todayData.mood != null ? todayData.mood : -1;
+
+    const emojiHtml = MOODS.map((m, i) => `
+      <button class="mood-btn ${i === selLevel ? 'sel' : ''}" onclick="setMood(${i})" title="${m.label}"
+        style="${i === selLevel ? `border-color:${m.color};background:${m.color}22` : ''}">
+        ${m.emoji}
+      </button>`).join('');
+
+    // Last 14 days
+    const histHtml = (() => {
+        const days = [];
+        for (let i = 13; i >= 0; i--) {
+            const d = new Date(); d.setDate(d.getDate() - i);
+            const key = d.toISOString().slice(0,10);
+            const dd   = moodData[key];
+            const label = `${d.getDate()}/${d.getMonth()+1}`;
+            const m = dd && dd.mood != null ? MOODS[dd.mood] : null;
+            days.push(`
+              <div class="mood-day" style="${m ? `border-color:${m.color}66` : ''}">
+                <span class="mood-emoji">${m ? m.emoji : '·'}</span>
+                ${label}
+              </div>`);
+        }
+        return days.join('');
+    })();
+
+    const currentNote = todayData.note || '';
+    const currentMoodLabel = selLevel >= 0 ? `<span style="color:${MOODS[selLevel].color};font-weight:700">${MOODS[selLevel].label}</span>` : 'Nenhum';
+
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:6px">😊 Humor</h2>
+      <p style="color:var(--text-secondary);font-size:12px;margin-bottom:16px">Registre como você está se sentindo hoje.</p>
+      <div style="background:var(--bg-card-default);border:1px solid var(--border-main);border-radius:16px;padding:20px;margin-bottom:16px">
+        <div style="font-size:13px;color:var(--text-secondary);margin-bottom:4px">Como você está hoje?</div>
+        <div style="font-size:12px;margin-bottom:8px">Humor atual: ${currentMoodLabel}</div>
+        <div class="mood-emojis">${emojiHtml}</div>
+        <div style="font-size:12px;color:var(--text-secondary);margin-bottom:6px">Nota do dia (opcional)</div>
+        <textarea id="mood-note-ta" class="mood-note-input" placeholder="Como foi seu dia?" onchange="saveMoodNote()">${modEsc(currentNote)}</textarea>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--text-primary);margin-bottom:8px">Últimos 14 dias</div>
+      <div class="mood-history">${histHtml}</div>`;
+}
+
+// ── renderEstudos (stub) ───────────────────────────────────────────────────
+function renderEstudos() {
+    const el = document.getElementById('module-estudos');
+    if (!el) return;
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:12px">📚 Estudos</h2>
+      <p style="color:var(--text-secondary);font-size:13px">Em breve: organize seus estudos, flashcards e metas de aprendizado.</p>`;
+}
+
+// ── renderRecorrentes (stub) ───────────────────────────────────────────────
+function renderRecorrentes() {
+    const el = document.getElementById('module-recorrentes');
+    if (!el) return;
+    el.innerHTML = `
+      <h2 style="font-size:20px;font-weight:700;color:var(--text-primary);margin-bottom:12px">🔁 Recorrentes</h2>
+      <p style="color:var(--text-secondary);font-size:13px">Em breve: gerencie despesas e receitas recorrentes mensais.</p>`;
+}
+
+// ── Additional CSS for new features ───────────────────────────────────────
+(function() {
+    const s = document.createElement('style');
+    s.textContent = `
+      .kb-count { font-size:11px; background:var(--bg-panel); border-radius:99px; padding:1px 7px; margin-left:6px; color:var(--text-secondary); }
+      .badge-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(100px,1fr)); gap:10px; }
+      .badge-item { background:var(--bg-card-default); border:1px solid var(--border-main); border-radius:12px; padding:14px 10px; text-align:center; }
+      .badge-item.locked { opacity:0.4; filter:grayscale(1); }
+      .badge-item.unlocked { border-color:var(--accent-primary); }
+      .donut-wrap { background:var(--bg-card-default); border:1px solid var(--border-main); border-radius:14px; padding:18px; text-align:center; }
+      .bar-chart { display:flex; flex-direction:column; gap:10px; }
+      .bar-row { display:flex; align-items:center; gap:10px; }
+      .bar-fill { height:100%; border-radius:99px; transition:width .6s; }
+      .pomo-wrap { display:flex; flex-direction:column; align-items:center; padding:20px 0; }
+      .pomo-ring-wrap { position:relative; display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
+      .pomo-ring-wrap svg { position:relative; z-index:0; }
+      .pomo-time { position:absolute; font-size:28px; font-weight:800; color:var(--text-primary); letter-spacing:2px; }
+      .pomo-btn { padding:10px 24px; border-radius:99px; background:var(--accent-primary); color:#fff; font-size:14px; font-weight:700; border:none; cursor:pointer; }
+      .pomo-btn:hover { opacity:0.85; }
+      .bday-row { display:flex; align-items:center; gap:12px; padding:12px; background:var(--bg-card-default); border:1px solid var(--border-main); border-radius:12px; margin-bottom:8px; }
+      .bday-row.today { border-color:#f97316; background:rgba(249,115,22,.06); }
+      .bday-avatar { width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:18px; font-weight:800; color:#fff; flex-shrink:0; }
+      .kb-board { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+      .kb-col { background:var(--bg-card-default); border:1px solid var(--border-main); border-radius:14px; padding:14px; }
+      .kb-head { font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:12px; display:flex; align-items:center; }
+      .kb-card { background:var(--bg-panel); border-radius:10px; padding:10px 12px; margin-bottom:8px; border-left:3px solid var(--accent-primary); }
+      .kb-card.done { opacity:0.6; border-left-color:#16a34a; }
+    `;
+    document.head.appendChild(s);
+})();
 
 </script>
 </body>
